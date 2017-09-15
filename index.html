@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LudwigSeitz/draft-ietf-ace-actors branches</title>
+    <style>
+      body { font-family: sans-serif; }
+      h2 { font-size: 130%; }
+      h3 { font-size: 120%; color: #222; }
+    </style>
+  </head>
+  <body>
+    <h2>Editor's drafts for LudwigSeitz/draft-ietf-ace-actors</h2>
+    <ul id="branch-master">
+      <li>
+        draft-ietf-ace-actors: 
+        <a href="./draft-ietf-ace-actors.html"
+           class="html draft-ietf-ace-actors">html</a>, 
+        <a href="./draft-ietf-ace-actors.txt"
+           class="txt draft-ietf-ace-actors">plain text</a>, 
+        <a href="https://tools.ietf.org/rfcdiff?url1=https://tools.ietf.org/id/draft-ietf-ace-actors.txt&amp;url2=https://LudwigSeitz.github.io/draft-ietf-ace-actors/draft-ietf-ace-actors.txt"
+           class="diff draft-ietf-ace-actors">
+          diff with last submission</a>
+      </li>
+    </ul>
+    <script>
+// @licstart
+//  Any copyright is dedicated to the Public Domain.
+//  http://creativecommons.org/publicdomain/zero/1.0/
+// @licend */
+window.onload = function() {
+  var referrer_branch = 'master';
+  // e.g., "https://github.com/user/repo/tree/master"
+  var chunks = document.referrer.split("/");
+  if (chunks[2] === 'github.com' && chunks[5] === 'tree') {
+    referrer_branch = chunks[6];
+  }
+  let branch = document.querySelector('#branch-' + referrer_branch);
+  let h = document.location.hash.substring(1);
+  if (h === 'show') {
+    document.location.hash = '#' + branch.id;
+  } else if (branch && h.startsWith('go')) {
+    let e = branch.querySelector(h.substring(2));
+    if (e && e.href) {
+      document.location = e.href;
+    }
+  }
+};
+    </script>
+  </body>
+</html>
