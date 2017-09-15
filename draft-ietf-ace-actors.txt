@@ -1699,35 +1699,35 @@ Internet-Draft                 ace-actors                  November 2016
    [RFC2904]  Vollbrecht, J., Calhoun, P., Farrell, S., Gommans, L.,
               Gross, G., de Bruijn, B., de Laat, C., Holdrege, M., and
               D. Spence, "AAA Authorization Framework", RFC 2904,
-              DOI 10.17487/RFC2904, August 2000,
-              <http://www.rfc-editor.org/info/rfc2904>.
+              DOI 10.17487/RFC2904, August 2000, <https://www.rfc-
+              editor.org/info/rfc2904>.
 
    [RFC4120]  Neuman, C., Yu, T., Hartman, S., and K. Raeburn, "The
               Kerberos Network Authentication Service (V5)", RFC 4120,
-              DOI 10.17487/RFC4120, July 2005,
-              <http://www.rfc-editor.org/info/rfc4120>.
+              DOI 10.17487/RFC4120, July 2005, <https://www.rfc-
+              editor.org/info/rfc4120>.
 
    [RFC4949]  Shirey, R., "Internet Security Glossary, Version 2",
               FYI 36, RFC 4949, DOI 10.17487/RFC4949, August 2007,
-              <http://www.rfc-editor.org/info/rfc4949>.
+              <https://www.rfc-editor.org/info/rfc4949>.
 
    [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
               (TLS) Protocol Version 1.2", RFC 5246,
-              DOI 10.17487/RFC5246, August 2008,
-              <http://www.rfc-editor.org/info/rfc5246>.
+              DOI 10.17487/RFC5246, August 2008, <https://www.rfc-
+              editor.org/info/rfc5246>.
 
    [RFC6347]  Rescorla, E. and N. Modadugu, "Datagram Transport Layer
               Security Version 1.2", RFC 6347, DOI 10.17487/RFC6347,
-              January 2012, <http://www.rfc-editor.org/info/rfc6347>.
+              January 2012, <https://www.rfc-editor.org/info/rfc6347>.
 
    [RFC6749]  Hardt, D., Ed., "The OAuth 2.0 Authorization Framework",
               RFC 6749, DOI 10.17487/RFC6749, October 2012,
-              <http://www.rfc-editor.org/info/rfc6749>.
+              <https://www.rfc-editor.org/info/rfc6749>.
 
    [RFC7228]  Bormann, C., Ersue, M., and A. Keranen, "Terminology for
               Constrained-Node Networks", RFC 7228,
-              DOI 10.17487/RFC7228, May 2014,
-              <http://www.rfc-editor.org/info/rfc7228>.
+              DOI 10.17487/RFC7228, May 2014, <https://www.rfc-
+              editor.org/info/rfc7228>.
 
 
 
@@ -1741,23 +1741,23 @@ Internet-Draft                 ace-actors                  November 2016
    [RFC7230]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
               Protocol (HTTP/1.1): Message Syntax and Routing",
               RFC 7230, DOI 10.17487/RFC7230, June 2014,
-              <http://www.rfc-editor.org/info/rfc7230>.
+              <https://www.rfc-editor.org/info/rfc7230>.
 
    [RFC7231]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
               Protocol (HTTP/1.1): Semantics and Content", RFC 7231,
-              DOI 10.17487/RFC7231, June 2014,
-              <http://www.rfc-editor.org/info/rfc7231>.
+              DOI 10.17487/RFC7231, June 2014, <https://www.rfc-
+              editor.org/info/rfc7231>.
 
    [RFC7252]  Shelby, Z., Hartke, K., and C. Bormann, "The Constrained
               Application Protocol (CoAP)", RFC 7252,
-              DOI 10.17487/RFC7252, June 2014,
-              <http://www.rfc-editor.org/info/rfc7252>.
+              DOI 10.17487/RFC7252, June 2014, <https://www.rfc-
+              editor.org/info/rfc7252>.
 
    [RFC7744]  Seitz, L., Ed., Gerdes, S., Ed., Selander, G., Mani, M.,
               and S. Kumar, "Use Cases for Authentication and
               Authorization in Constrained Environments", RFC 7744,
-              DOI 10.17487/RFC7744, January 2016,
-              <http://www.rfc-editor.org/info/rfc7744>.
+              DOI 10.17487/RFC7744, January 2016, <https://www.rfc-
+              editor.org/info/rfc7744>.
 
 Acknowledgements
 
