@@ -68,8 +68,8 @@ informative:
   RFC7228:
   RFC7231:
   I-D.hardjono-oauth-umacore: uma
-  I-D.selander-ace-object-security: objsec
-  I-D.koster-core-coap-pubsub: pubsub
+  I-D.ietf-core-object-security: objsec
+  I-D.ietf-core-coap-pubsub: pubsub
   HUM14delegation:
     author:
       - ins: R. Hummen
