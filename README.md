@@ -2,7 +2,7 @@
 
 This is the working area for the IETF ACE Working Group Internet-Draft, "An architecture for authorization in constrained environments".
 
-* [Editor's Copy](https://ludwigseitz.github.io/actors/draft-ietf-ace-actors.html)
+* [Editor's Copy](https://ace-wg.github.io/actors/draft-ietf-ace-actors.html)
 * [Working Group Draft](https://tools.ietf.org/html/draft-ietf-ace-actors)
 * [Compare Editor's Copy to Working Group Draft](https://tools.ietf.org/rfcdiff?url1=https://tools.ietf.org/id/draft-ietf-ace-actors.txt&url2=https://ludwigseitz.github.io/actors/draft-ietf-ace-actors.txt)
 
@@ -21,4 +21,5 @@ This requires that you have the necessary software installed.  See
 ## Contributing
 
 See the
-[guidelines for contributions](https://github.com/LudwigSeitz/draft-ietf-ace-actors/blob/master/CONTRIBUTING.md).
+[guidelines for contributions]Note that the html link is currently not working ...)
+(https://github.com/LudwigSeitz/draft-ietf-ace-actors/blob/master/CONTRIBUTING.md).
