@@ -4,7 +4,7 @@ This is the working area for the IETF ACE Working Group Internet-Draft, "An arch
 
 * [Editor's Copy](https://ace-wg.github.io/actors/draft-ietf-ace-actors.html)
 * [Working Group Draft](https://tools.ietf.org/html/draft-ietf-ace-actors)
-* [Compare Editor's Copy to Working Group Draft](https://tools.ietf.org/rfcdiff?url1=https://tools.ietf.org/id/draft-ietf-ace-actors.txt&url2=https://ludwigseitz.github.io/actors/draft-ietf-ace-actors.txt)
+* [Compare Editor's Copy to Working Group Draft](https://tools.ietf.org/rfcdiff?url1=https://tools.ietf.org/id/draft-ietf-ace-actors.txt&url2=https://ace-wg.github.io/actors/draft-ietf-ace-actors.txt)
 
 ## Building the Draft
 
