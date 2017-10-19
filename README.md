@@ -21,5 +21,4 @@ This requires that you have the necessary software installed.  See
 ## Contributing
 
 See the
-[guidelines for contributions]Note that the html link is currently not working ...)
-(https://github.com/LudwigSeitz/draft-ietf-ace-actors/blob/master/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/ace-wg/draft-ietf-ace-actors/blob/master/CONTRIBUTING.md).
