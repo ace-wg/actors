@@ -1,7 +1,7 @@
 ---
 title: An architecture for authorization in constrained environments
 abbrev: ace-actors
-docname: draft-ietf-ace-actors-05pre
+docname: draft-ietf-ace-actors-05
 date: 2017-11-14
 category: info
 
@@ -27,12 +27,12 @@ author:
  -
     ins: L. Seitz
     name: Ludwig Seitz
-    org: SICS Swedish ICT AB
+    org: RISE SICS
     street: Scheelevägen 17
     city: Lund
     code: 223 70
     country: Sweden
-    email: ludwig@sics.se
+    email: ludwig.seitz@ri.se
  -
     ins: G. Selander
     name: Göran Selander
@@ -63,7 +63,7 @@ informative:
   RFC6749: oauth
   RFC4949:
   RFC2904:
-  I-D.garcia-core-security: coresec
+  I-D.irtf-t2trg-iot-seccons: coresec
   RFC7744: usecases
   RFC7228:
   RFC7231:
@@ -546,9 +546,7 @@ The less-constrained nodes, CAS and AS, support the constrained nodes, C and RS,
 with control information, for example permissions of clients,
 conditions on resources, attributes of client and resource servers,
 keys and credentials.  This control information may be rather different
-for C and RS, reflecting the intrinsic asymmetry with C initiating the
-request for access to a resource, and RS acting on a received request,
-and C finally acting on the received response.
+for C and RS.
 
 The potential information flows are shown in
 {{figflows}}. The direction of
@@ -607,11 +605,12 @@ specifically addressed by the present document.)
 
 The security objectives that are
 addressed by an authorization solution include confidentiality and
-integrity. Additionally, allowing only selected operations by selected entities limits the
-burden on system resources, thus helping to achieve availability.
-Misconfigured or wrongly designed authorization
-solutions can result in availability breaches (denial of service): Users might no longer
-be able to use data and services as they are supposed to.
+integrity. Additionally, an authorization solution has an impact on the
+availability: First, by reducing the load (only accepting selected operations by
+selected entities limits the burden on system resources), and second,
+because misconfigured or wrongly designed authorization solutions can
+result in availability breaches (denial of service) as users might no
+longer be able to use data and services as they are supposed to.
 
 Authentication mechanisms can help achieve additional security objectives
 such as accountability and third-party verifiability. These additional
@@ -708,19 +707,19 @@ possible based on these attributes. If the authorization policy
 assigns permissions to an individual entity, the set of authenticated
 attributes must be suitable to uniquely identify this entity.
 
-In other scenarios, <!-- where devices are communicating autonomously  -->
-there is
+In scenarios where devices are communicating autonomously there is
 often less need to uniquely identify an individual device: For a
 principal, the fact that a device belongs to a certain company or that
 it has a specific type (such as a light bulb) or location may be more
 important than that it has a unique identifier.
 
 (As a special case for the authorization of read access to a resource,
-RS may simply make an encrypted representation available to anyone
+RS may allow everyone to access an encrypted representation of the resource
 {{OSCAR}}.  In this case, controlling read access to that resource can
 be reduced to controlling read access to the key; partially removing
-future access also requires a timely update of the key for RS and all
-participants still authorized.)
+future access requires that the resource representation is re-encrypted
+and the new key is made available to all participants that are 
+still authorized.)
 
 Principals (RqP and RO) need to decide about the required level of
 granularity for the authorization.  For example, we distinguish device
@@ -1100,9 +1099,9 @@ may be helpful in discussing them.
 Symmetric vs Asymmetric Keys
 :       We need keys both for protection of resource access and for
         protection of transport of authentication and authorization
-        information.  Do we want to support solutions that require the
-        use of asymmetric keys or can we get by with symmetric keys in
-        both cases?
+        information.  It may be necessary to support solutions that require the
+        use of asymmetric keys as well as ones that get by with symmetric keys, in
+        both cases.
 
         There are classes of devices that can easily perform symmetric
         cryptography, but consume considerably more time/battery for
@@ -1133,7 +1132,9 @@ Revocation and Expiration
 
    In this section we list a set of candidate assumptions and
    requirements to make the problem description in the previous sections
-   more concise and precise.
+   more concise and precise.  Note that many of these assumptions and
+   requirements are targeting specific solutions and not the
+   architecture itself.
 
 ## Architecture
 
@@ -1212,7 +1213,7 @@ Revocation and Expiration
 
 *  A solution will need to consider support for a simple scheme for expiring
         authentication and authorization information on devices which
-        are unable to measure time (cf. {{time-measurements}}).
+        are unable to measure time (cf. {{time-measurements}}).
 
 ## Authentication
 
@@ -1437,7 +1438,16 @@ the architecture.
 
 ## Clocks and Time Measurements {#time-measurements}
 
-   Measuring time and keeping wall-clock time with certain accuracy is
+   Some applications may require a device to be aware of the
+   wall-clock time (e.g., a door lock that opens Monday to Friday at
+   specific times, except for holidays).  Other applications only need
+   to be able to measure short relative time (e.g., a door lock that
+   keeps the door open for ten seconds after receiving a state change
+   to open; such a door lock may be limited in its time-keeping
+   accuracy and may not be able to keep time across power failures).
+
+   In addition to application requirements of this kind,
+   measuring time and keeping wall-clock time with certain accuracy is
    important to achieve certain
    security properties, for example to determine whether a public key
    certificate, access token, or some other assertion, is valid.
@@ -1456,11 +1466,11 @@ the architecture.
 
    If RS continuously measures time but can't connect to AS or another
    trusted source of time, time drift may have to be accepted and it may be
-   harder to manage revocation.  However, it may still be able to handle
+   harder to manage revocation.  However, RS may still be able to handle
    short lived access rights within some margins, by measuring the time
    since arrival of authorization information or request.
 
-   Some categories of devices in scope may be unable measure time with
+   Some categories of devices in scope may be unable to measure time with
    any accuracy (e.g. because of sleep cycles).  This category of
    devices is not suitable for the use cases which require measuring
    validity of assertions and authorizations in terms of absolute time.
