@@ -2,7 +2,7 @@
 title: An architecture for authorization in constrained environments
 abbrev: ace-actors
 docname: draft-ietf-ace-actors-05pre
-date: 2016-11-12
+date: 2017-11-14
 category: info
 
 ipr: trust200902
@@ -869,9 +869,9 @@ different security domains.
 ## Principal Level Actors {#pl}
 
 Our objective is that C and RS are under control of principals in the physical world, the Requesting Party (RqP)
-and the Resource Owner (RO) respectively. The principals decide about the
-security policies of their respective endpoints and belong to the same
-security domain.
+and the Resource Owner (RO) respectively.  The principals decide about the
+security policies of their respective endpoints; each principal belongs to the same
+security domain as their endpoints.
 
 RqP is in charge of C, i.e. RqP specifies security policies for C,
 such as with whom C is allowed to communicate. By definition, C and RqP
@@ -900,8 +900,8 @@ Constrained level actors
 can only fulfill a limited number of tasks and may not have network
 connectivity all the time. To relieve them from
 having to manage keys for numerous endpoints and conducting
-computationally intensive tasks, another complexity level for actors is
-introduced. An actor on the less-constrained level belongs to the
+computationally intensive tasks, another level of complexity for actors is
+introduced (and, thus, a stricter limit on their constrainedness).  An actor on the less-constrained level belongs to the
 same security domain as its respective constrained level actor. They
 also have the same principal.
 
@@ -973,9 +973,9 @@ in mind.
 
 ### Cross Level Support Protocols
 
-Protocols which operate between a constrained device on one side and
-the corresponding less-constrained device on the other are considered
-to be (cross level) support protocols. Protocols used between C and CAS
+We refer to protocols that operate between a constrained device and
+its corresponding less-constrained device as cross-level support
+protocols. Protocols used between C and CAS
 or RS and AS are therefore support protocols.
 
 Support protocols must consider the limitations of their constrained
@@ -992,8 +992,9 @@ Security (TLS) {{RFC5246}} can be used alongside or instead of CoAP and
 DTLS. Moreover, existing security solutions for authentication and
 authorization such as the OAuth web authorization framework
 {{RFC6749}} and Kerberos {{RFC4120}} can likely be used without
-modifications and there are no limitations for the use of a Public Key
-Infrastructure (PKI).
+modifications and the less-constrained layer is
+assumed to impose no constraints that would inhibit the traditional
+deployment/use of, e.g., a Public Key Infrastructure (PKI).
 
 <!-- graphic: tasks_lcl.png -->
 
@@ -1099,8 +1100,9 @@ may be helpful in discussing them.
 Symmetric vs Asymmetric Keys
 :       We need keys both for protection of resource access and for
         protection of transport of authentication and authorization
-        information.  Do we want to support solutions  based on
-        asymmetric keys or symmetric keys in both cases?
+        information.  Do we want to support solutions that require the
+        use of asymmetric keys or can we get by with symmetric keys in
+        both cases?
 
         There are classes of devices that can easily perform symmetric
         cryptography, but consume considerably more time/battery for
@@ -1378,7 +1380,7 @@ the architecture.
 ## Physical Attacks on Sensor and Actuator Networks
 
    The focus of this work is on constrained-node networks consisting of
-   connected sensors and actuators.  The main function of such devices
+   connected constrained devices such as sensors and actuators.  The main function of such devices
    is to interact with the physical world by gathering information or
    performing an action.  We now discuss attacks performed with physical
    access to such devices.
@@ -1420,13 +1422,14 @@ the architecture.
 
    As a conclusion, if an attacker has full physical access to a sensor or
    actuator device, then much of the security functionality elaborated
-   in this draft is not effective to protect the asset during the
+   in this draft may not be effective to protect the asset during the
    physical attack.
 
    Since it does not make sense to design a solution for a situation
    that cannot be protected against we assume there is no need to
-   protect assets which are exposed during a physical attack.  In other
-   words, either an attacker does not have physical access to the sensor
+   protect assets the secrets or functioning of which are exposed during a physical attack.  In other
+   words, either an attacker does not have physical access to the
+   secrets or functioning of the sensor
    or actuator device, or if it has, the attack shall only have effect
    during the period of physical attack, and shall be limited in
    extent to the physical control the attacker exerts (e.g., must not
