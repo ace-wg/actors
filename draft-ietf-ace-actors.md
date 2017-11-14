@@ -1,8 +1,8 @@
 ---
 title: An architecture for authorization in constrained environments
 abbrev: ace-actors
-docname: draft-ietf-ace-actors-05
-date: 2017-11-14
+docname: draft-ietf-ace-actors-07
+date: 2018-10-22
 category: info
 
 ipr: trust200902
@@ -54,11 +54,11 @@ informative:
   RFC7230:
   RFC6347:
   RFC7252: coap
-  RFC5246:
+  RFC8246: tls
   RFC4120:
   RFC6749: oauth
   RFC4949:
-  RFC2904:
+#  RFC2904:
   I-D.irtf-t2trg-iot-seccons: coresec
   RFC7744: usecases
   RFC7228:
@@ -81,19 +81,19 @@ informative:
           "Sensing, Communication, and Networking (SECON'14)"
       "June 30 -": "July 3"
     date: 2014
-  OSCAR:
-    author:
-    - ins: M. Vucinic
-    - ins: B. Tourancheau
-    - ins: F. Rousseau
-    - ins: A. Duda
-    - ins: L. Damon
-    - ins: R. Guizzetti
-    title: >
-      OSCAR: Object Security Architecture for the Internet of Things
-    seriesinfo:
-      CoRR: vol. abs/1404.7799
-    date: 2014
+#  OSCAR:
+#    author:
+#    - ins: M. Vucinic
+#    - ins: B. Tourancheau
+#    - ins: F. Rousseau
+#    - ins: A. Duda
+#    - ins: L. Damon
+#    - ins: R. Guizzetti
+#    title: >
+#      OSCAR: Object Security Architecture for the Internet of Things
+#    seriesinfo:
+#      CoRR: vol. abs/1404.7799
+#    date: 2014
   REST:
     seriesinfo:
       ACM Trans. Inter. Tech.: Vol. 2(2), pp. 115-150
@@ -977,7 +977,7 @@ used between the actors CAS and AS. CAS and AS might belong to
 different security domains.
 
 On the less-constrained level, HTTP {{RFC7230}} and Transport Layer
-Security (TLS) {{RFC5246}} can be used alongside or instead of CoAP and
+Security (TLS) {{-tls}} can be used alongside or instead of CoAP and
 DTLS. Moreover, existing security solutions for authentication and
 authorization such as the OAuth web authorization framework
 {{RFC6749}} and Kerberos {{RFC4120}} can likely be used without
