@@ -5,16 +5,16 @@
 ACE Working Group                                              S. Gerdes
 Internet-Draft                                   Universitaet Bremen TZI
 Intended status: Informational                                  L. Seitz
-Expires: May 16, 2017                                SICS Swedish ICT AB
+Expires: April 25, 2019                                        RISE SICS
                                                              G. Selander
-                                                                Ericsson
+                                                             Ericsson AB
                                                          C. Bormann, Ed.
                                                  Universitaet Bremen TZI
-                                                       November 12, 2016
+                                                        October 22, 2018
 
 
      An architecture for authorization in constrained environments
-                      draft-ietf-ace-actors-05pre
+                        draft-ietf-ace-actors-07
 
 Abstract
 
@@ -34,18 +34,18 @@ Status of This Memo
    Internet-Drafts are working documents of the Internet Engineering
    Task Force (IETF).  Note that other groups may also distribute
    working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at http://datatracker.ietf.org/drafts/current/.
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 16, 2017.
+   This Internet-Draft will expire on April 25, 2019.
 
 Copyright Notice
 
-   Copyright (c) 2016 IETF Trust and the persons identified as the
+   Copyright (c) 2018 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -53,12 +53,12 @@ Copyright Notice
 
 
 
-Gerdes, et al.            Expires May 16, 2017                  [Page 1]
+Gerdes, et al.           Expires April 25, 2019                 [Page 1]
 
-Internet-Draft                 ace-actors                  November 2016
+Internet-Draft                 ace-actors                   October 2018
 
 
-   (http://trustee.ietf.org/license-info) in effect on the date of
+   (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
@@ -74,7 +74,7 @@ Table of Contents
      2.1.  Elements of an Architecture . . . . . . . . . . . . . . .   6
      2.2.  Architecture Variants . . . . . . . . . . . . . . . . . .   9
      2.3.  Information Flows . . . . . . . . . . . . . . . . . . . .  11
-   3.  Security Objectives . . . . . . . . . . . . . . . . . . . . .  12
+   3.  Security Objectives . . . . . . . . . . . . . . . . . . . . .  13
      3.1.  End-to-End Security Objectives in Multi-Hop Scenarios . .  13
    4.  Authentication and Authorization  . . . . . . . . . . . . . .  14
    5.  Actors and their Tasks  . . . . . . . . . . . . . . . . . . .  16
@@ -82,40 +82,37 @@ Table of Contents
      5.2.  Principal Level Actors  . . . . . . . . . . . . . . . . .  18
      5.3.  Less-Constrained Level Actors . . . . . . . . . . . . . .  18
    6.  Kinds of Protocols  . . . . . . . . . . . . . . . . . . . . .  19
-     6.1.  Constrained Level Protocols . . . . . . . . . . . . . . .  19
+     6.1.  Constrained Level Protocols . . . . . . . . . . . . . . .  20
        6.1.1.  Cross Level Support Protocols . . . . . . . . . . . .  20
      6.2.  Less-Constrained Level Protocols  . . . . . . . . . . . .  20
-   7.  Elements of a Solution  . . . . . . . . . . . . . . . . . . .  20
-     7.1.  Authorization . . . . . . . . . . . . . . . . . . . . . .  20
-     7.2.  Authentication  . . . . . . . . . . . . . . . . . . . . .  21
+   7.  Elements of a Solution  . . . . . . . . . . . . . . . . . . .  21
+     7.1.  Authorization . . . . . . . . . . . . . . . . . . . . . .  21
+     7.2.  Authentication  . . . . . . . . . . . . . . . . . . . . .  22
      7.3.  Communication Security  . . . . . . . . . . . . . . . . .  22
-     7.4.  Cryptographic Keys  . . . . . . . . . . . . . . . . . . .  22
-   8.  Assumptions and Requirements  . . . . . . . . . . . . . . . .  23
-     8.1.  Architecture  . . . . . . . . . . . . . . . . . . . . . .  23
-     8.2.  Constrained Devices . . . . . . . . . . . . . . . . . . .  24
-     8.3.  Authentication  . . . . . . . . . . . . . . . . . . . . .  25
-     8.4.  Server-side Authorization . . . . . . . . . . . . . . . .  25
-     8.5.  Client-side Authorization Information . . . . . . . . . .  25
-     8.6.  Server-side Authorization Information . . . . . . . . . .  26
-     8.7.  Resource Access . . . . . . . . . . . . . . . . . . . . .  26
-     8.8.  Keys and Cipher Suites  . . . . . . . . . . . . . . . . .  27
-     8.9.  Network Considerations  . . . . . . . . . . . . . . . . .  27
-     8.10. Legacy Considerations . . . . . . . . . . . . . . . . . .  27
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  28
-     9.1.  Physical Attacks on Sensor and Actuator Networks  . . . .  28
-     9.2.  Clocks and Time Measurements  . . . . . . . . . . . . . .  29
-   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  30
-   11. Informative References  . . . . . . . . . . . . . . . . . . .  30
+     7.4.  Cryptographic Keys  . . . . . . . . . . . . . . . . . . .  23
+   8.  Assumptions and Requirements  . . . . . . . . . . . . . . . .  24
+     8.1.  Constrained Devices . . . . . . . . . . . . . . . . . . .  24
+     8.2.  Server-side Authorization . . . . . . . . . . . . . . . .  24
+     8.3.  Client-side Authorization Information . . . . . . . . . .  25
+     8.4.  Resource Access . . . . . . . . . . . . . . . . . . . . .  25
+     8.5.  Keys and Cipher Suites  . . . . . . . . . . . . . . . . .  25
+     8.6.  Network Considerations  . . . . . . . . . . . . . . . . .  26
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  26
+     9.1.  Physical Attacks on Sensor and Actuator Networks  . . . .  27
+     9.2.  Clocks and Time Measurements  . . . . . . . . . . . . . .  27
+   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  28
+   11. Informative References  . . . . . . . . . . . . . . . . . . .  28
+   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  30
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  30
 
 
 
-Gerdes, et al.            Expires May 16, 2017                  [Page 2]
+
+
+Gerdes, et al.           Expires April 25, 2019                 [Page 2]
 
-Internet-Draft                 ace-actors                  November 2016
+Internet-Draft                 ace-actors                   October 2018
 
-
-   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  32
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  32
 
 1.  Introduction
 
@@ -162,17 +159,17 @@ Internet-Draft                 ace-actors                  November 2016
    access control policies, for which for instance a basic access
    control list concept may not be sufficiently powerful [RFC7744].
 
-
-
-
-Gerdes, et al.            Expires May 16, 2017                  [Page 3]
-
-Internet-Draft                 ace-actors                  November 2016
-
-
    The limitations of the constrained nodes impose a need for security
    mechanisms which take the special characteristics of constrained
    environments into account; not all constituents may be able to
+
+
+
+Gerdes, et al.           Expires April 25, 2019                 [Page 3]
+
+Internet-Draft                 ace-actors                   October 2018
+
+
    perform all necessary tasks by themselves.  To put it the other way
    round: the security mechanisms that protect constrained nodes must
    remain effective and manageable despite the limitations imposed by
@@ -219,14 +216,15 @@ Internet-Draft                 ace-actors                  November 2016
    device", "constrained-node network", "class 1", etc. is defined in
    [RFC7228].
 
-
-
-Gerdes, et al.            Expires May 16, 2017                  [Page 4]
-
-Internet-Draft                 ace-actors                  November 2016
-
-
    In addition, this document uses the following terminology:
+
+
+
+
+Gerdes, et al.           Expires April 25, 2019                 [Page 4]
+
+Internet-Draft                 ace-actors                   October 2018
+
 
    Resource (R):  an item of interest which is represented through an
       interface.  It might contain sensor or actuator values or other
@@ -248,15 +246,15 @@ Internet-Draft                 ace-actors                  November 2016
       (Used to discuss the client whose access to a resource is the end,
       not the means, of the authenticated authorization process.)
 
-   Principal:  (Used in its English sense here, and specifically as:) An
-      individual that is either RqP or RO or both.
+   Overseeing principal:  (Used in its English sense here, and
+      specifically as:) An individual that is either RqP or RO or both.
 
-   Resource Owner (RO):  The principal that is in charge of the resource
-      and controls its access permissions.
+   Resource Owner (RO):  The overseeing principal that is in charge of
+      the resource and controls its access permissions.
 
-   Requesting Party (RqP):  The principal that is in charge of the
-      Client and controls the requests a Client makes and its acceptance
-      of responses.
+   Requesting Party (RqP):  The overseeing principal that is in charge
+      of the Client and controls the requests a Client makes and its
+      acceptance of responses.
 
    Authorization Server (AS):  An entity that prepares and endorses
       authentication and authorization data for a Resource Server.
@@ -277,9 +275,11 @@ Internet-Draft                 ace-actors                  November 2016
 
 
 
-Gerdes, et al.            Expires May 16, 2017                  [Page 5]
+
+
+Gerdes, et al.           Expires April 25, 2019                 [Page 5]
 
-Internet-Draft                 ace-actors                  November 2016
+Internet-Draft                 ace-actors                   October 2018
 
 
    Note that other authorization architectures such as OAuth [RFC6749]
@@ -333,18 +333,19 @@ Internet-Draft                 ace-actors                  November 2016
 
 
 
-Gerdes, et al.            Expires May 16, 2017                  [Page 6]
+Gerdes, et al.           Expires April 25, 2019                 [Page 6]
 
-Internet-Draft                 ace-actors                  November 2016
+Internet-Draft                 ace-actors                   October 2018
 
 
    The authorization decisions at the endpoints are made on behalf of
-   the principals that control the endpoints.  To reuse OAuth and UMA
-   terminology, the present document calls the principal that is
-   controlling C the Requesting Party (RqP), and calls the principal
-   that is controlling RS the Resource Owner (RO).  Each principal makes
-   authorization decisions (possibly encapsulating them into security
-   policies) which are then enforced by the endpoint it controls.
+   the overseeing principals that control the endpoints.  To reuse OAuth
+   and UMA terminology, the present document calls the overseeing
+   principal that is controlling C the Requesting Party (RqP), and calls
+   the overseeing principal that is controlling RS the Resource Owner
+   (RO).  Each overseeing principal makes authorization decisions
+   (possibly encapsulating them into security policies) which are then
+   enforced by the endpoint it controls.
 
    The specific security objectives will vary, but for any specific
    version of this scenario will include one or more of:
@@ -377,25 +378,25 @@ Internet-Draft                 ace-actors                  November 2016
               Figure 2: Constrained Level and Principal Level
 
    The use cases defined in [RFC7744] demonstrate that constrained
-   devices are often used for scenarios where their principals are not
-   present at the time of the communication, are not able to communicate
-   directly with the device because of a lack of user interfaces or
-   displays, or may prefer the device to communicate autonomously.
+   devices are often used for scenarios where their overseeing
+   principals are not present at the time of the communication, are not
+   able to communicate directly with the device because of a lack of
+   user interfaces or displays, or may prefer the device to communicate
+   autonomously.
 
    Moreover, constrained endpoints may need support with tasks requiring
    heavy processing, large memory or storage, or interfacing to humans,
-   such as management of security policies defined by a principal.  The
 
 
 
-
-Gerdes, et al.            Expires May 16, 2017                  [Page 7]
+Gerdes, et al.           Expires April 25, 2019                 [Page 7]
 
-Internet-Draft                 ace-actors                  November 2016
+Internet-Draft                 ace-actors                   October 2018
 
 
-   principal, in turn, requires some agent maintaining the policies
-   governing how its endpoints will interact.
+   such as management of security policies defined by an overseeing
+   principal.  The principal, in turn, requires some agent maintaining
+   the policies governing how its endpoints will interact.
 
    For these reasons, another level of nodes is introduced in the
    architecture, the less-constrained level (illustrated below in
@@ -408,10 +409,11 @@ Internet-Draft                 ace-actors                  November 2016
    constrained level, authorization (and related authentication)
    mechanisms may be employed between CAS and AS (Section 6.2).  (Again,
    both CAS and AS are conceptual entities controlled by their
-   respective principals.  Many of these entities, often acting for
-   different principals, can be combined into a single server
-   implementation; this of course requires proper segregation of the
-   control information provided by each principal.)
+   respective overseeing principals.  Many of these entities, often
+   acting for different overseeing principals, can be combined into a
+   single server implementation; this of course requires proper
+   segregation of the control information provided by each overseeing
+   principal.)
 
     -------                           -------
     | RqP |                           |  RO | Principal Level
@@ -440,15 +442,16 @@ Internet-Draft                 ace-actors                  November 2016
    and providing support; this is complemented by information flows that
    often are bidirectional.  Note also that not all entities need to be
    ready to communicate at any point in time; for instance, RqP may have
+
+
+
+Gerdes, et al.           Expires April 25, 2019                 [Page 8]
+
+Internet-Draft                 ace-actors                   October 2018
+
+
    provided enough information to CAS that CAS can autonomously
    negotiate access to RS with AS for C based on this information.
-
-
-
-Gerdes, et al.            Expires May 16, 2017                  [Page 8]
-
-Internet-Draft                 ace-actors                  November 2016
-
 
 2.2.  Architecture Variants
 
@@ -498,12 +501,9 @@ Internet-Draft                 ace-actors                  November 2016
 
 
 
-
-
-
-Gerdes, et al.            Expires May 16, 2017                  [Page 9]
+Gerdes, et al.           Expires April 25, 2019                 [Page 9]
 
-Internet-Draft                 ace-actors                  November 2016
+Internet-Draft                 ace-actors                   October 2018
 
 
       -------                            -------
@@ -529,7 +529,38 @@ Internet-Draft                 ace-actors                  November 2016
 
                        Figure 5: Combined AS and RS
 
-   If C and RS have the same principal, CAS and AS can be combined.
+   If C and RS have the same overseeing principal, CAS and AS can be
+   combined.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gerdes, et al.           Expires April 25, 2019                [Page 10]
+
+Internet-Draft                 ace-actors                   October 2018
+
 
                    ------------
                    | RqP = RO |   Principal Level
@@ -555,13 +586,6 @@ Internet-Draft                 ace-actors                  November 2016
 
                       Figure 6: CAS combined with AS
 
-
-
-Gerdes, et al.            Expires May 16, 2017                 [Page 10]
-
-Internet-Draft                 ace-actors                  November 2016
-
-
 2.3.  Information Flows
 
    We now formulate the problem statement in terms of the information
@@ -578,10 +602,7 @@ Internet-Draft                 ace-actors                  November 2016
    constrained nodes, C and RS, with control information, for example
    permissions of clients, conditions on resources, attributes of client
    and resource servers, keys and credentials.  This control information
-   may be rather different for C and RS, reflecting the intrinsic
-   asymmetry with C initiating the request for access to a resource, and
-   RS acting on a received request, and C finally acting on the received
-   response.
+   may be rather different for C and RS.
 
    The potential information flows are shown in Figure 7.  The direction
    of the vertical arrows expresses the exertion of control; actual
@@ -589,6 +610,13 @@ Internet-Draft                 ace-actors                  November 2016
 
    The message flow may pass unprotected paths and thus need to be
    protected, potentially beyond a single REST hop (Section 3.1):
+
+
+
+Gerdes, et al.           Expires April 25, 2019                [Page 11]
+
+Internet-Draft                 ace-actors                   October 2018
+
 
      -------                                     -------
      | CAS |                                     | AS  |
@@ -609,15 +637,6 @@ Internet-Draft                 ace-actors                  November 2016
       their associated less-constrained nodes are pre-established, for
       example as part of the commissioning procedure.
 
-
-
-
-
-Gerdes, et al.            Expires May 16, 2017                 [Page 11]
-
-Internet-Draft                 ace-actors                  November 2016
-
-
    o  Any necessary keys/credentials for protecting the interaction
       between the potentially constrained nodes will need to be
       established and maintained as part of a solution.
@@ -628,7 +647,7 @@ Internet-Draft                 ace-actors                  November 2016
 
    o  The interaction between potentially constrained endpoints is
       controlled by control information provided by less-constrained
-      nodes on behalf of the principals of the endpoints.
+      nodes on behalf of the overseeing principals of the endpoints.
 
    o  The interaction between the endpoints needs to be secured, as well
       as the establishment of the necessary keys for securing the
@@ -643,14 +662,27 @@ Internet-Draft                 ace-actors                  November 2016
    communication such as secure bootstrap or group communication are not
    specifically addressed by the present document.)
 
+
+
+
+
+
+
+
+Gerdes, et al.           Expires April 25, 2019                [Page 12]
+
+Internet-Draft                 ace-actors                   October 2018
+
+
 3.  Security Objectives
 
    The security objectives that are addressed by an authorization
-   solution include confidentiality and integrity.  Additionally,
-   allowing only selected operations by selected entities limits the
-   burden on system resources, thus helping to achieve availability.
-   Misconfigured or wrongly designed authorization solutions can result
-   in availability breaches (denial of service): Users might no longer
+   solution include confidentiality and integrity.  Additionally, an
+   authorization solution has an impact on the availability: First, by
+   reducing the load (only accepting selected operations by selected
+   entities limits the burden on system resources), and second, because
+   misconfigured or wrongly designed authorization solutions can result
+   in availability breaches (denial of service) as users might no longer
    be able to use data and services as they are supposed to.
 
    Authentication mechanisms can help achieve additional security
@@ -665,14 +697,6 @@ Internet-Draft                 ace-actors                  November 2016
    integrity requirements are very relevant for constrained devices as
    well, but outside the scope of this document.)  See also Section 4
    for more discussion about authentication and authorization.
-
-
-
-
-Gerdes, et al.            Expires May 16, 2017                 [Page 12]
-
-Internet-Draft                 ace-actors                  November 2016
-
 
    The security objectives and their relative importance differ for the
    various constrained environment applications and use cases [RFC7744].
@@ -699,6 +723,13 @@ Internet-Draft                 ace-actors                  November 2016
    to manipulate this information, which therefore requires integrity
    protection on the way between AS and RS.
 
+
+
+Gerdes, et al.           Expires April 25, 2019                [Page 13]
+
+Internet-Draft                 ace-actors                   October 2018
+
+
    As another example, resource representations sent between endpoints
    may be stored in intermediary nodes, such as caching proxies or pub-
    sub brokers.  Where these intermediaries cannot be relied on to
@@ -722,14 +753,6 @@ Internet-Draft                 ace-actors                  November 2016
    o  To comply with requirements of transparency, a gateway may be
       allowed to read, verify (authenticity) but not modify (integrity)
       a resource representation which therefore also is end-to-end
-
-
-
-Gerdes, et al.            Expires May 16, 2017                 [Page 13]
-
-Internet-Draft                 ace-actors                  November 2016
-
-
       integrity protected from the server towards a client behind the
       gateway.
 
@@ -754,6 +777,15 @@ Internet-Draft                 ace-actors                  November 2016
    The security objectives the authorization mechanism aims at can only
    be achieved if the authentication and the authorization mechanism
    work together correctly.  We speak of authenticated authorization to
+
+
+
+
+Gerdes, et al.           Expires April 25, 2019                [Page 14]
+
+Internet-Draft                 ace-actors                   October 2018
+
+
    refer to the required synthesis of mechanisms for authentication and
    authorization.
 
@@ -764,41 +796,25 @@ Internet-Draft                 ace-actors                  November 2016
    authenticated attributes must be suitable to uniquely identify this
    entity.
 
-   In other scenarios, there is often less need to uniquely identify an
-   individual device: For a principal, the fact that a device belongs to
-   a certain company or that it has a specific type (such as a light
-   bulb) or location may be more important than that it has a unique
-   identifier.
+   In scenarios where devices are communicating autonomously there is
+   often less need to uniquely identify an individual device: For an
+   overseeing principal, the fact that a device belongs to a certain
+   company or that it has a specific type (such as a light bulb) or
+   location may be more important than that it has a unique identifier.
 
-   (As a special case for the authorization of read access to a
-   resource, RS may simply make an encrypted representation available to
-   anyone [OSCAR].  In this case, controlling read access to that
-   resource can be reduced to controlling read access to the key;
-   partially removing future access also requires a timely update of the
-   key for RS and all participants still authorized.)
-
-
-
-
-
-Gerdes, et al.            Expires May 16, 2017                 [Page 14]
-
-Internet-Draft                 ace-actors                  November 2016
-
-
-   Principals (RqP and RO) need to decide about the required level of
-   granularity for the authorization.  For example, we distinguish
-   device authorization from owner authorization, and flat authorization
-   from unrestricted authorization.  In the first case different access
-   permissions are granted to individual devices while in the second
-   case individual owners are authorized.  If flat authorization is
-   used, all authenticated entities are implicitly authorized and have
-   the same access permissions.  Unrestricted authorization for an item
-   of interest means that no authorization mechanism is used for
-   accessing this resource (not even by authentication) and all entities
-   are able to access the item as they see fit (note that an
-   authorization mechanism may still be used to arrive at the decision
-   to employ unrestricted authorization).
+   Overseeing principals (RqP and RO) need to decide about the required
+   level of granularity for the authorization.  For example, we
+   distinguish device authorization from owner authorization, and binary
+   authorization from unrestricted authorization.  In the first case
+   different access permissions are granted to individual devices while
+   in the second case individual owners are authorized.  If binary
+   authorization is used, all authenticated entities are implicitly
+   authorized and have the same access permissions.  Unrestricted
+   authorization for an item of interest means that no authorization
+   mechanism is used for accessing this resource (not even by
+   authentication) and all entities are able to access the item as they
+   see fit (note that an authorization mechanism may still be used to
+   arrive at the decision to employ unrestricted authorization).
 
    +-----------------+-------------------------------------------------+
    | Authorization   | Authorization is contingent on:                 |
@@ -808,7 +824,7 @@ Internet-Draft                 ace-actors                  November 2016
    |                 |                                                 |
    | owner           | (authenticated) authorization by owner          |
    |                 |                                                 |
-   | flat            | (any) authentication                            |
+   | binary          | (any) authentication                            |
    |                 |                                                 |
    | unrestricted    | (unrestricted access; access always authorized) |
    +-----------------+-------------------------------------------------+
@@ -816,31 +832,30 @@ Internet-Draft                 ace-actors                  November 2016
             Table 1: Some granularity levels for authorization
 
    More fine-grained authorization does not necessarily provide more
-   security but can be more flexible.  Principals need to consider that
-   an entity should only be granted the permissions it really needs
-   (principle of least privilege), to ensure the confidentiality and
-   integrity of resources.
+   security but can be more flexible.  Overseeing principals need to
+   consider that an entity should only be granted the permissions it
+
+
+
+Gerdes, et al.           Expires April 25, 2019                [Page 15]
+
+Internet-Draft                 ace-actors                   October 2018
+
+
+   really needs (principle of least privilege), to ensure the
+   confidentiality and integrity of resources.
 
    Client-side authorization solutions aim at protecting the client from
    disclosing information to or ingesting information from resource
    servers RqP does not want it to interact with in the given way.
-   Again, flat authorization (the server can be authenticated) may be
+   Again, binary authorization (the server can be authenticated) may be
    sufficient, or more fine-grained authorization may be required.  The
    client-side authorization also pertains to the level of protection
    required for the exchanges with the server (e.g., confidentiality).
    In the browser web, client-side authorization is often left to the
-   human user; a constrained client may not have that available all the
-   time but still needs to implement the wishes of the principal
-   controlling it, the RqP.
-
-
-
-
-
-Gerdes, et al.            Expires May 16, 2017                 [Page 15]
-
-Internet-Draft                 ace-actors                  November 2016
-
+   human user that directly controls the client; a constrained client
+   may not have that available all the time but still needs to implement
+   the wishes of the overseeing principal controlling it, the RqP.
 
    For the cases where an authorization solution is needed (all but
    unrestricted authorization), the enforcing party needs to be able to
@@ -858,12 +873,13 @@ Internet-Draft                 ace-actors                  November 2016
    possible for an attacker to modify it during transmission.
 
    In some cases, only one side (client or server side) requires the
-   integrity and / or confidentiality of a resource value.  Principals
-   may decide to omit authentication (unrestricted authorization), or
-   use flat authorization (just employing an authentication mechanism).
-   However, as indicated in Section 3, the security objectives of both
-   sides must be considered, which can often only be achieved when the
-   other side can be relied on to perform some security service.
+   integrity and / or confidentiality of a resource value.  Overseeing
+   principals may decide to omit authentication (unrestricted
+   authorization), or use binary authorization (just employing an
+   authentication mechanism).  However, as indicated in Section 3, the
+   security objectives of both sides must be considered, which can often
+   only be achieved when the other side can be relied on to perform some
+   security service.
 
 5.  Actors and their Tasks
 
@@ -873,6 +889,14 @@ Internet-Draft                 ace-actors                  November 2016
    logical functional entities performing the tasks required.  The
    following section then will focus on the protocols run between these
    functional entities.
+
+
+
+
+Gerdes, et al.           Expires April 25, 2019                [Page 16]
+
+Internet-Draft                 ace-actors                   October 2018
+
 
    For the purposes of this document, an actor consists of a set of
    tasks and additionally has a security domain (client domain or server
@@ -888,19 +912,6 @@ Internet-Draft                 ace-actors                  November 2016
    combined in a single piece of software.  Interfaces between actors
    may be realized as protocols or be internal to such a piece of
    software.
-
-
-
-
-
-Gerdes, et al.            Expires May 16, 2017                 [Page 16]
-
-Internet-Draft                 ace-actors                  November 2016
-
-
-   A more detailed discussion of the tasks the actors have to perform in
-   order to achieve specific security objectives is provided in
-   [I-D.gerdes-ace-tasks].
 
 5.1.  Constrained Level Actors
 
@@ -936,23 +947,17 @@ Internet-Draft                 ace-actors                  November 2016
    different ROs.  For simplicity of exposition, these resources are
    described as if they had separate RS.
 
+
+
+Gerdes, et al.           Expires April 25, 2019                [Page 17]
+
+Internet-Draft                 ace-actors                   October 2018
+
+
    As C and RS do not necessarily know each other they might belong to
    different security domains.
 
    (See Figure 8.)
-
-
-
-
-
-
-
-
-
-Gerdes, et al.            Expires May 16, 2017                 [Page 17]
-
-Internet-Draft                 ace-actors                  November 2016
-
 
            -------                            --------
            |  C  |  -- requests resource ---> |  RS  | Constrained Level
@@ -963,10 +968,12 @@ Internet-Draft                 ace-actors                  November 2016
 
 5.2.  Principal Level Actors
 
-   Our objective is that C and RS are under control of principals in the
-   physical world, the Requesting Party (RqP) and the Resource Owner
-   (RO) respectively.  The principals decide about the security policies
-   of their respective endpoints and belong to the same security domain.
+   Our objective is that C and RS are under control of overseeing
+   principals in the physical world, the Requesting Party (RqP) and the
+   Resource Owner (RO) respectively.  The overseeing principals decide
+   about the security policies of their respective endpoints; each
+   overseeing principal belongs to the same security domain as their
+   endpoints.
 
    RqP is in charge of C, i.e. RqP specifies security policies for C,
    such as with whom C is allowed to communicate.  By definition, C and
@@ -991,10 +998,20 @@ Internet-Draft                 ace-actors                  November 2016
    Constrained level actors can only fulfill a limited number of tasks
    and may not have network connectivity all the time.  To relieve them
    from having to manage keys for numerous endpoints and conducting
-   computationally intensive tasks, another complexity level for actors
-   is introduced.  An actor on the less-constrained level belongs to the
-   same security domain as its respective constrained level actor.  They
-   also have the same principal.
+   computationally intensive tasks, another level of complexity for
+   actors is introduced (and, thus, a stricter limit on their
+   constrainedness).  An actor on the less-constrained level belongs to
+
+
+
+
+Gerdes, et al.           Expires April 25, 2019                [Page 18]
+
+Internet-Draft                 ace-actors                   October 2018
+
+
+   the same security domain as its respective constrained level actor.
+   They also have the same overseeing principal.
 
    The Client Authorization Server (CAS) belongs to the same security
    domain as C and RqP.  CAS acts on behalf of RqP.  It assists C in
@@ -1002,19 +1019,16 @@ Internet-Draft                 ace-actors                  November 2016
    R.  CAS can do that because for C, CAS is the authority for claims
    about RS.
 
-
-
-
-Gerdes, et al.            Expires May 16, 2017                 [Page 18]
-
-Internet-Draft                 ace-actors                  November 2016
-
-
    CAS performs the following tasks:
 
-   o  Validate on the client side that an entity has certain attributes.
+   o  Vouch for the attributes of its clients.
 
-   o  Obtain authorization information about an entity from C's
+   o  Ascertain that C's overseeing principal (RqP) authorized AS to
+      vouch for RS and provide keying material for it.
+
+   o  Provide revocation information concerning its clients (optional).
+
+   o  Obtain authorization information about RS from C's overseeing
       principal (RqP) and provide it to C.
 
    o  Negotiate means for secure communication to communicate with C.
@@ -1026,9 +1040,14 @@ Internet-Draft                 ace-actors                  November 2016
 
    AS performs the following tasks:
 
-   o  Validate on the server side that an entity has certain attributes.
+   o  Vouch for the attributes of its resource servers.
 
-   o  Obtain authorization information about an entity from RS'
+   o  Ascertain that RS's overseeing principal (RO) authorized CAS to
+      vouch for C and provide keying material for it.
+
+   o  Provide revocation information concerning its servers (optional).
+
+   o  Obtain authorization information about C from RS' overseeing
       principal (RO) and provide it to RS.
 
    o  Negotiate means for secure communication to communicate with RS.
@@ -1039,6 +1058,13 @@ Internet-Draft                 ace-actors                  November 2016
    than constrained level devices in terms of processing power, memory,
    non-volatile storage.  This results in different characteristics for
    the protocols used on these levels.
+
+
+
+Gerdes, et al.           Expires April 25, 2019                [Page 19]
+
+Internet-Draft                 ace-actors                   October 2018
+
 
 6.1.  Constrained Level Protocols
 
@@ -1058,14 +1084,6 @@ Internet-Draft                 ace-actors                  November 2016
    requirements of constrained environments.  Examples for protocols
    that consider these requirements is the transfer protocol CoAP
    (Constrained Application Protocol) [RFC7252] and the Datagram
-
-
-
-Gerdes, et al.            Expires May 16, 2017                 [Page 19]
-
-Internet-Draft                 ace-actors                  November 2016
-
-
    Transport Layer Security Protocol (DTLS) [RFC6347] which can be used
    for channel security.
 
@@ -1077,10 +1095,10 @@ Internet-Draft                 ace-actors                  November 2016
 
 6.1.1.  Cross Level Support Protocols
 
-   Protocols which operate between a constrained device on one side and
-   the corresponding less-constrained device on the other are considered
-   to be (cross level) support protocols.  Protocols used between C and
-   CAS or RS and AS are therefore support protocols.
+   We refer to protocols that operate between a constrained device and
+   its corresponding less-constrained device as cross-level support
+   protocols.  Protocols used between C and CAS or RS and AS are
+   therefore support protocols.
 
    Support protocols must consider the limitations of their constrained
    endpoint and therefore belong to the constrained level protocols.
@@ -1092,12 +1110,21 @@ Internet-Draft                 ace-actors                  November 2016
    different security domains.
 
    On the less-constrained level, HTTP [RFC7230] and Transport Layer
-   Security (TLS) [RFC5246] can be used alongside or instead of CoAP and
+   Security (TLS) [RFC8246] can be used alongside or instead of CoAP and
    DTLS.  Moreover, existing security solutions for authentication and
    authorization such as the OAuth web authorization framework [RFC6749]
    and Kerberos [RFC4120] can likely be used without modifications and
-   there are no limitations for the use of a Public Key Infrastructure
-   (PKI).
+
+
+
+Gerdes, et al.           Expires April 25, 2019                [Page 20]
+
+Internet-Draft                 ace-actors                   October 2018
+
+
+   the less-constrained layer is assumed to impose no constraints that
+   would inhibit the traditional deployment/use of, e.g., a Public Key
+   Infrastructure (PKI).
 
 7.  Elements of a Solution
 
@@ -1114,20 +1141,21 @@ Internet-Draft                 ace-actors                  November 2016
 
    o  The transferred authorization information needs to follow a
       defined format and encoding, which must be efficient for
-
-
-
-Gerdes, et al.            Expires May 16, 2017                 [Page 20]
-
-Internet-Draft                 ace-actors                  November 2016
-
-
       constrained devices, considering size of authorization information
       and parser complexity.
 
    o  C and RS need to be able to verify the authenticity of the
-      authorization information they receive.  Here as well, there is a
-      trade-off between processing complexity and deployment complexity.
+      authorization information they receive.  C must ascertain that the
+      authorization information stems from a CAS that was authorized by
+      RqP, RS must validate that the authorization information stems
+      from an AS that was authorized by RO.
+
+   o  Some applications may require the confidentiality of authorization
+      information.  It then needs to be encrypted between CAS and C and
+      AS and RS, respectively.
+
+   o  C and RS must be able to check the freshness of the authorization
+      information and determine for how long it is supposed to be valid.
 
    o  The RS needs to enforce the authorization decisions of the AS,
       while C needs to abide with the authorization decisions of the
@@ -1143,40 +1171,46 @@ Internet-Draft                 ace-actors                  November 2016
       may be transferred to C and RS at different times and in different
       ways prior to or during the client request.
 
+
+
+Gerdes, et al.           Expires April 25, 2019                [Page 21]
+
+Internet-Draft                 ace-actors                   October 2018
+
+
 7.2.  Authentication
 
    The following problems need to be addressed, when considering
    authentication:
 
-   o  RS needs to authenticate AS, and C needs to authenticate CAS, to
-      ensure that the authorization information and related data comes
-      from the correct source.
+   o  RS needs to authenticate AS in the sense that it must be certain
+      that it communicates with an AS that was authorized by RO, C needs
+      to authenticate CAS in the sense that it must be certain that it
+      communicates with a CAS that was authorized by RqP, to ensure that
+      the authorization information and related data comes from the
+      correct source.
+
+   o  C must securely have obtained keying material to communicate with
+      its CAS that is up to date and that is updated if necessary.  RS
+      must securely have obtained keying material to communicate with AS
+      that is up to date and that is updated if necessary.
 
    o  CAS and AS may need to authenticate each other, both to perform
       the required business logic and to ensure that CAS gets security
       information related to the resources from the right source.
 
    o  In some use cases RS needs to authenticate some property of C, in
-      order to map it to the relevant authorization information.  In
-      other applications, authentication and authorization of C may be
-      implicit, for example by encrypting the resource representation
-      the RS only providing access to those who possess the key to
-      decrypt.
+      order to map it to the relevant authorization information.
 
    o  C may need to authenticate RS, in order to ensure that it is
-      interacting with the right resources.  Alternatively C may just
-      verify the integrity of a received resource representation.
+      interacting with the right resources.
 
    o  CAS and AS need to authenticate their communication partner (C or
-      RS), in order to ensure it serves the correct device.
-
-
-
-
-Gerdes, et al.            Expires May 16, 2017                 [Page 21]
-
-Internet-Draft                 ace-actors                  November 2016
-
+      RS), in order to ensure it serves the correct device.  If C and AS
+      vouch for keying material or certain attributes of their
+      respective constrained devices, they must ascertain that the
+      devices actually currently have this keying material or these
+      attributes.
 
 7.3.  Communication Security
 
@@ -1192,12 +1226,20 @@ Internet-Draft                 ace-actors                  November 2016
       which may be too expensive for constrained devices especially in
       terms of memory and power consumption for message transmissions.
 
+
+
+
+Gerdes, et al.           Expires April 25, 2019                [Page 22]
+
+Internet-Draft                 ace-actors                   October 2018
+
+
    o  An alternative is object security at application layer, for
-      instance using [I-D.selander-ace-object-security].  Secure objects
+      instance using [I-D.ietf-core-object-security].  Secure objects
       can be stored or cached in network nodes and provide security for
       a more flexible communication model such as publish/subscribe
-      (compare e.g.  CoRE Mirror Server [I-D.koster-core-coap-pubsub]).
-      A problem with object security is that it can not provide
+      (compare e.g.  CoRE Mirror Server [I-D.ietf-core-coap-pubsub]).  A
+      problem with object security is that it can not provide
       confidentiality for the message headers.
 
    o  Hybrid solutions using both session-based and object security are
@@ -1214,26 +1256,19 @@ Internet-Draft                 ace-actors                  November 2016
    Symmetric vs Asymmetric Keys
       We need keys both for protection of resource access and for
       protection of transport of authentication and authorization
-      information.  Do we want to support solutions based on asymmetric
-      keys or symmetric keys in both cases?  There are classes of
-      devices that can easily perform symmetric cryptography, but
-      consume considerably more time/battery for asymmetric operations.
-      On the other hand asymmetric cryptography has benefits such as in
-      terms of deployment.
+      information.  It may be necessary to support solutions that
+      require the use of asymmetric keys as well as ones that get by
+      with symmetric keys, in both cases.  There are classes of devices
+      that can easily perform symmetric cryptography, but consume
+      considerably more time/battery for asymmetric operations.  On the
+      other hand asymmetric cryptography has benefits such as in terms
+      of deployment.
 
    Key Establishment
       How are the corresponding cryptographic keys established?
       Considering Section 7.1 there must be a mapping between these keys
       and the authorization information, at least in the sense that AS
       must be able to specify a unique client identifier which RS can
-
-
-
-Gerdes, et al.            Expires May 16, 2017                 [Page 22]
-
-Internet-Draft                 ace-actors                  November 2016
-
-
       verify (using an associated key).  One of the use cases of
       [RFC7744] describes spontaneous change of access policies - such
       as giving a hitherto unknown client the right to temporarily
@@ -1245,52 +1280,25 @@ Internet-Draft                 ace-actors                  November 2016
       revoked in a manner that reaches all affected parties, also
       keeping in mind scenarios with intermittent connectivity?
 
+
+
+
+
+
+Gerdes, et al.           Expires April 25, 2019                [Page 23]
+
+Internet-Draft                 ace-actors                   October 2018
+
+
 8.  Assumptions and Requirements
 
    In this section we list a set of candidate assumptions and
    requirements to make the problem description in the previous sections
-   more concise and precise.
+   more concise and precise.  Note that many of these assumptions and
+   requirements are targeting specific solutions and not the
+   architecture itself.
 
-8.1.  Architecture
-
-   The architecture consists of at least the following types of nodes:
-
-   o  RS hosting resources, and responding to access requests
-
-   o  C requesting access to resources
-
-   o  AS supporting the access request/response procedure by providing
-      authorization information to RS
-
-      *  AS may support this by aiding RS in authenticating C, or
-         providing cryptographic keys or credentials to C and/or RS to
-         secure the request/response procedure.
-
-   o  CAS supporting the access request/response procedure by providing
-      authorization information to C
-
-      *  CAS may support this by aiding C in authenticating RS,
-         forwarding information between AS and C (possibly ultimately
-         for RS), or providing cryptographic keys or credentials to C
-         and/or RS to secure the request/response procedure.
-
-   o  The architecture allows for intermediary nodes between any pair of
-      C, RS, AS, and CAS, such as forward or reverse proxies in the CoRE
-      architecture.  (Solutions may or may not support all
-      combinations.)
-
-      *  The architecture does not make a choice between session based
-         security and data object security.
-
-
-
-
-Gerdes, et al.            Expires May 16, 2017                 [Page 23]
-
-Internet-Draft                 ace-actors                  November 2016
-
-
-8.2.  Constrained Devices
+8.1.  Constrained Devices
 
    o  C and/or RS may be constrained in terms of power, processing,
       communication bandwidth, memory and storage space, and moreover:
@@ -1313,63 +1321,30 @@ Internet-Draft                 ace-actors                  November 2016
    o  All devices under consideration can process symmetric cryptography
       without incurring an excessive performance penalty.
 
-      *  We assume the use of a standardized symmetric key algorithm,
-         such as AES.
-
-      *  Except for the most constrained devices we assume the use of a
-         standardized cryptographic hash function such as SHA-256 (which
-         can be used with the HMAC construction for integrity
-         protection).
-
    o  Public key cryptography requires additional resources (such as
       RAM, ROM, power, specialized hardware).
 
-   o  A DTLS handshake involves significant computation, communication,
-      and memory overheads in the context of constrained devices.
-
-      *  The RAM requirements of DTLS handshakes with public key
-         cryptography are prohibitive for certain constrained devices.
-
-      *  Certificate-based DTLS handshakes require significant volumes
-         of communication, RAM (message buffers) and computation.
-
    o  A solution will need to consider support for a simple scheme for
       expiring authentication and authorization information on devices
-      which are unable to measure time (cf.  Section 9.2).
+      which are unable to measure time (cf. Section 9.2).
 
-
-
-
-
-Gerdes, et al.            Expires May 16, 2017                 [Page 24]
-
-Internet-Draft                 ace-actors                  November 2016
-
-
-8.3.  Authentication
-
-   o  RS needs to authenticate AS to ensure that the authorization
-      information and related data comes from the correct source.
-
-   o  Similarly, C needs to authenticate CAS to ensure that the
-      authorization information and related data comes from the correct
-      source.
-
-   o  Depending on use case and authorization requirements, C, RS, CAS,
-      or AS may need to authenticate messages from each other.
-
-8.4.  Server-side Authorization
+8.2.  Server-side Authorization
 
    o  RS enforces authorization for access to a resource based on
       credentials presented by C, the requested resource, the REST
       method, and local context in RS at the time of the request, or on
       any subset of this information.
 
-   o  The credentials presented by C may have been provided by CAS.
-
-   o  The underlying authorization decision is taken either by AS or RS.
-
    o  The authorization decision is enforced by RS.
+
+
+
+
+
+Gerdes, et al.           Expires April 25, 2019                [Page 24]
+
+Internet-Draft                 ace-actors                   October 2018
+
 
       *  RS needs to have authorization information in order to verify
          that C is allowed to access the resource as requested.
@@ -1381,59 +1356,13 @@ Internet-Draft                 ace-actors                  November 2016
       may also be required for access to information about a resource
       (for instance, resource descriptions).
 
-   o  The solution may need to be able to support the delegation of
-      access rights.
-
-8.5.  Client-side Authorization Information
+8.3.  Client-side Authorization Information
 
    o  C enforces client-side authorization by protecting its requests to
       RS and by authenticating results from RS, making use of decisions
       and policies as well as keying material provided by CAS.
 
-
-
-
-
-
-
-
-Gerdes, et al.            Expires May 16, 2017                 [Page 25]
-
-Internet-Draft                 ace-actors                  November 2016
-
-
-8.6.  Server-side Authorization Information
-
-   o  Authorization information is transferred from AS to RS using
-      Agent, Push or Pull mechanisms [RFC2904].
-
-   o  RS needs to authenticate that the authorization information is
-      coming from AS (integrity).
-
-   o  The authorization information may also be encrypted end-to-end
-      between AS and RS (confidentiality).
-
-   o  The architecture supports the case where RS may not be able to
-      communicate with AS at the time of the request from C.
-
-   o  RS may store or cache authorization information.
-
-   o  Authorization information may be pre-configured in RS.
-
-   o  Authorization information stored or cached in RS needs to be
-      possible to change.  The change of such information needs to be
-      subject to authorization.
-
-   o  Authorization policies stored on RS may be handled as a resource,
-      i.e. information located at a particular URI, accessed with
-      RESTful methods, and the access being subject to the same
-      authorization mechanics.  AS may have special privileges when
-      requesting access to the authorization policy resources on RS.
-
-   o  There may be mechanisms for C to look up the AS which provides
-      authorization information about a particular resource.
-
-8.7.  Resource Access
+8.4.  Resource Access
 
    o  Resources are accessed in a RESTful manner using methods such as
       GET, PUT, POST, DELETE.
@@ -1449,22 +1378,13 @@ Internet-Draft                 ace-actors                  November 2016
    o  RS needs to be able to verify that the request comes from an
       authorized client.
 
-
-
-
-
-Gerdes, et al.            Expires May 16, 2017                 [Page 26]
-
-Internet-Draft                 ace-actors                  November 2016
-
-
    o  C needs to be able to verify that the response to a request comes
       from the intended RS.
 
    o  There may be resources whose access need not be protected (e.g.
       for discovery of the responsible AS).
 
-8.8.  Keys and Cipher Suites
+8.5.  Keys and Cipher Suites
 
    o  A constrained node and its authorization manager (i.e., RS and AS,
       and C and CAS) have established cryptographic keys.  For example,
@@ -1473,7 +1393,16 @@ Internet-Draft                 ace-actors                  November 2016
    o  The transfer of authorization information is protected with
       symmetric and/or asymmetric keys.
 
-   o  The access request/response can be protected with symmetric and/or
+
+
+
+
+Gerdes, et al.           Expires April 25, 2019                [Page 25]
+
+Internet-Draft                 ace-actors                   October 2018
+
+
+   o  The access request/response is protected with symmetric and/or
       asymmetric keys.
 
    o  There must be a mechanism for RS to establish the necessary key(s)
@@ -1485,7 +1414,7 @@ Internet-Draft                 ace-actors                  November 2016
    o  There must be a mechanism for C to obtain the supported cipher
       suites of a RS.
 
-8.9.  Network Considerations
+8.6.  Network Considerations
 
    o  A solution will need to consider network overload due to avoidable
       communication of a constrained node with its authorization manager
@@ -1497,25 +1426,13 @@ Internet-Draft                 ace-actors                  November 2016
    o  A solution may want to optimize the case where authorization
       information does not change often.
 
+   o  A solution should combine the mechanisms for providing
+      authentication and authorization information to the client and RS
+      where possible.
+
    o  A solution may consider support for an efficient mechanism for
       providing authorization information to multiple RSs, for example
       when multiple entities need to be configured or change state.
-
-8.10.  Legacy Considerations
-
-   o  A solution may consider interworking with existing infrastructure.
-
-
-
-
-
-Gerdes, et al.            Expires May 16, 2017                 [Page 27]
-
-Internet-Draft                 ace-actors                  November 2016
-
-
-   o  A solution may consider supporting authorization of access to
-      legacy devices.
 
 9.  Security Considerations
 
@@ -1523,24 +1440,31 @@ Internet-Draft                 ace-actors                  November 2016
    environments and describes how these tasks can be mapped to actors in
    the architecture.
 
-   The entire document is about security.  Security considerations
-   applicable to authentication and authorization in RESTful
-   environments are provided in e.g.  OAuth 2.0 [RFC6749].
-
    In this section we focus on specific security aspects related to
    authorization in constrained-node networks.  Section 11.6 of
    [RFC7252], "Constrained node considerations", discusses implications
    of specific constraints on the security mechanisms employed.  A wider
    view of security in constrained-node networks is provided in
-   [I-D.garcia-core-security].
+   [I-D.irtf-t2trg-iot-seccons].
+
+
+
+
+
+
+
+Gerdes, et al.           Expires April 25, 2019                [Page 26]
+
+Internet-Draft                 ace-actors                   October 2018
+
 
 9.1.  Physical Attacks on Sensor and Actuator Networks
 
    The focus of this work is on constrained-node networks consisting of
-   connected sensors and actuators.  The main function of such devices
-   is to interact with the physical world by gathering information or
-   performing an action.  We now discuss attacks performed with physical
-   access to such devices.
+   connected constrained devices such as sensors and actuators.  The
+   main function of such devices is to interact with the physical world
+   by gathering information or performing an action.  We now discuss
+   attacks performed with physical access to such devices.
 
    The main threats to sensors and actuator networks are:
 
@@ -1554,59 +1478,22 @@ Internet-Draft                 ace-actors                  November 2016
       including probing attacks, timing attacks, power attacks, etc.
       However, with physical access to a sensor or actuator device it is
       possible to directly perform attacks equivalent of eavesdropping,
-      manipulating data or denial of service.  For example:
-
-   o  Instead of eavesdropping the sensor data or attacking the
-      authorization system to gain access to the data, the attacker
-      could make its own measurements on the physical object.
-
-
-
-
-
-
-Gerdes, et al.            Expires May 16, 2017                 [Page 28]
-
-Internet-Draft                 ace-actors                  November 2016
-
-
-   o  Instead of manipulating the sensor data the attacker could change
-      the physical object which the sensor is measuring, thereby
-      changing the payload data which is being sent.
-
-   o  Instead of manipulating data for an actuator or attacking the
-      authorization system, the attacker could perform an unauthorized
-      action directly on the physical object.
-
-   o  A denial-of-service attack could be performed physically on the
-      object or device.
-
-      All these attacks are possible by having physical access to the
-      device, since the assets are related to the physical world.
-      Moreover, this kind of attacks are in many cases straightforward
-      (requires no special competence or tools, low cost given physical
-      access, etc.)
-
-      As a conclusion, if an attacker has full physical access to a
-      sensor or actuator device, then much of the security functionality
-      elaborated in this draft is not effective to protect the asset
-      during the physical attack.
-
-      Since it does not make sense to design a solution for a situation
-      that cannot be protected against we assume there is no need to
-      protect assets which are exposed during a physical attack.  In
-      other words, either an attacker does not have physical access to
-      the sensor or actuator device, or if it has, the attack shall only
-      have effect during the period of physical attack, and shall be
-      limited in extent to the physical control the attacker exerts
-      (e.g., must not affect the security of other devices.)
+      manipulating data or denial of service.  These attacks are
+      possible by having physical access to the device, since the assets
+      are related to the physical world.  Moreover, this kind of attacks
+      are in many cases straightforward (requires no special competence
+      or tools, low cost given physical access, etc).  If an attacker
+      has full physical access to a sensor or actuator device, then much
+      of the security functionality elaborated in this draft may not be
+      effective to protect the asset during the physical attack.
 
 9.2.  Clocks and Time Measurements
 
    Measuring time and keeping wall-clock time with certain accuracy is
    important to achieve certain security properties, for example to
-   determine whether a public key certificate, access token, or some
-   other assertion, is valid.
+   determine whether keying material an access token, or some other
+   assertion, is valid.  The required level of accuracy may differ for
+   different applications.
 
    Dynamic authorization in itself requires the ability to handle expiry
    or revocation of authorization decisions or to distinguish new
@@ -1614,28 +1501,31 @@ Internet-Draft                 ace-actors                  November 2016
 
    For certain categories of devices we can assume that there is an
    internal clock which is sufficiently accurate to handle the time
-   measurement requirements.  If RS can connect directly to AS, this
-   relationship can be used to update RS in terms of time, removing some
-   uncertainty, as well as to directly provide revocation information,
-   removing authorizations that are no longer desired.
+   measurement requirements.  If RS continuously measures time and can
+   connect directly to AS, this relationship can be used to update RS in
+   terms of time, removing some uncertainty, as well as to directly
+   provide revocation information, removing authorizations that are no
+   longer desired.
 
 
 
-Gerdes, et al.            Expires May 16, 2017                 [Page 29]
+Gerdes, et al.           Expires April 25, 2019                [Page 27]
 
-Internet-Draft                 ace-actors                  November 2016
+Internet-Draft                 ace-actors                   October 2018
 
 
    If RS continuously measures time but can't connect to AS or another
    trusted source of time, time drift may have to be accepted and it may
-   be harder to manage revocation.  However, it may still be able to
+   be harder to manage revocation.  However, RS may still be able to
    handle short lived access rights within some margins, by measuring
    the time since arrival of authorization information or request.
 
-   Some categories of devices in scope may be unable measure time with
-   any accuracy (e.g. because of sleep cycles).  This category of
+   Some categories of devices in scope may be unable to measure time
+   with any accuracy (e.g. because of sleep cycles).  This category of
    devices is not suitable for the use cases which require measuring
-   validity of assertions and authorizations in terms of absolute time.
+   validity of assertions and authorizations in terms of absolute time
+   such as TLS certificates but require a mechanism that is specifically
+   designed for them.
 
 10.  IANA Considerations
 
@@ -1650,71 +1540,54 @@ Internet-Draft                 ace-actors                  November 2016
               International Conference on Sensing, Communication, and
               Networking (SECON'14), June 30 - July 3, 2014.
 
-   [I-D.garcia-core-security]
-              Garcia-Morchon, O., Kumar, S., Keoh, S., Hummen, R., and
-              R. Struik, "Security Considerations in the IP-based
-              Internet of Things", draft-garcia-core-security-06 (work
-              in progress), September 2013.
-
-   [I-D.gerdes-ace-tasks]
-              Gerdes, S., "Authorization-Related Tasks in Constrained
-              Environments", draft-gerdes-ace-tasks-00 (work in
-              progress), September 2015.
-
    [I-D.hardjono-oauth-umacore]
               Hardjono, T., Maler, E., Machulak, M., and D. Catalano,
               "User-Managed Access (UMA) Profile of OAuth 2.0", draft-
               hardjono-oauth-umacore-14 (work in progress), January
               2016.
 
-   [I-D.koster-core-coap-pubsub]
+   [I-D.ietf-core-coap-pubsub]
               Koster, M., Keranen, A., and J. Jimenez, "Publish-
               Subscribe Broker for the Constrained Application Protocol
-              (CoAP)", draft-koster-core-coap-pubsub-05 (work in
-              progress), July 2016.
+              (CoAP)", draft-ietf-core-coap-pubsub-05 (work in
+              progress), July 2018.
 
-
-
-
-
-Gerdes, et al.            Expires May 16, 2017                 [Page 30]
-
-Internet-Draft                 ace-actors                  November 2016
-
-
-   [I-D.selander-ace-object-security]
+   [I-D.ietf-core-object-security]
               Selander, G., Mattsson, J., Palombini, F., and L. Seitz,
-              "Object Security of CoAP (OSCOAP)", draft-selander-ace-
-              object-security-06 (work in progress), October 2016.
+              "Object Security for Constrained RESTful Environments
+              (OSCORE)", draft-ietf-core-object-security-15 (work in
+              progress), August 2018.
 
-   [OSCAR]    Vucinic, M., Tourancheau, B., Rousseau, F., Duda, A.,
-              Damon, L., and R. Guizzetti, "OSCAR: Object Security
-              Architecture for the Internet of Things", CoRR vol.
-              abs/1404.7799, 2014.
+
+
+
+
+
+
+
+Gerdes, et al.           Expires April 25, 2019                [Page 28]
+
+Internet-Draft                 ace-actors                   October 2018
+
+
+   [I-D.irtf-t2trg-iot-seccons]
+              Garcia-Morchon, O., Kumar, S., and M. Sethi, "State-of-
+              the-Art and Challenges for the Internet of Things
+              Security", draft-irtf-t2trg-iot-seccons-15 (work in
+              progress), May 2018.
 
    [REST]     Fielding, R. and R. Taylor, "Principled design of the
               modern Web architecture", ACM Trans. Inter. Tech. Vol.
               2(2), pp. 115-150, DOI 10.1145/514183.514185, May 2002.
 
-   [RFC2904]  Vollbrecht, J., Calhoun, P., Farrell, S., Gommans, L.,
-              Gross, G., de Bruijn, B., de Laat, C., Holdrege, M., and
-              D. Spence, "AAA Authorization Framework", RFC 2904,
-              DOI 10.17487/RFC2904, August 2000, <https://www.rfc-
-              editor.org/info/rfc2904>.
-
    [RFC4120]  Neuman, C., Yu, T., Hartman, S., and K. Raeburn, "The
               Kerberos Network Authentication Service (V5)", RFC 4120,
-              DOI 10.17487/RFC4120, July 2005, <https://www.rfc-
-              editor.org/info/rfc4120>.
+              DOI 10.17487/RFC4120, July 2005,
+              <https://www.rfc-editor.org/info/rfc4120>.
 
    [RFC4949]  Shirey, R., "Internet Security Glossary, Version 2",
               FYI 36, RFC 4949, DOI 10.17487/RFC4949, August 2007,
               <https://www.rfc-editor.org/info/rfc4949>.
-
-   [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
-              (TLS) Protocol Version 1.2", RFC 5246,
-              DOI 10.17487/RFC5246, August 2008, <https://www.rfc-
-              editor.org/info/rfc5246>.
 
    [RFC6347]  Rescorla, E. and N. Modadugu, "Datagram Transport Layer
               Security Version 1.2", RFC 6347, DOI 10.17487/RFC6347,
@@ -1726,17 +1599,8 @@ Internet-Draft                 ace-actors                  November 2016
 
    [RFC7228]  Bormann, C., Ersue, M., and A. Keranen, "Terminology for
               Constrained-Node Networks", RFC 7228,
-              DOI 10.17487/RFC7228, May 2014, <https://www.rfc-
-              editor.org/info/rfc7228>.
-
-
-
-
-
-Gerdes, et al.            Expires May 16, 2017                 [Page 31]
-
-Internet-Draft                 ace-actors                  November 2016
-
+              DOI 10.17487/RFC7228, May 2014,
+              <https://www.rfc-editor.org/info/rfc7228>.
 
    [RFC7230]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
               Protocol (HTTP/1.1): Message Syntax and Routing",
@@ -1745,19 +1609,32 @@ Internet-Draft                 ace-actors                  November 2016
 
    [RFC7231]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
               Protocol (HTTP/1.1): Semantics and Content", RFC 7231,
-              DOI 10.17487/RFC7231, June 2014, <https://www.rfc-
-              editor.org/info/rfc7231>.
+              DOI 10.17487/RFC7231, June 2014,
+              <https://www.rfc-editor.org/info/rfc7231>.
 
    [RFC7252]  Shelby, Z., Hartke, K., and C. Bormann, "The Constrained
               Application Protocol (CoAP)", RFC 7252,
-              DOI 10.17487/RFC7252, June 2014, <https://www.rfc-
-              editor.org/info/rfc7252>.
+              DOI 10.17487/RFC7252, June 2014,
+              <https://www.rfc-editor.org/info/rfc7252>.
+
+
+
+
+
+Gerdes, et al.           Expires April 25, 2019                [Page 29]
+
+Internet-Draft                 ace-actors                   October 2018
+
 
    [RFC7744]  Seitz, L., Ed., Gerdes, S., Ed., Selander, G., Mani, M.,
               and S. Kumar, "Use Cases for Authentication and
               Authorization in Constrained Environments", RFC 7744,
-              DOI 10.17487/RFC7744, January 2016, <https://www.rfc-
-              editor.org/info/rfc7744>.
+              DOI 10.17487/RFC7744, January 2016,
+              <https://www.rfc-editor.org/info/rfc7744>.
+
+   [RFC8246]  McManus, P., "HTTP Immutable Responses", RFC 8246,
+              DOI 10.17487/RFC8246, September 2017,
+              <https://www.rfc-editor.org/info/rfc8246>.
 
 Acknowledgements
 
@@ -1783,33 +1660,26 @@ Authors' Addresses
    Email: gerdes@tzi.org
 
 
-
-
-
-
-
-
-Gerdes, et al.            Expires May 16, 2017                 [Page 32]
-
-Internet-Draft                 ace-actors                  November 2016
-
-
    Ludwig Seitz
-   SICS Swedish ICT AB
+   RISE SICS
    Scheelevaegen 17
    Lund  223 70
    Sweden
 
-   Email: ludwig@sics.se
+   Email: ludwig.seitz@ri.se
 
 
    Goeran Selander
-   Ericsson
-   Faroegatan 6
-   Kista  164 80
-   Sweden
+   Ericsson AB
 
    Email: goran.selander@ericsson.com
+
+
+
+
+Gerdes, et al.           Expires April 25, 2019                [Page 30]
+
+Internet-Draft                 ace-actors                   October 2018
 
 
    Carsten Bormann (editor)
@@ -1845,4 +1715,22 @@ Internet-Draft                 ace-actors                  November 2016
 
 
 
-Gerdes, et al.            Expires May 16, 2017                 [Page 33]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gerdes, et al.           Expires April 25, 2019                [Page 31]

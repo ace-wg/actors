@@ -9,75 +9,30 @@
 
   
 <style type="text/css">/*<![CDATA[*/
-@viewport {
-  zoom: 1.0;
-  width: extend-to-zoom;
-}
-@-ms-viewport {
-  width: extend-to-zoom;
-  zoom: 1.0;
-}
-
-@media screen and (min-width: 1024px) {
-  ul.toc, #rfc\.toc {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    right: calc(50vw - 525px);
-    width: 300px;
-    z-index: 1;
-  }
-  #rfc\.toc {
-    top: 15px;
-  }
-  ul.toc {
-    top: 80px;
-    overflow: auto;
-  }
-
-  body {
-    padding-right: 350px;
-  }
-}
 
 body {
-  font: 15px "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font: 16px "Helvetica Neue","Open Sans",Helvetica,Calibri,sans-serif;
   color: #333;
   font-size-adjust: 0.5;
-  line-height: 130%;
-  margin: 25px auto;
-  max-width: 724px;
+  line-height: 24px;
+  margin: 75px auto;
+  max-width: 624px;
+  padding: 0 5px;
 }
 
-.title, .filename, h1, h2, h3, h4 {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+.title, .filename, h1, h2, h3, h4, h5 {
+  font: 16px "Roboto Condensed","Helvetica Neue","Open Sans",Helvetica,Calibri,sans-serif;
   font-size-adjust: 0.5;
-  font-weight: 500;
+  font-weight: bold;
   color: #333;
   line-height: 100%;
-  margin: 0.8em 0 0.3em;
+  margin: 1.2em 0 0.3em;
 }
-.title { font-size: 36px; }
-h1 { font-size: 30px; }
-h2 { font-size: 24px; }
-h3, h4 { font-size: 18px; }
+.title, #rfc\.title h1 { font-size: 32px; }
+h1, section h1, h2, section h2, section h3, nav h2 { font-size: 20px; }
+h3, section h4, h4, section h5 { font-size: 16px; }
 h1 a[href], h2 a[href], h3 a[href], h4 a[href] {
   color: #333;
-}
-
-ul.toc li {
-  list-style: none;
-  text-indent: -2.5em;
-  padding-left: 2.5em;
-  padding-bottom: 5px;
-  margin: 0;
-}
-ul.toc ul {
-  margin: 0;
-}
-/* xml2rfc nests ul directly inside ul which messes with the style badly */
-ul.toc, ul.toc>ul, ul.toc ul>ul {
-  margin: 0 0 0 1.5em;
 }
 
 table {
@@ -106,29 +61,30 @@ td.reference {
 }
 
 
-table.header {
+table.header, table#rfc\.headerblock {
   width: 100%;
 }
-table.header td {
+table.header td, table#rfc\.headerblock td {
   border: none;
   background-color: transparent;
   color: black;
+  padding: 0;
 }
 .filename {
+  display: block;
   color: rgb(119, 119, 119);
-  font-size: 23px;
-  font-weight: normal;
-  height: auto;
-  line-height: 100%;
-}
-#rfc\.abstract+p {
   font-size: 20px;
-  font-weight: 300;
-  line-height: 130%;
+  font-weight: normal;
+  line-height: 100%;
+  margin: 10px 0 32px;
+}
+#rfc\.abstract+p, #rfc\.abstract p {
+  font-size: 20px;
+  line-height: 28px;
 }
 
 samp, tt, code, pre {
-  font: 11pt consolas, monospace;
+  font: 15px Consolas, monospace;
   font-size-adjust: none;
 }
 pre {
@@ -138,13 +94,15 @@ pre {
   padding: 5px;
   margin: 5px;
 }
-.figure {
+.figure, caption {
   font-style: italic;
   margin: 0 1.5em;
+  text-align: left;
 }
 
 address {
-  margin: 10px 0 0;
+  margin: 16px 2px;
+  line-height: 20px;
 }
 .vcard {
   font-style: normal;
@@ -152,8 +110,8 @@ address {
 .vcardline {
   display: block;
 }
-.vcardline .fn {
-  font-weight: bold;
+.vcardline .fn, address b {
+  font-weight: normal;
 }
 .vcardline .hidden {
   display: none;
@@ -193,6 +151,9 @@ hr {
   border: 0;
   border-top: 1px solid #eee;
 }
+hr.noprint {
+  display: none;
+}
 
 a {
   text-decoration: none;
@@ -204,15 +165,59 @@ a[href]:hover {
   background-color: #eee;
 }
 
-ol, ul, li, p {
+p, ol, ul, li {
   padding: 0;
-  margin: 0.5em 0 0.5em 2em;
 }
-li, p {
-  margin-left: 0;
+p {
+  margin: 0.5em 0;
+}
+ol, ul {
+  margin: 0.2em 0 0.2em 2em;
+}
+li {
+  margin: 0.2em 0;
 }
 address {
   font-style: normal;
+}
+
+ul.toc ul {
+  margin: 0 0 0 2em;
+}
+ul.toc li {
+  list-style: none;
+  margin: 0;
+}
+
+@media screen and (min-width: 924px) {
+  body {
+    padding-right: 350px;
+  }
+  body>ul.toc, body>#rfc\.toc {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    right: calc(50vw - 500px);
+    width: 300px;
+    z-index: 1;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+  body>#rfc\.toc {
+    top: 55px;
+  }
+  body>ul.toc {
+    top: 100px;
+  }
+
+  ul.toc {
+    margin: 0 0 0 4px;
+    font-size: 12px;
+    line-height: 20px;
+  }
+  ul.toc ul {
+    margin-left: 1.2em;
+  }
 }
 
 .github-fork-ribbon-wrapper {
@@ -271,58 +276,55 @@ address {
   .github-fork-ribbon-wrapper {
     position: fixed;
   }
-  /*]]>*/</style>
+/*]]>*/</style>
+<meta name="viewport" content="initial-scale=1.0">
 
 
-  <link href="#rfc.toc" rel="Contents"/>
-<link href="#rfc.section.1" rel="Chapter" title="1 Introduction"/>
-<link href="#rfc.section.1.1" rel="Chapter" title="1.1 Terminology"/>
-<link href="#rfc.section.2" rel="Chapter" title="2 Architecture and High-level Problem Statement"/>
-<link href="#rfc.section.2.1" rel="Chapter" title="2.1 Elements of an Architecture"/>
-<link href="#rfc.section.2.2" rel="Chapter" title="2.2 Architecture Variants"/>
-<link href="#rfc.section.2.3" rel="Chapter" title="2.3 Information Flows"/>
-<link href="#rfc.section.3" rel="Chapter" title="3 Security Objectives"/>
-<link href="#rfc.section.3.1" rel="Chapter" title="3.1 End-to-End Security Objectives in Multi-Hop Scenarios"/>
-<link href="#rfc.section.4" rel="Chapter" title="4 Authentication and Authorization"/>
-<link href="#rfc.section.5" rel="Chapter" title="5 Actors and their Tasks"/>
-<link href="#rfc.section.5.1" rel="Chapter" title="5.1 Constrained Level Actors"/>
-<link href="#rfc.section.5.2" rel="Chapter" title="5.2 Principal Level Actors"/>
-<link href="#rfc.section.5.3" rel="Chapter" title="5.3 Less-Constrained Level Actors"/>
-<link href="#rfc.section.6" rel="Chapter" title="6 Kinds of Protocols"/>
-<link href="#rfc.section.6.1" rel="Chapter" title="6.1 Constrained Level Protocols"/>
-<link href="#rfc.section.6.1.1" rel="Chapter" title="6.1.1 Cross Level Support Protocols"/>
-<link href="#rfc.section.6.2" rel="Chapter" title="6.2 Less-Constrained Level Protocols"/>
-<link href="#rfc.section.7" rel="Chapter" title="7 Elements of a Solution"/>
-<link href="#rfc.section.7.1" rel="Chapter" title="7.1 Authorization"/>
-<link href="#rfc.section.7.2" rel="Chapter" title="7.2 Authentication"/>
-<link href="#rfc.section.7.3" rel="Chapter" title="7.3 Communication Security"/>
-<link href="#rfc.section.7.4" rel="Chapter" title="7.4 Cryptographic Keys"/>
-<link href="#rfc.section.8" rel="Chapter" title="8 Assumptions and Requirements"/>
-<link href="#rfc.section.8.1" rel="Chapter" title="8.1 Architecture"/>
-<link href="#rfc.section.8.2" rel="Chapter" title="8.2 Constrained Devices"/>
-<link href="#rfc.section.8.3" rel="Chapter" title="8.3 Authentication"/>
-<link href="#rfc.section.8.4" rel="Chapter" title="8.4 Server-side Authorization"/>
-<link href="#rfc.section.8.5" rel="Chapter" title="8.5 Client-side Authorization Information"/>
-<link href="#rfc.section.8.6" rel="Chapter" title="8.6 Server-side Authorization Information"/>
-<link href="#rfc.section.8.7" rel="Chapter" title="8.7 Resource Access"/>
-<link href="#rfc.section.8.8" rel="Chapter" title="8.8 Keys and Cipher Suites"/>
-<link href="#rfc.section.8.9" rel="Chapter" title="8.9 Network Considerations"/>
-<link href="#rfc.section.8.10" rel="Chapter" title="8.10 Legacy Considerations"/>
-<link href="#rfc.section.9" rel="Chapter" title="9 Security Considerations"/>
-<link href="#rfc.section.9.1" rel="Chapter" title="9.1 Physical Attacks on Sensor and Actuator Networks"/>
-<link href="#rfc.section.9.2" rel="Chapter" title="9.2 Clocks and Time Measurements"/>
-<link href="#rfc.section.10" rel="Chapter" title="10 IANA Considerations"/>
-<link href="#rfc.references" rel="Chapter" title="11 Informative References"/>
-<link href="#rfc.acknowledgements" rel="Chapter"/>
-<link href="#rfc.authors" rel="Chapter"/>
+  <link href="#rfc.toc" rel="Contents">
+<link href="#rfc.section.1" rel="Chapter" title="1 Introduction">
+<link href="#rfc.section.1.1" rel="Chapter" title="1.1 Terminology">
+<link href="#rfc.section.2" rel="Chapter" title="2 Architecture and High-level Problem Statement">
+<link href="#rfc.section.2.1" rel="Chapter" title="2.1 Elements of an Architecture">
+<link href="#rfc.section.2.2" rel="Chapter" title="2.2 Architecture Variants">
+<link href="#rfc.section.2.3" rel="Chapter" title="2.3 Information Flows">
+<link href="#rfc.section.3" rel="Chapter" title="3 Security Objectives">
+<link href="#rfc.section.3.1" rel="Chapter" title="3.1 End-to-End Security Objectives in Multi-Hop Scenarios">
+<link href="#rfc.section.4" rel="Chapter" title="4 Authentication and Authorization">
+<link href="#rfc.section.5" rel="Chapter" title="5 Actors and their Tasks">
+<link href="#rfc.section.5.1" rel="Chapter" title="5.1 Constrained Level Actors">
+<link href="#rfc.section.5.2" rel="Chapter" title="5.2 Principal Level Actors">
+<link href="#rfc.section.5.3" rel="Chapter" title="5.3 Less-Constrained Level Actors">
+<link href="#rfc.section.6" rel="Chapter" title="6 Kinds of Protocols">
+<link href="#rfc.section.6.1" rel="Chapter" title="6.1 Constrained Level Protocols">
+<link href="#rfc.section.6.1.1" rel="Chapter" title="6.1.1 Cross Level Support Protocols">
+<link href="#rfc.section.6.2" rel="Chapter" title="6.2 Less-Constrained Level Protocols">
+<link href="#rfc.section.7" rel="Chapter" title="7 Elements of a Solution">
+<link href="#rfc.section.7.1" rel="Chapter" title="7.1 Authorization">
+<link href="#rfc.section.7.2" rel="Chapter" title="7.2 Authentication">
+<link href="#rfc.section.7.3" rel="Chapter" title="7.3 Communication Security">
+<link href="#rfc.section.7.4" rel="Chapter" title="7.4 Cryptographic Keys">
+<link href="#rfc.section.8" rel="Chapter" title="8 Assumptions and Requirements">
+<link href="#rfc.section.8.1" rel="Chapter" title="8.1 Constrained Devices">
+<link href="#rfc.section.8.2" rel="Chapter" title="8.2 Server-side Authorization">
+<link href="#rfc.section.8.3" rel="Chapter" title="8.3 Client-side Authorization Information">
+<link href="#rfc.section.8.4" rel="Chapter" title="8.4 Resource Access">
+<link href="#rfc.section.8.5" rel="Chapter" title="8.5 Keys and Cipher Suites">
+<link href="#rfc.section.8.6" rel="Chapter" title="8.6 Network Considerations">
+<link href="#rfc.section.9" rel="Chapter" title="9 Security Considerations">
+<link href="#rfc.section.9.1" rel="Chapter" title="9.1 Physical Attacks on Sensor and Actuator Networks">
+<link href="#rfc.section.9.2" rel="Chapter" title="9.2 Clocks and Time Measurements">
+<link href="#rfc.section.10" rel="Chapter" title="10 IANA Considerations">
+<link href="#rfc.references" rel="Chapter" title="11 Informative References">
+<link href="#rfc.acknowledgements" rel="Chapter">
+<link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.5.1 - http://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.10.0 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Gerdes, S., Seitz, L., Selander, G., and C. Bormann, Ed." />
-  <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-ace-actors-05pre" />
-  <meta name="dct.issued" scheme="ISO8601" content="2016-11-12" />
+  <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-ace-actors-07" />
+  <meta name="dct.issued" scheme="ISO8601" content="2018-10-22" />
   <meta name="dct.abstract" content="Constrained-node networks are networks where some nodes have severe constraints on code size, state memory, processing capabilities, user interface, power and communication bandwidth (RFC 7228)." />
   <meta name="description" content="Constrained-node networks are networks where some nodes have severe constraints on code size, state memory, processing capabilities, user interface, power and communication bandwidth (RFC 7228)." />
 
@@ -334,40 +336,40 @@ address {
     <tbody>
     
     	<tr>
-  <td class="left">ACE Working Group</td>
-  <td class="right">S. Gerdes</td>
+<td class="left">ACE Working Group</td>
+<td class="right">S. Gerdes</td>
 </tr>
 <tr>
-  <td class="left">Internet-Draft</td>
-  <td class="right">Universit&#228;t Bremen TZI</td>
+<td class="left">Internet-Draft</td>
+<td class="right">Universit&#228;t Bremen TZI</td>
 </tr>
 <tr>
-  <td class="left">Intended status: Informational</td>
-  <td class="right">L. Seitz</td>
+<td class="left">Intended status: Informational</td>
+<td class="right">L. Seitz</td>
 </tr>
 <tr>
-  <td class="left">Expires: May 16, 2017</td>
-  <td class="right">SICS Swedish ICT AB</td>
+<td class="left">Expires: April 25, 2019</td>
+<td class="right">RISE SICS</td>
 </tr>
 <tr>
-  <td class="left"></td>
-  <td class="right">G. Selander</td>
+<td class="left"></td>
+<td class="right">G. Selander</td>
 </tr>
 <tr>
-  <td class="left"></td>
-  <td class="right">Ericsson</td>
+<td class="left"></td>
+<td class="right">Ericsson AB</td>
 </tr>
 <tr>
-  <td class="left"></td>
-  <td class="right">C. Bormann, Ed.</td>
+<td class="left"></td>
+<td class="right">C. Bormann, Ed.</td>
 </tr>
 <tr>
-  <td class="left"></td>
-  <td class="right">Universit&#228;t Bremen TZI</td>
+<td class="left"></td>
+<td class="right">Universit&#228;t Bremen TZI</td>
 </tr>
 <tr>
-  <td class="left"></td>
-  <td class="right">November 12, 2016</td>
+<td class="left"></td>
+<td class="right">October 22, 2018</td>
 </tr>
 
     	
@@ -375,136 +377,170 @@ address {
   </table>
 
   <p class="title">An architecture for authorization in constrained environments<br />
-  <span class="filename">draft-ietf-ace-actors-05pre</span></p>
+  <span class="filename">draft-ietf-ace-actors-07</span></p>
   
-  <h1 id="rfc.abstract">
-  <a href="#rfc.abstract">Abstract</a>
-</h1>
+  <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
 <p>Constrained-node networks are networks where some nodes have severe constraints on code size, state memory, processing capabilities, user interface, power and communication bandwidth (RFC 7228).</p>
 <p>This document provides terminology, and identifies the elements that an architecture needs to address, providing a problem statement, for authentication and authorization in these networks.</p>
-<h1 id="rfc.status">
-  <a href="#rfc.status">Status of This Memo</a>
-</h1>
+<h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
-<p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
+<p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on May 16, 2017.</p>
-<h1 id="rfc.copyrightnotice">
-  <a href="#rfc.copyrightnotice">Copyright Notice</a>
-</h1>
-<p>Copyright (c) 2016 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
-<p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
+<p>This Internet-Draft will expire on April 25, 2019.</p>
+<h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
+<p>Copyright (c) 2018 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
+<p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
 
   
   <hr class="noprint" />
   <h1 class="np" id="rfc.toc"><a href="#rfc.toc">Table of Contents</a></h1>
   <ul class="toc">
 
-  	<li>1.   <a href="#rfc.section.1">Introduction</a></li>
-<ul><li>1.1.   <a href="#rfc.section.1.1">Terminology</a></li>
-</ul><li>2.   <a href="#rfc.section.2">Architecture and High-level Problem Statement</a></li>
-<ul><li>2.1.   <a href="#rfc.section.2.1">Elements of an Architecture</a></li>
-<li>2.2.   <a href="#rfc.section.2.2">Architecture Variants</a></li>
-<li>2.3.   <a href="#rfc.section.2.3">Information Flows</a></li>
-</ul><li>3.   <a href="#rfc.section.3">Security Objectives</a></li>
-<ul><li>3.1.   <a href="#rfc.section.3.1">End-to-End Security Objectives in Multi-Hop Scenarios</a></li>
-</ul><li>4.   <a href="#rfc.section.4">Authentication and Authorization</a></li>
-<li>5.   <a href="#rfc.section.5">Actors and their Tasks</a></li>
-<ul><li>5.1.   <a href="#rfc.section.5.1">Constrained Level Actors</a></li>
-<li>5.2.   <a href="#rfc.section.5.2">Principal Level Actors</a></li>
-<li>5.3.   <a href="#rfc.section.5.3">Less-Constrained Level Actors</a></li>
-</ul><li>6.   <a href="#rfc.section.6">Kinds of Protocols</a></li>
-<ul><li>6.1.   <a href="#rfc.section.6.1">Constrained Level Protocols</a></li>
-<ul><li>6.1.1.   <a href="#rfc.section.6.1.1">Cross Level Support Protocols</a></li>
-</ul><li>6.2.   <a href="#rfc.section.6.2">Less-Constrained Level Protocols</a></li>
-</ul><li>7.   <a href="#rfc.section.7">Elements of a Solution</a></li>
-<ul><li>7.1.   <a href="#rfc.section.7.1">Authorization</a></li>
-<li>7.2.   <a href="#rfc.section.7.2">Authentication</a></li>
-<li>7.3.   <a href="#rfc.section.7.3">Communication Security</a></li>
-<li>7.4.   <a href="#rfc.section.7.4">Cryptographic Keys</a></li>
-</ul><li>8.   <a href="#rfc.section.8">Assumptions and Requirements</a></li>
-<ul><li>8.1.   <a href="#rfc.section.8.1">Architecture</a></li>
-<li>8.2.   <a href="#rfc.section.8.2">Constrained Devices</a></li>
-<li>8.3.   <a href="#rfc.section.8.3">Authentication</a></li>
-<li>8.4.   <a href="#rfc.section.8.4">Server-side Authorization</a></li>
-<li>8.5.   <a href="#rfc.section.8.5">Client-side Authorization Information</a></li>
-<li>8.6.   <a href="#rfc.section.8.6">Server-side Authorization Information</a></li>
-<li>8.7.   <a href="#rfc.section.8.7">Resource Access</a></li>
-<li>8.8.   <a href="#rfc.section.8.8">Keys and Cipher Suites</a></li>
-<li>8.9.   <a href="#rfc.section.8.9">Network Considerations</a></li>
-<li>8.10.   <a href="#rfc.section.8.10">Legacy Considerations</a></li>
-</ul><li>9.   <a href="#rfc.section.9">Security Considerations</a></li>
-<ul><li>9.1.   <a href="#rfc.section.9.1">Physical Attacks on Sensor and Actuator Networks</a></li>
-<li>9.2.   <a href="#rfc.section.9.2">Clocks and Time Measurements</a></li>
-</ul><li>10.   <a href="#rfc.section.10">IANA Considerations</a></li>
-<li>11.   <a href="#rfc.references">Informative References</a></li>
-<li><a href="#rfc.acknowledgements">Acknowledgements</a></li>
-<li><a href="#rfc.authors">Authors' Addresses</a></li>
+  	<li>1.   <a href="#rfc.section.1">Introduction</a>
+</li>
+<ul><li>1.1.   <a href="#rfc.section.1.1">Terminology</a>
+</li>
+</ul><li>2.   <a href="#rfc.section.2">Architecture and High-level Problem Statement</a>
+</li>
+<ul><li>2.1.   <a href="#rfc.section.2.1">Elements of an Architecture</a>
+</li>
+<li>2.2.   <a href="#rfc.section.2.2">Architecture Variants</a>
+</li>
+<li>2.3.   <a href="#rfc.section.2.3">Information Flows</a>
+</li>
+</ul><li>3.   <a href="#rfc.section.3">Security Objectives</a>
+</li>
+<ul><li>3.1.   <a href="#rfc.section.3.1">End-to-End Security Objectives in Multi-Hop Scenarios</a>
+</li>
+</ul><li>4.   <a href="#rfc.section.4">Authentication and Authorization</a>
+</li>
+<li>5.   <a href="#rfc.section.5">Actors and their Tasks</a>
+</li>
+<ul><li>5.1.   <a href="#rfc.section.5.1">Constrained Level Actors</a>
+</li>
+<li>5.2.   <a href="#rfc.section.5.2">Principal Level Actors</a>
+</li>
+<li>5.3.   <a href="#rfc.section.5.3">Less-Constrained Level Actors</a>
+</li>
+</ul><li>6.   <a href="#rfc.section.6">Kinds of Protocols</a>
+</li>
+<ul><li>6.1.   <a href="#rfc.section.6.1">Constrained Level Protocols</a>
+</li>
+<ul><li>6.1.1.   <a href="#rfc.section.6.1.1">Cross Level Support Protocols</a>
+</li>
+</ul><li>6.2.   <a href="#rfc.section.6.2">Less-Constrained Level Protocols</a>
+</li>
+</ul><li>7.   <a href="#rfc.section.7">Elements of a Solution</a>
+</li>
+<ul><li>7.1.   <a href="#rfc.section.7.1">Authorization</a>
+</li>
+<li>7.2.   <a href="#rfc.section.7.2">Authentication</a>
+</li>
+<li>7.3.   <a href="#rfc.section.7.3">Communication Security</a>
+</li>
+<li>7.4.   <a href="#rfc.section.7.4">Cryptographic Keys</a>
+</li>
+</ul><li>8.   <a href="#rfc.section.8">Assumptions and Requirements</a>
+</li>
+<ul><li>8.1.   <a href="#rfc.section.8.1">Constrained Devices</a>
+</li>
+<li>8.2.   <a href="#rfc.section.8.2">Server-side Authorization</a>
+</li>
+<li>8.3.   <a href="#rfc.section.8.3">Client-side Authorization Information</a>
+</li>
+<li>8.4.   <a href="#rfc.section.8.4">Resource Access</a>
+</li>
+<li>8.5.   <a href="#rfc.section.8.5">Keys and Cipher Suites</a>
+</li>
+<li>8.6.   <a href="#rfc.section.8.6">Network Considerations</a>
+</li>
+</ul><li>9.   <a href="#rfc.section.9">Security Considerations</a>
+</li>
+<ul><li>9.1.   <a href="#rfc.section.9.1">Physical Attacks on Sensor and Actuator Networks</a>
+</li>
+<li>9.2.   <a href="#rfc.section.9.2">Clocks and Time Measurements</a>
+</li>
+</ul><li>10.   <a href="#rfc.section.10">IANA Considerations</a>
+</li>
+<li>11.   <a href="#rfc.references">Informative References</a>
+</li>
+<li><a href="#rfc.acknowledgements">Acknowledgements</a>
+</li>
+<li><a href="#rfc.authors">Authors' Addresses</a>
+</li>
 
 
   </ul>
 
-  <h1 id="rfc.section.1"><a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a></h1>
-<p id="rfc.section.1.p.1">As described in <a href="#RFC7228">[RFC7228]</a>, constrained nodes are small devices with limited abilities which in many cases are made to fulfill a specific simple task. They may have limited hardware resources such as processing power, memory, non-volatile storage and transmission capacity and additionally in most cases do not have user interfaces and displays. Due to these constraints, commonly used security protocols are not always easily applicable, or may give rise to particular deployment/management challenges.</p>
+  <h1 id="rfc.section.1">
+<a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a>
+</h1>
+<p id="rfc.section.1.p.1">As described in <a href="#RFC7228" class="xref">[RFC7228]</a>, constrained nodes are small devices with limited abilities which in many cases are made to fulfill a specific simple task. They may have limited hardware resources such as processing power, memory, non-volatile storage and transmission capacity and additionally in most cases do not have user interfaces and displays. Due to these constraints, commonly used security protocols are not always easily applicable, or may give rise to particular deployment/management challenges.</p>
 <p id="rfc.section.1.p.2">As components of the Internet of Things (IoT), constrained nodes are expected to be integrated in all aspects of everyday life and thus will be entrusted with vast amounts of data. Without appropriate security mechanisms attackers might gain control over things relevant to our lives. Authentication and authorization mechanisms are therefore prerequisites for a secure Internet of Things.</p>
-<p id="rfc.section.1.p.3">Applications generally require some degree of authentication and authorization, which gives rise to some complexity.  Authorization is about who can do what to which objects (see also <a href="#RFC4949">[RFC4949]</a>).  Authentication specifically addresses the who, but is often specific to the authorization that is required (for example, it may be sufficient to authenticate the age of an actor, so no identifier is needed or even desired).  Authentication often involves credentials, only some of which need to be long-lived and generic; others may be directed towards specific authorizations (but still possibly long-lived).  Authorization then makes use of these credentials, as well as other information (such as the time of day).  This means that the complexity of authenticated authorization can often be moved back and forth between these two aspects.</p>
+<p id="rfc.section.1.p.3">Applications generally require some degree of authentication and authorization, which gives rise to some complexity.  Authorization is about who can do what to which objects (see also <a href="#RFC4949" class="xref">[RFC4949]</a>).  Authentication specifically addresses the who, but is often specific to the authorization that is required (for example, it may be sufficient to authenticate the age of an actor, so no identifier is needed or even desired).  Authentication often involves credentials, only some of which need to be long-lived and generic; others may be directed towards specific authorizations (but still possibly long-lived).  Authorization then makes use of these credentials, as well as other information (such as the time of day).  This means that the complexity of authenticated authorization can often be moved back and forth between these two aspects.</p>
 <p id="rfc.section.1.p.4">In some cases authentication and authorization can be addressed by static configuration provisioned during manufacturing or deployment by means of fixed trust anchors and static access control lists.  This is particularly applicable to siloed, fixed-purpose deployments.</p>
-<p id="rfc.section.1.p.5">However, as the need for flexible access to assets already deployed increases, the legitimate set of authorized entities as well as their specific privileges cannot be conclusively defined during deployment, without any need for change during the lifetime of the device. Moreover, several use cases illustrate the need for fine-grained access control policies, for which for instance a basic access control list concept may not be sufficiently powerful <a href="#RFC7744">[RFC7744]</a>.</p>
+<p id="rfc.section.1.p.5">However, as the need for flexible access to assets already deployed increases, the legitimate set of authorized entities as well as their specific privileges cannot be conclusively defined during deployment, without any need for change during the lifetime of the device. Moreover, several use cases illustrate the need for fine-grained access control policies, for which for instance a basic access control list concept may not be sufficiently powerful <a href="#RFC7744" class="xref">[RFC7744]</a>.</p>
 <p id="rfc.section.1.p.6">The limitations of the constrained nodes impose a need for security mechanisms which take the special characteristics of constrained environments into account; not all constituents may be able to perform all necessary tasks by themselves.  To put it the other way round: the security mechanisms that protect constrained nodes must remain effective and manageable despite the limitations imposed by the constrained environment.</p>
 <p id="rfc.section.1.p.7">Therefore, in order to be able to achieve complex security objectives between actors some of which are hosted on simple (&#8220;constrained&#8221;) devices, some of the actors will make use of help from other, less constrained actors.  (This offloading is not specific to networks with constrained nodes, but their constrainedness as the main motivation is.)</p>
 <p id="rfc.section.1.p.8">We therefore group the logical functional entities by whether they can be assigned to a constrained device (&#8220;constrained level&#8221;) or need higher function platforms (&#8220;less-constrained level&#8221;); the latter does not necessarily mean high-function, &#8220;server&#8221; or &#8220;cloud&#8221; platforms.  Note that assigning a logical functional entity to the constrained level does not mean that the specific implementation needs to be constrained, only that it <em>can</em> be.</p>
 <p id="rfc.section.1.p.9">The description assumes that some form of setup (aspects of which are often called provisioning and/or commissioning) has already been performed and at least some initial security relationships important for making the system operational have already been established.</p>
 <p id="rfc.section.1.p.10">This document provides some terminology, and identifies the elements an architecture needs to address, representing the relationships between the logical functional entities involved; on this basis, a problem description for authentication and authorization in constrained-node networks is provided.</p>
-<h1 id="rfc.section.1.1"><a href="#rfc.section.1.1">1.1.</a> <a href="#terminology" id="terminology">Terminology</a></h1>
-<p id="rfc.section.1.1.p.1">Readers are assumed to be familiar with the terms and concepts defined in <a href="#RFC4949">[RFC4949]</a>, including &#8220;authentication&#8221;, &#8220;authorization&#8221;, &#8220;confidentiality&#8221;, &#8220;(data) integrity&#8221;, &#8220;message authentication code&#8221;, and &#8220;verify&#8221;.</p>
-<p id="rfc.section.1.1.p.2">REST terms including &#8220;resource&#8221;, &#8220;representation&#8221;, etc. are to be understood as used in HTTP <a href="#RFC7231">[RFC7231]</a> and CoAP <a href="#RFC7252">[RFC7252]</a>; the latter also defines additional terms such as &#8220;endpoint&#8221;.</p>
-<p id="rfc.section.1.1.p.3">Terminology for constrained environments including &#8220;constrained device&#8221;, &#8220;constrained-node network&#8221;, &#8220;class 1&#8221;, etc. is defined in <a href="#RFC7228">[RFC7228]</a>.</p>
+<h1 id="rfc.section.1.1">
+<a href="#rfc.section.1.1">1.1.</a> <a href="#terminology" id="terminology">Terminology</a>
+</h1>
+<p id="rfc.section.1.1.p.1">Readers are assumed to be familiar with the terms and concepts defined in <a href="#RFC4949" class="xref">[RFC4949]</a>, including &#8220;authentication&#8221;, &#8220;authorization&#8221;, &#8220;confidentiality&#8221;, &#8220;(data) integrity&#8221;, &#8220;message authentication code&#8221;, and &#8220;verify&#8221;.</p>
+<p id="rfc.section.1.1.p.2">REST terms including &#8220;resource&#8221;, &#8220;representation&#8221;, etc. are to be understood as used in HTTP <a href="#RFC7231" class="xref">[RFC7231]</a> and CoAP <a href="#RFC7252" class="xref">[RFC7252]</a>; the latter also defines additional terms such as &#8220;endpoint&#8221;.</p>
+<p id="rfc.section.1.1.p.3">Terminology for constrained environments including &#8220;constrained device&#8221;, &#8220;constrained-node network&#8221;, &#8220;class 1&#8221;, etc. is defined in <a href="#RFC7228" class="xref">[RFC7228]</a>.</p>
 <p id="rfc.section.1.1.p.4">In addition, this document uses the following terminology:</p>
-<p/>
+<p></p>
 
 <dl>
-  <dt>Resource (R):</dt>
-  <dd style="margin-left: 8">an item of interest which is represented through an interface.  It might contain sensor or actuator values or other information.  (Intended to coincide with the definitions of <a href="#RFC7252">[RFC7252]</a> and <a href="#RFC7231">[RFC7231]</a>.)</dd>
-  <dt>Constrained node:</dt>
-  <dd style="margin-left: 8">a constrained device in the sense of <a href="#RFC7228">[RFC7228]</a>.</dd>
-  <dt>Actor:</dt>
-  <dd style="margin-left: 8">A logical functional entity that performs one or more tasks. Multiple actors may be present within a single device or a single piece of software.</dd>
-  <dt>Resource Server (RS):</dt>
-  <dd style="margin-left: 8">An entity which hosts and represents a Resource.  (Used here to discuss the server that provides a resource that is the end, not the means, of the authenticated authorization process &#8211; i.e., not CAS or AS.)</dd>
-  <dt>Client (C):</dt>
-  <dd style="margin-left: 8">An entity which attempts to access a resource on a RS.  (Used to discuss the client whose access to a resource is the end, not the means, of the authenticated authorization process.)</dd>
-  <dt>Principal:</dt>
-  <dd style="margin-left: 8">(Used in its English sense here, and specifically as:) An individual that is either RqP or RO or both.</dd>
-  <dt>Resource Owner (RO):</dt>
-  <dd style="margin-left: 8">The principal that is in charge of the resource and controls its access permissions.</dd>
-  <dt>Requesting Party (RqP):</dt>
-  <dd style="margin-left: 8">The principal that is in charge of the Client and controls the requests a Client makes and its acceptance of responses.</dd>
-  <dt>Authorization Server (AS):</dt>
-  <dd style="margin-left: 8">An entity that prepares and endorses authentication and authorization data for a Resource Server.</dd>
-  <dt>Client Authorization Server (CAS):</dt>
-  <dd style="margin-left: 8">An entity that prepares and endorses authentication and authorization data for a Client.</dd>
-  <dt>Authorization Manager:</dt>
-  <dd style="margin-left: 8">An entity that prepares and endorses authentication and authorization data for a constrained node.  Used in constructions such as &#8220;a constrained node&#8217;s authorization manager&#8221; to denote AS for RS and CAS for C.</dd>
-  <dt>Authenticated Authorization:</dt>
-  <dd style="margin-left: 8">The confluence of mechanisms for authentication and authorization, ensuring that authorization is applied to and made available for authenticated entities and that entities providing authentication services are authorized to do so for the specific authorization process at hand.</dd>
+<dt>Resource (R):</dt>
+<dd style="margin-left: 8">an item of interest which is represented through an interface.  It might contain sensor or actuator values or other information.  (Intended to coincide with the definitions of <a href="#RFC7252" class="xref">[RFC7252]</a> and <a href="#RFC7231" class="xref">[RFC7231]</a>.)</dd>
+<dt>Constrained node:</dt>
+<dd style="margin-left: 8">a constrained device in the sense of <a href="#RFC7228" class="xref">[RFC7228]</a>.</dd>
+<dt>Actor:</dt>
+<dd style="margin-left: 8">A logical functional entity that performs one or more tasks. Multiple actors may be present within a single device or a single piece of software.</dd>
+<dt>Resource Server (RS):</dt>
+<dd style="margin-left: 8">An entity which hosts and represents a Resource.  (Used here to discuss the server that provides a resource that is the end, not the means, of the authenticated authorization process &#8211; i.e., not CAS or AS.)</dd>
+<dt>Client (C):</dt>
+<dd style="margin-left: 8">An entity which attempts to access a resource on a RS.  (Used to discuss the client whose access to a resource is the end, not the means, of the authenticated authorization process.)</dd>
+<dt>Overseeing principal:</dt>
+<dd style="margin-left: 8">(Used in its English sense here, and specifically as:) An individual that is either RqP or RO or both.</dd>
+<dt>Resource Owner (RO):</dt>
+<dd style="margin-left: 8">The overseeing principal that is in charge of the resource and controls its access permissions.</dd>
+<dt>Requesting Party (RqP):</dt>
+<dd style="margin-left: 8">The overseeing principal that is in charge of the Client and controls the requests a Client makes and its acceptance of responses.</dd>
+<dt>Authorization Server (AS):</dt>
+<dd style="margin-left: 8">An entity that prepares and endorses authentication and authorization data for a Resource Server.</dd>
+<dt>Client Authorization Server (CAS):</dt>
+<dd style="margin-left: 8">An entity that prepares and endorses authentication and authorization data for a Client.</dd>
+<dt>Authorization Manager:</dt>
+<dd style="margin-left: 8">An entity that prepares and endorses authentication and authorization data for a constrained node.  Used in constructions such as &#8220;a constrained node&#8217;s authorization manager&#8221; to denote AS for RS and CAS for C.</dd>
+<dt>Authenticated Authorization:</dt>
+<dd style="margin-left: 8">The confluence of mechanisms for authentication and authorization, ensuring that authorization is applied to and made available for authenticated entities and that entities providing authentication services are authorized to do so for the specific authorization process at hand.</dd>
 </dl>
-<p id="rfc.section.1.1.p.6">Note that other authorization architectures such as OAuth <a href="#RFC6749">[RFC6749]</a> or UMA <a href="#I-D.hardjono-oauth-umacore">[I-D.hardjono-oauth-umacore]</a> focus on the authorization problems on the RS side, in particular what accesses to resources the RS is to allow.  In this document the term authorization includes this aspect, but is also used for the client-side aspect of authorization, i.e., more generally allowing RqPs to decide what interactions clients may perform with other endpoints.</p>
-<h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#ps" id="ps">Architecture and High-level Problem Statement</a></h1>
+<p id="rfc.section.1.1.p.6">Note that other authorization architectures such as OAuth <a href="#RFC6749" class="xref">[RFC6749]</a> or UMA <a href="#I-D.hardjono-oauth-umacore" class="xref">[I-D.hardjono-oauth-umacore]</a> focus on the authorization problems on the RS side, in particular what accesses to resources the RS is to allow.  In this document the term authorization includes this aspect, but is also used for the client-side aspect of authorization, i.e., more generally allowing RqPs to decide what interactions clients may perform with other endpoints.</p>
+<h1 id="rfc.section.2">
+<a href="#rfc.section.2">2.</a> <a href="#ps" id="ps">Architecture and High-level Problem Statement</a>
+</h1>
 <p id="rfc.section.2.p.1">This document deals with how to control and protect resource-based interaction between potentially constrained endpoints. The following setting is assumed as a high-level problem statement:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>An endpoint may host functionality of one or more actors.</li>
-  <li>C in one endpoint requests to access R on a RS in another endpoint.</li>
-  <li>A priori, the endpoints do not necessarily have a pre-existing security relationship to each other.</li>
-  <li>Either of the endpoints, or both, may be constrained.</li>
+<li>An endpoint may host functionality of one or more actors.</li>
+<li>C in one endpoint requests to access R on a RS in another endpoint.</li>
+<li>A priori, the endpoints do not necessarily have a pre-existing security relationship to each other.</li>
+<li>Either of the endpoints, or both, may be constrained.</li>
 </ul>
-<h1 id="rfc.section.2.1"><a href="#rfc.section.2.1">2.1.</a> <a href="#elements-of-an-architecture" id="elements-of-an-architecture">Elements of an Architecture</a></h1>
+<h1 id="rfc.section.2.1">
+<a href="#rfc.section.2.1">2.1.</a> <a href="#elements-of-an-architecture" id="elements-of-an-architecture">Elements of an Architecture</a>
+</h1>
 <p id="rfc.section.2.1.p.1">In its simplest expression, the architecture starts with a two-layer model: the principal level (at which components are assumed to be functionally unconstrained) and the constrained level (at which some functional constraints are assumed to apply to the components).</p>
 <p id="rfc.section.2.1.p.2">Without loss of generality, we focus on the C functionality in one endpoint, which we therefore also call C, accessing the RS functionality in another endpoint, which we therefore also call RS.</p>
-<p id="rfc.section.2.1.p.3">The constrained level and its security objectives are detailed in <a href="#cla">Section 5.1</a>.</p>
-<div id="rfc.figure.1"/>
-<div id="figbasic"/>
+<p id="rfc.section.2.1.p.3">The constrained level and its security objectives are detailed in <a href="#cla" class="xref">Section 5.1</a>.</p>
+<div id="rfc.figure.1"></div>
+<div id="figbasic"></div>
 <pre>
         --------------                          --------------
         |  -------   |                          |  -------   |
@@ -514,18 +550,18 @@ address {
         --------------                          --------------
 </pre>
 <p class="figure">Figure 1: Constrained Level</p>
-<p id="rfc.section.2.1.p.4">The authorization decisions at the endpoints are made on behalf of the principals that control the endpoints.  To reuse OAuth and UMA terminology, the present document calls the principal that is controlling C the Requesting Party (RqP), and calls the principal that is controlling RS the Resource Owner (RO).  Each principal makes authorization decisions (possibly encapsulating them into security policies) which are then enforced by the endpoint it controls.</p>
+<p id="rfc.section.2.1.p.4">The authorization decisions at the endpoints are made on behalf of the overseeing principals that control the endpoints.  To reuse OAuth and UMA terminology, the present document calls the overseeing principal that is controlling C the Requesting Party (RqP), and calls the overseeing principal that is controlling RS the Resource Owner (RO).  Each overseeing principal makes authorization decisions (possibly encapsulating them into security policies) which are then enforced by the endpoint it controls.</p>
 <p id="rfc.section.2.1.p.5">The specific security objectives will vary, but for any specific version of this scenario will include one or more of:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>Objectives of type 1: No entity not authorized by the RO has access to (or otherwise gains knowledge of) R.</li>
-  <li>Objectives of type 2: C is exchanging information with (sending a request to, accepting a response from) a resource only where it can ascertain that RqP has authorized the exchange with R.</li>
+<li>Objectives of type 1: No entity not authorized by the RO has access to (or otherwise gains knowledge of) R.</li>
+<li>Objectives of type 2: C is exchanging information with (sending a request to, accepting a response from) a resource only where it can ascertain that RqP has authorized the exchange with R.</li>
 </ul>
 <p id="rfc.section.2.1.p.7">Objectives of type 1 require performing authorization on the Resource Server side while objectives of type 2 require performing authorization on the Client side.</p>
-<p id="rfc.section.2.1.p.8">More on the security objectives of the principal level in <a href="#pl">Section 5.2</a>.</p>
-<div id="rfc.figure.2"/>
-<div id="figclandpl"/>
+<p id="rfc.section.2.1.p.8">More on the security objectives of the principal level in <a href="#pl" class="xref">Section 5.2</a>.</p>
+<div id="rfc.figure.2"></div>
+<div id="figclandpl"></div>
 <pre>
   -------                           -------
   | RqP |                           |  RO | Principal Level
@@ -539,11 +575,11 @@ in charge of                      in charge of
   -------  &lt;-- provides resource--  -------
 </pre>
 <p class="figure">Figure 2: Constrained Level and Principal Level</p>
-<p id="rfc.section.2.1.p.9">The use cases defined in <a href="#RFC7744">[RFC7744]</a> demonstrate that constrained devices are often used for scenarios where their principals are not present at the time of the communication, are not able to communicate directly with the device because of a lack of user interfaces or displays, or may prefer the device to communicate autonomously.</p>
-<p id="rfc.section.2.1.p.10">Moreover, constrained endpoints may need support with tasks requiring heavy processing, large memory or storage, or interfacing to humans, such as management of security policies defined by a principal. The principal, in turn, requires some agent maintaining the policies governing how its endpoints will interact.</p>
-<p id="rfc.section.2.1.p.11">For these reasons, another level of nodes is introduced in the architecture, the less-constrained level (illustrated below in <a href="#figalllevels">Figure 3</a>).  Using OAuth terminology, AS acts on behalf of the RO to control and support the RS in handling access requests, employing a pre-existing security relationship with RS.  We complement this with CAS acting on behalf of RqP to control and support the C in making resource requests and acting on the responses received, employing a pre-existing security relationship with C.  To further relieve the constrained level, authorization (and related authentication) mechanisms may be employed between CAS and AS (<a href="#lclp">Section 6.2</a>).  (Again, both CAS and AS are conceptual entities controlled by their respective principals.  Many of these entities, often acting for different principals, can be combined into a single server implementation; this of course requires proper segregation of the control information provided by each principal.)</p>
-<div id="rfc.figure.3"/>
-<div id="figalllevels"/>
+<p id="rfc.section.2.1.p.9">The use cases defined in <a href="#RFC7744" class="xref">[RFC7744]</a> demonstrate that constrained devices are often used for scenarios where their overseeing principals are not present at the time of the communication, are not able to communicate directly with the device because of a lack of user interfaces or displays, or may prefer the device to communicate autonomously.</p>
+<p id="rfc.section.2.1.p.10">Moreover, constrained endpoints may need support with tasks requiring heavy processing, large memory or storage, or interfacing to humans, such as management of security policies defined by an overseeing principal. The principal, in turn, requires some agent maintaining the policies governing how its endpoints will interact.</p>
+<p id="rfc.section.2.1.p.11">For these reasons, another level of nodes is introduced in the architecture, the less-constrained level (illustrated below in <a href="#figalllevels" class="xref">Figure 3</a>).  Using OAuth terminology, AS acts on behalf of the RO to control and support the RS in handling access requests, employing a pre-existing security relationship with RS.  We complement this with CAS acting on behalf of RqP to control and support the C in making resource requests and acting on the responses received, employing a pre-existing security relationship with C.  To further relieve the constrained level, authorization (and related authentication) mechanisms may be employed between CAS and AS (<a href="#lclp" class="xref">Section 6.2</a>).  (Again, both CAS and AS are conceptual entities controlled by their respective overseeing principals.  Many of these entities, often acting for different overseeing principals, can be combined into a single server implementation; this of course requires proper segregation of the control information provided by each overseeing principal.)</p>
+<div id="rfc.figure.3"></div>
+<div id="figalllevels"></div>
 <pre>
  -------                           -------
  | RqP |                           |  RO | Principal Level
@@ -566,11 +602,13 @@ and authorization            and authorization
  -------  &lt;-- provides resource--  -------
 </pre>
 <p class="figure">Figure 3: Overall architecture</p>
-<p><a href="#figalllevels">Figure 3</a> shows all three levels considered in this document.  Note that the vertical arrows point down to illustrate exerting control and providing support; this is complemented by information flows that often are bidirectional.  Note also that not all entities need to be ready to communicate at any point in time; for instance, RqP may have provided enough information to CAS that CAS can autonomously negotiate access to RS with AS for C based on this information.</p>
-<h1 id="rfc.section.2.2"><a href="#rfc.section.2.2">2.2.</a> <a href="#architecture-variants" id="architecture-variants">Architecture Variants</a></h1>
+<p><a href="#figalllevels" class="xref">Figure 3</a> shows all three levels considered in this document.  Note that the vertical arrows point down to illustrate exerting control and providing support; this is complemented by information flows that often are bidirectional.  Note also that not all entities need to be ready to communicate at any point in time; for instance, RqP may have provided enough information to CAS that CAS can autonomously negotiate access to RS with AS for C based on this information.</p>
+<h1 id="rfc.section.2.2">
+<a href="#rfc.section.2.2">2.2.</a> <a href="#architecture-variants" id="architecture-variants">Architecture Variants</a>
+</h1>
 <p id="rfc.section.2.2.p.1">The elements of the architecture described above are indeed architectural; that is, they are parts of a conceptual model, and may be instantiated in various ways in practice.  For example, in a given scenario, several elements might share a single device or even be combined in a single piece of software. If C is located on a more powerful device, it can be combined with CAS:</p>
-<div id="rfc.figure.4"/>
-<div id="figcombined-c-cas"/>
+<div id="rfc.figure.4"></div>
+<div id="figcombined-c-cas"></div>
 <pre>
    -------                          --------
    | RqP |                          |  RO  |   Principal Level
@@ -597,8 +635,8 @@ in charge of                       in charge of
 </pre>
 <p class="figure">Figure 4: Combined C and CAS</p>
 <p id="rfc.section.2.2.p.2">If RS is located on a more powerful device, it can be combined with AS:</p>
-<div id="rfc.figure.5"/>
-<div id="figcombined-rs-as"/>
+<div id="rfc.figure.5"></div>
+<div id="figcombined-rs-as"></div>
 <pre>
    -------                            -------
    | RqP |                            |  RO |   Principal Level
@@ -622,9 +660,9 @@ support              ___/ request resource / provides resource
 
 </pre>
 <p class="figure">Figure 5: Combined AS and RS</p>
-<p id="rfc.section.2.2.p.3">If C and RS have the same principal, CAS and AS can be combined.</p>
-<div id="rfc.figure.6"/>
-<div id="figcombined-cas-as"/>
+<p id="rfc.section.2.2.p.3">If C and RS have the same overseeing principal, CAS and AS can be combined.</p>
+<div id="rfc.figure.6"></div>
+<div id="figcombined-cas-as"></div>
 <pre>
                 ------------
                 | RqP = RO |   Principal Level
@@ -649,13 +687,15 @@ support                      support
 
 </pre>
 <p class="figure">Figure 6: CAS combined with AS</p>
-<h1 id="rfc.section.2.3"><a href="#rfc.section.2.3">2.3.</a> <a href="#iflo" id="iflo">Information Flows</a></h1>
-<p id="rfc.section.2.3.p.1">We now formulate the problem statement in terms of the information flows the architecture focuses on.  (While the previous section discusses the architecture in terms of abstract devices and their varying roles, the actual protocols being standardized define those information flows and the messages embodying them: &#8220;RESTful architectures focus on defining interfaces and not components&#8221; (<a href="#REST">[REST]</a>, p. 116).)</p>
-<p id="rfc.section.2.3.p.2">The interaction with the nodes on the principal level, RO and RqP, is not involving constrained nodes and therefore can employ an existing mechanism.  The less-constrained nodes, CAS and AS, support the constrained nodes, C and RS, with control information, for example permissions of clients, conditions on resources, attributes of client and resource servers, keys and credentials.  This control information may be rather different for C and RS, reflecting the intrinsic asymmetry with C initiating the request for access to a resource, and RS acting on a received request, and C finally acting on the received response.</p>
-<p id="rfc.section.2.3.p.3">The potential information flows are shown in <a href="#figflows">Figure 7</a>. The direction of the vertical arrows expresses the exertion of control; actual information flow is bidirectional.</p>
-<p id="rfc.section.2.3.p.4">The message flow may pass unprotected paths and thus need to be protected, potentially beyond a single REST hop (<a href="#e2e">Section 3.1</a>):</p>
-<div id="rfc.figure.7"/>
-<div id="figflows"/>
+<h1 id="rfc.section.2.3">
+<a href="#rfc.section.2.3">2.3.</a> <a href="#iflo" id="iflo">Information Flows</a>
+</h1>
+<p id="rfc.section.2.3.p.1">We now formulate the problem statement in terms of the information flows the architecture focuses on.  (While the previous section discusses the architecture in terms of abstract devices and their varying roles, the actual protocols being standardized define those information flows and the messages embodying them: &#8220;RESTful architectures focus on defining interfaces and not components&#8221; (<a href="#REST" class="xref">[REST]</a>, p. 116).)</p>
+<p id="rfc.section.2.3.p.2">The interaction with the nodes on the principal level, RO and RqP, is not involving constrained nodes and therefore can employ an existing mechanism.  The less-constrained nodes, CAS and AS, support the constrained nodes, C and RS, with control information, for example permissions of clients, conditions on resources, attributes of client and resource servers, keys and credentials.  This control information may be rather different for C and RS.</p>
+<p id="rfc.section.2.3.p.3">The potential information flows are shown in <a href="#figflows" class="xref">Figure 7</a>. The direction of the vertical arrows expresses the exertion of control; actual information flow is bidirectional.</p>
+<p id="rfc.section.2.3.p.4">The message flow may pass unprotected paths and thus need to be protected, potentially beyond a single REST hop (<a href="#e2e" class="xref">Section 3.1</a>):</p>
+<div id="rfc.figure.7"></div>
+<div id="figflows"></div>
 <pre>
   -------                                     -------
   | CAS |                                     | AS  |
@@ -670,104 +710,110 @@ support                      support
 
 </pre>
 <p class="figure">Figure 7: Information flows that need to be protected</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>We assume that the necessary keys/credentials for protecting the control information between the potentially constrained nodes and their associated less-constrained nodes are pre-established, for example as part of the commissioning procedure.</li>
-  <li>Any necessary keys/credentials for protecting the interaction between the potentially constrained nodes will need to be established and maintained as part of a solution.</li>
+<li>We assume that the necessary keys/credentials for protecting the control information between the potentially constrained nodes and their associated less-constrained nodes are pre-established, for example as part of the commissioning procedure.</li>
+<li>Any necessary keys/credentials for protecting the interaction between the potentially constrained nodes will need to be established and maintained as part of a solution.</li>
 </ul>
 <p id="rfc.section.2.3.p.6">In terms of the elements of the architecture laid out above, this document&#8217;s problem statement for authorization in constrained environments can then be summarized as follows:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>The interaction between potentially constrained endpoints is controlled by control information provided by less-constrained nodes on behalf of the principals of the endpoints.</li>
-  <li>The interaction between the endpoints needs to be secured, as well as the establishment of the necessary keys for securing the interaction, potentially end-to-end through intermediary nodes.</li>
-  <li>The mechanism for transferring control information needs to be secured, potentially end-to-end through intermediary nodes.  Pre-established keying material may need to be employed for establishing the keys used to protect these information flows.</li>
+<li>The interaction between potentially constrained endpoints is controlled by control information provided by less-constrained nodes on behalf of the overseeing principals of the endpoints.</li>
+<li>The interaction between the endpoints needs to be secured, as well as the establishment of the necessary keys for securing the interaction, potentially end-to-end through intermediary nodes.</li>
+<li>The mechanism for transferring control information needs to be secured, potentially end-to-end through intermediary nodes.  Pre-established keying material may need to be employed for establishing the keys used to protect these information flows.</li>
 </ul>
 <p id="rfc.section.2.3.p.8">(Note that other aspects relevant to secure constrained node communication such as secure bootstrap or group communication are not specifically addressed by the present document.)</p>
-<h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#security_objectives" id="security_objectives">Security Objectives</a></h1>
-<p id="rfc.section.3.p.1">The security objectives that are addressed by an authorization solution include confidentiality and integrity. Additionally, allowing only selected operations by selected entities limits the burden on system resources, thus helping to achieve availability.  Misconfigured or wrongly designed authorization solutions can result in availability breaches (denial of service): Users might no longer be able to use data and services as they are supposed to.</p>
-<p id="rfc.section.3.p.2">Authentication mechanisms can help achieve additional security objectives such as accountability and third-party verifiability. These additional objectives are not directly related to authorization and thus are not in scope of this draft, but may nevertheless be relevant.  Accountability and third-party verifiability may require authentication on a device level, if it is necessary to determine which device performed an action. In other cases it may be more important to find out who is responsible for the device&#8217;s actions.  (The ensuing requirements for logging, auditability, and the related integrity requirements are very relevant for constrained devices as well, but outside the scope of this document.) See also <a href="#ana">Section 4</a> for more discussion about authentication and authorization.</p>
-<p id="rfc.section.3.p.3">The security objectives and their relative importance differ for the various constrained environment applications and use cases <a href="#RFC7744">[RFC7744]</a>.</p>
+<h1 id="rfc.section.3">
+<a href="#rfc.section.3">3.</a> <a href="#security_objectives" id="security_objectives">Security Objectives</a>
+</h1>
+<p id="rfc.section.3.p.1">The security objectives that are addressed by an authorization solution include confidentiality and integrity. Additionally, an authorization solution has an impact on the availability: First, by reducing the load (only accepting selected operations by selected entities limits the burden on system resources), and second, because misconfigured or wrongly designed authorization solutions can result in availability breaches (denial of service) as users might no longer be able to use data and services as they are supposed to.</p>
+<p id="rfc.section.3.p.2">Authentication mechanisms can help achieve additional security objectives such as accountability and third-party verifiability. These additional objectives are not directly related to authorization and thus are not in scope of this draft, but may nevertheless be relevant.  Accountability and third-party verifiability may require authentication on a device level, if it is necessary to determine which device performed an action. In other cases it may be more important to find out who is responsible for the device&#8217;s actions.  (The ensuing requirements for logging, auditability, and the related integrity requirements are very relevant for constrained devices as well, but outside the scope of this document.) See also <a href="#ana" class="xref">Section 4</a> for more discussion about authentication and authorization.</p>
+<p id="rfc.section.3.p.3">The security objectives and their relative importance differ for the various constrained environment applications and use cases <a href="#RFC7744" class="xref">[RFC7744]</a>.</p>
 <p id="rfc.section.3.p.4">The architecture is based on the observation that different parties may have different security objectives.  There may also be a &#8220;collaborative&#8221; dimension: to achieve a security objective of one party, another party may be required to provide a service.  For example, if RqP requires the integrity of representations of a resource R that RS is hosting, both C and RS need to partake in integrity-protecting the transmitted data.  Moreover, RS needs to protect any write access to this resource as well as to relevant other resources (such as configuration information, firmware update resources) to prevent unauthorized users from manipulating R.</p>
-<h1 id="rfc.section.3.1"><a href="#rfc.section.3.1">3.1.</a> <a href="#e2e" id="e2e">End-to-End Security Objectives in Multi-Hop Scenarios</a></h1>
-<p id="rfc.section.3.1.p.1">In many cases, the information flows described in <a href="#iflo">Section 2.3</a> cross multiple client-server pairings but still need to be protected end-to-end.  For example, AS may not be connected to RS (or may not want to exercise such a connection), relying on C for transferring authorization information. As the authorization information is related to the permissions granted to C, C must not be in a position to manipulate this information, which therefore requires integrity protection on the way between AS and RS.</p>
+<h1 id="rfc.section.3.1">
+<a href="#rfc.section.3.1">3.1.</a> <a href="#e2e" id="e2e">End-to-End Security Objectives in Multi-Hop Scenarios</a>
+</h1>
+<p id="rfc.section.3.1.p.1">In many cases, the information flows described in <a href="#iflo" class="xref">Section 2.3</a> cross multiple client-server pairings but still need to be protected end-to-end.  For example, AS may not be connected to RS (or may not want to exercise such a connection), relying on C for transferring authorization information. As the authorization information is related to the permissions granted to C, C must not be in a position to manipulate this information, which therefore requires integrity protection on the way between AS and RS.</p>
 <p id="rfc.section.3.1.p.2">As another example, resource representations sent between endpoints may be stored in intermediary nodes, such as caching proxies or pub-sub brokers.  Where these intermediaries cannot be relied on to fulfill the security objectives of the endpoints, it is the endpoints that will need to protect the exchanges beyond a single client-server exchange.</p>
 <p id="rfc.section.3.1.p.3">Note that there may also be cases of intermediary nodes that very much partake in the security objectives to be achieved.  The question what are the pairs of endpoints between which the communication needs end-to-end protection (and which aspect of protection) is defined by the specific use case. Two examples of intermediary nodes executing security functionality:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>To enable a trustworthy publication service, a pub-sub broker may be untrusted with the plaintext content of a publication (confidentiality), but required to verify that the publication is performed by claimed publisher and is not a replay of an old publication (authenticity/integrity).</li>
-  <li>To comply with requirements of transparency, a gateway may be allowed to read, verify (authenticity) but not modify (integrity) a resource representation which therefore also is end-to-end integrity protected from the server towards a client behind the gateway.</li>
+<li>To enable a trustworthy publication service, a pub-sub broker may be untrusted with the plaintext content of a publication (confidentiality), but required to verify that the publication is performed by claimed publisher and is not a replay of an old publication (authenticity/integrity).</li>
+<li>To comply with requirements of transparency, a gateway may be allowed to read, verify (authenticity) but not modify (integrity) a resource representation which therefore also is end-to-end integrity protected from the server towards a client behind the gateway.</li>
 </ul>
 <p id="rfc.section.3.1.p.5">In order to support the required communication and application security, keying material needs to be established between the relevant nodes in the architecture.</p>
-<h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#ana" id="ana">Authentication and Authorization</a></h1>
+<h1 id="rfc.section.4">
+<a href="#rfc.section.4">4.</a> <a href="#ana" id="ana">Authentication and Authorization</a>
+</h1>
 <p id="rfc.section.4.p.1">Server-side authorization solutions aim at protecting the access to items of interest, for instance hardware or software resources or data: They enable the resource owner to control who can access it and how.</p>
-<p id="rfc.section.4.p.2">To determine if an entity is authorized to access a resource, an authentication mechanism is needed. According to the Internet Security Glossary <a href="#RFC4949">[RFC4949]</a>, authentication is &#8220;the process of verifying a claim that a system entity or system resource has a certain attribute value.&#8221; Examples for attribute values are the ID of a device, the type of the device or the name of its owner.</p>
+<p id="rfc.section.4.p.2">To determine if an entity is authorized to access a resource, an authentication mechanism is needed. According to the Internet Security Glossary <a href="#RFC4949" class="xref">[RFC4949]</a>, authentication is &#8220;the process of verifying a claim that a system entity or system resource has a certain attribute value.&#8221; Examples for attribute values are the ID of a device, the type of the device or the name of its owner.</p>
 <p id="rfc.section.4.p.3">The security objectives the authorization mechanism aims at can only be achieved if the authentication and the authorization mechanism work together correctly. We speak of authenticated authorization to refer to the required synthesis of mechanisms for authentication and authorization.</p>
 <p id="rfc.section.4.p.4">Where used for authorization, the set of authenticated attributes must be meaningful for this purpose, i.e., authorization decisions must be possible based on these attributes. If the authorization policy assigns permissions to an individual entity, the set of authenticated attributes must be suitable to uniquely identify this entity.</p>
-<p id="rfc.section.4.p.5">In other scenarios, there is often less need to uniquely identify an individual device: For a principal, the fact that a device belongs to a certain company or that it has a specific type (such as a light bulb) or location may be more important than that it has a unique identifier.</p>
-<p id="rfc.section.4.p.6">(As a special case for the authorization of read access to a resource, RS may simply make an encrypted representation available to anyone <a href="#OSCAR">[OSCAR]</a>.  In this case, controlling read access to that resource can be reduced to controlling read access to the key; partially removing future access also requires a timely update of the key for RS and all participants still authorized.)</p>
-<p id="rfc.section.4.p.7">Principals (RqP and RO) need to decide about the required level of granularity for the authorization.  For example, we distinguish device authorization from owner authorization, and flat authorization from unrestricted authorization. In the first case different access permissions are granted to individual devices while in the second case individual owners are authorized. If flat authorization is used, all authenticated entities are implicitly authorized and have the same access permissions.  Unrestricted authorization for an item of interest means that no authorization mechanism is used for accessing this resource (not even by authentication) and all entities are able to access the item as they see fit (note that an authorization mechanism may still be used to arrive at the decision to employ unrestricted authorization).</p>
-<div id="rfc.table.1"/>
-<div id="fig-grain"/>
+<p id="rfc.section.4.p.5">In scenarios where devices are communicating autonomously there is often less need to uniquely identify an individual device: For an overseeing principal, the fact that a device belongs to a certain company or that it has a specific type (such as a light bulb) or location may be more important than that it has a unique identifier.</p>
+<p id="rfc.section.4.p.6">Overseeing principals (RqP and RO) need to decide about the required level of granularity for the authorization.  For example, we distinguish device authorization from owner authorization, and binary authorization from unrestricted authorization. In the first case different access permissions are granted to individual devices while in the second case individual owners are authorized. If binary authorization is used, all authenticated entities are implicitly authorized and have the same access permissions.  Unrestricted authorization for an item of interest means that no authorization mechanism is used for accessing this resource (not even by authentication) and all entities are able to access the item as they see fit (note that an authorization mechanism may still be used to arrive at the decision to employ unrestricted authorization).</p>
+<div id="rfc.table.1"></div>
+<div id="fig-grain"></div>
 <table cellpadding="3" cellspacing="0" class="tt full center">
-  <caption>Some granularity levels for authorization</caption>
-  <thead>
-    <tr>
-      <th class="left">Authorization granularity</th>
-      <th class="left">Authorization is contingent on:</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="left">device</td>
-      <td class="left">authentication of specific device</td>
-    </tr>
-    <tr>
-      <td class="left">owner</td>
-      <td class="left">(authenticated) authorization by owner</td>
-    </tr>
-    <tr>
-      <td class="left">flat</td>
-      <td class="left">(any) authentication</td>
-    </tr>
-    <tr>
-      <td class="left">unrestricted</td>
-      <td class="left">(unrestricted access; access always authorized)</td>
-    </tr>
-  </tbody>
+<caption>Some granularity levels for authorization</caption>
+<thead><tr>
+<th class="left">Authorization granularity</th>
+<th class="left">Authorization is contingent on:</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="left">device</td>
+<td class="left">authentication of specific device</td>
+</tr>
+<tr>
+<td class="left">owner</td>
+<td class="left">(authenticated) authorization by owner</td>
+</tr>
+<tr>
+<td class="left">binary</td>
+<td class="left">(any) authentication</td>
+</tr>
+<tr>
+<td class="left">unrestricted</td>
+<td class="left">(unrestricted access; access always authorized)</td>
+</tr>
+</tbody>
 </table>
-<p id="rfc.section.4.p.8">More fine-grained authorization does not necessarily provide more security but can be more flexible. Principals need to consider that an entity should only be granted the permissions it really needs (principle of least privilege), to ensure the confidentiality and integrity of resources.</p>
-<p id="rfc.section.4.p.9">Client-side authorization solutions aim at protecting the client from disclosing information to or ingesting information from resource servers RqP does not want it to interact with in the given way.  Again, flat authorization (the server can be authenticated) may be sufficient, or more fine-grained authorization may be required.  The client-side authorization also pertains to the level of protection required for the exchanges with the server (e.g., confidentiality).  In the browser web, client-side authorization is often left to the human user; a constrained client may not have that available all the time but still needs to implement the wishes of the principal controlling it, the RqP.</p>
-<p id="rfc.section.4.p.10">For the cases where an authorization solution is needed (all but unrestricted authorization), the enforcing party needs to be able to authenticate the party that is to be authorized.  Authentication is therefore required for messages that contain (or otherwise update) representations of an accessed item. More precisely: The enforcing party needs to make sure that the receiver of a message containing a representation is authorized to receive it, both in the case of a client sending a representation to a server and vice versa. In addition, it needs to ensure that the actual sender of a message containing a representation is indeed the one authorized to send this message, again for both the client-to-server and server-to-client case. To achieve this, integrity protection of these messages is required: Authenticity of the message cannot be assured if it is possible for an attacker to modify it during transmission.</p>
-<p id="rfc.section.4.p.11">In some cases, only one side (client or server side) requires the integrity and / or confidentiality of a resource value.  Principals may decide to omit authentication (unrestricted authorization), or use flat authorization (just employing an authentication mechanism).  However, as indicated in <a href="#security_objectives">Section 3</a>, the security objectives of both sides must be considered, which can often only be achieved when the other side can be relied on to perform some security service.</p>
-<h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#actors" id="actors">Actors and their Tasks</a></h1>
+<p id="rfc.section.4.p.7">More fine-grained authorization does not necessarily provide more security but can be more flexible. Overseeing principals need to consider that an entity should only be granted the permissions it really needs (principle of least privilege), to ensure the confidentiality and integrity of resources.</p>
+<p id="rfc.section.4.p.8">Client-side authorization solutions aim at protecting the client from disclosing information to or ingesting information from resource servers RqP does not want it to interact with in the given way.  Again, binary authorization (the server can be authenticated) may be sufficient, or more fine-grained authorization may be required.  The client-side authorization also pertains to the level of protection required for the exchanges with the server (e.g., confidentiality).  In the browser web, client-side authorization is often left to the human user that directly controls the client; a constrained client may not have that available all the time but still needs to implement the wishes of the overseeing principal controlling it, the RqP.</p>
+<p id="rfc.section.4.p.9">For the cases where an authorization solution is needed (all but unrestricted authorization), the enforcing party needs to be able to authenticate the party that is to be authorized.  Authentication is therefore required for messages that contain (or otherwise update) representations of an accessed item. More precisely: The enforcing party needs to make sure that the receiver of a message containing a representation is authorized to receive it, both in the case of a client sending a representation to a server and vice versa. In addition, it needs to ensure that the actual sender of a message containing a representation is indeed the one authorized to send this message, again for both the client-to-server and server-to-client case. To achieve this, integrity protection of these messages is required: Authenticity of the message cannot be assured if it is possible for an attacker to modify it during transmission.</p>
+<p id="rfc.section.4.p.10">In some cases, only one side (client or server side) requires the integrity and / or confidentiality of a resource value.  Overseeing principals may decide to omit authentication (unrestricted authorization), or use binary authorization (just employing an authentication mechanism).  However, as indicated in <a href="#security_objectives" class="xref">Section 3</a>, the security objectives of both sides must be considered, which can often only be achieved when the other side can be relied on to perform some security service.</p>
+<h1 id="rfc.section.5">
+<a href="#rfc.section.5">5.</a> <a href="#actors" id="actors">Actors and their Tasks</a>
+</h1>
 <p id="rfc.section.5.p.1">This and the following section look at the resulting architecture from two different perspectives: This section provides a more detailed description of the various &#8220;actors&#8221; in the architecture, the logical functional entities performing the tasks required.  The following section then will focus on the protocols run between these functional entities.</p>
 <p id="rfc.section.5.p.2">For the purposes of this document, an actor consists of a set of tasks and additionally has a security domain (client domain or server domain) and a level (constrained, principal, less-constrained). Tasks are assigned to actors according to their security domain and required level.</p>
 <p id="rfc.section.5.p.3">Note that actors are a concept to understand the security requirements for constrained devices. The architecture of an actual solution might differ as long as the security requirements that derive from the relationship between the identified actors are considered. Several actors might share a single device or even be combined in a single piece of software.  Interfaces between actors may be realized as protocols or be internal to such a piece of software.</p>
-<p id="rfc.section.5.p.4">A more detailed discussion of the tasks the actors have to perform in order to achieve specific security objectives is provided in <a href="#I-D.gerdes-ace-tasks">[I-D.gerdes-ace-tasks]</a>.</p>
-<h1 id="rfc.section.5.1"><a href="#rfc.section.5.1">5.1.</a> <a href="#cla" id="cla">Constrained Level Actors</a></h1>
-<p id="rfc.section.5.1.p.1">As described in the problem statement (see <a href="#ps">Section 2</a>), either C or RS or both of them may be located on a constrained node. We therefore define that C and RS must be able to perform their tasks even if they are located on a constrained node. Thus, C and RS are considered to be Constrained Level Actors.</p>
+<h1 id="rfc.section.5.1">
+<a href="#rfc.section.5.1">5.1.</a> <a href="#cla" id="cla">Constrained Level Actors</a>
+</h1>
+<p id="rfc.section.5.1.p.1">As described in the problem statement (see <a href="#ps" class="xref">Section 2</a>), either C or RS or both of them may be located on a constrained node. We therefore define that C and RS must be able to perform their tasks even if they are located on a constrained node. Thus, C and RS are considered to be Constrained Level Actors.</p>
 <p id="rfc.section.5.1.p.2">C performs the following tasks:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>Communicate in a secure way (provide for confidentiality and integrity of messages), including access requests.</li>
-  <li>Validate that the RqP (&#8220;client-side&#8221;) authorization information allows C to communicate with RS as a server for R (i.e., from C&#8217;s point of view, RS is authorized as a server for the specific access to R).</li>
+<li>Communicate in a secure way (provide for confidentiality and integrity of messages), including access requests.</li>
+<li>Validate that the RqP (&#8220;client-side&#8221;) authorization information allows C to communicate with RS as a server for R (i.e., from C&#8217;s point of view, RS is authorized as a server for the specific access to R).</li>
 </ul>
 <p id="rfc.section.5.1.p.4">RS performs the following tasks:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>Communicate in a secure way (provide for confidentiality and integrity of messages), including responses to access requests.</li>
-  <li>Validate that the RO (&#8220;server-side&#8221;) authorization information allows RS to grant C access to the requested resource as requested (i.e., from RS&#8217; point of view, C is authorized as a client for the specific access to R).</li>
+<li>Communicate in a secure way (provide for confidentiality and integrity of messages), including responses to access requests.</li>
+<li>Validate that the RO (&#8220;server-side&#8221;) authorization information allows RS to grant C access to the requested resource as requested (i.e., from RS&#8217; point of view, C is authorized as a client for the specific access to R).</li>
 </ul>
 <p id="rfc.section.5.1.p.6">R is an item of interest such as a sensor or actuator value. R is considered to be part of RS and not a separate actor. The device on which RS is located might contain several resources controlled by different ROs.  For simplicity of exposition, these resources are described as if they had separate RS.</p>
 <p id="rfc.section.5.1.p.7">As C and RS do not necessarily know each other they might belong to different security domains.</p>
-<p id="rfc.section.5.1.p.8">(See <a href="#figcl">Figure 8</a>.)</p>
-<div id="rfc.figure.8"/>
-<div id="figcl"/>
+<p id="rfc.section.5.1.p.8">(See <a href="#figcl" class="xref">Figure 8</a>.)</p>
+<div id="rfc.figure.8"></div>
+<div id="figcl"></div>
 <pre>
         -------                            --------
         |  C  |  -- requests resource ---&gt; |  RS  | Constrained Level
@@ -775,353 +821,326 @@ support                      support
 
 </pre>
 <p class="figure">Figure 8: Constrained Level Actors</p>
-<h1 id="rfc.section.5.2"><a href="#rfc.section.5.2">5.2.</a> <a href="#pl" id="pl">Principal Level Actors</a></h1>
-<p id="rfc.section.5.2.p.1">Our objective is that C and RS are under control of principals in the physical world, the Requesting Party (RqP) and the Resource Owner (RO) respectively. The principals decide about the security policies of their respective endpoints and belong to the same security domain.</p>
+<h1 id="rfc.section.5.2">
+<a href="#rfc.section.5.2">5.2.</a> <a href="#pl" id="pl">Principal Level Actors</a>
+</h1>
+<p id="rfc.section.5.2.p.1">Our objective is that C and RS are under control of overseeing principals in the physical world, the Requesting Party (RqP) and the Resource Owner (RO) respectively.  The overseeing principals decide about the security policies of their respective endpoints; each overseeing principal belongs to the same security domain as their endpoints.</p>
 <p id="rfc.section.5.2.p.2">RqP is in charge of C, i.e. RqP specifies security policies for C, such as with whom C is allowed to communicate. By definition, C and RqP belong to the same security domain.</p>
 <p id="rfc.section.5.2.p.3">RqP must fulfill the following task:</p>
-<p/>
+<p></p>
 
-<ul>
-  <li>Configure for C authorization information for sources for R.</li>
-</ul>
+<ul><li>Configure for C authorization information for sources for R.</li></ul>
 <p id="rfc.section.5.2.p.5">RO is in charge of R and RS. RO specifies authorization policies for R and decides with whom RS is allowed to communicate. By definition, R, RS and RO belong to the same security domain.</p>
 <p id="rfc.section.5.2.p.6">RO must fulfill the following task:</p>
-<p/>
+<p></p>
 
-<ul>
-  <li>Configure for RS authorization information for accessing R.</li>
-</ul>
-<p id="rfc.section.5.2.p.8">(See <a href="#figclandpl">Figure 2</a>.)</p>
-<h1 id="rfc.section.5.3"><a href="#rfc.section.5.3">5.3.</a> <a href="#lcl" id="lcl">Less-Constrained Level Actors</a></h1>
-<p id="rfc.section.5.3.p.1">Constrained level actors can only fulfill a limited number of tasks and may not have network connectivity all the time. To relieve them from having to manage keys for numerous endpoints and conducting computationally intensive tasks, another complexity level for actors is introduced. An actor on the less-constrained level belongs to the same security domain as its respective constrained level actor. They also have the same principal.</p>
+<ul><li>Configure for RS authorization information for accessing R.</li></ul>
+<p id="rfc.section.5.2.p.8">(See <a href="#figclandpl" class="xref">Figure 2</a>.)</p>
+<h1 id="rfc.section.5.3">
+<a href="#rfc.section.5.3">5.3.</a> <a href="#lcl" id="lcl">Less-Constrained Level Actors</a>
+</h1>
+<p id="rfc.section.5.3.p.1">Constrained level actors can only fulfill a limited number of tasks and may not have network connectivity all the time. To relieve them from having to manage keys for numerous endpoints and conducting computationally intensive tasks, another level of complexity for actors is introduced (and, thus, a stricter limit on their constrainedness).  An actor on the less-constrained level belongs to the same security domain as its respective constrained level actor. They also have the same overseeing principal.</p>
 <p id="rfc.section.5.3.p.2">The Client Authorization Server (CAS) belongs to the same security domain as C and RqP. CAS acts on behalf of RqP. It assists C in authenticating RS and determining if RS is an authorized server for R. CAS can do that because for C, CAS is the authority for claims about RS.</p>
 <p id="rfc.section.5.3.p.3">CAS performs the following tasks:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>Validate on the client side that an entity has certain attributes.</li>
-  <li>Obtain authorization information about an entity from C&#8217;s principal (RqP) and provide it to C.</li>
-  <li>Negotiate means for secure communication to communicate with C.</li>
+<li>Vouch for the attributes of its clients.</li>
+<li>Ascertain that C&#8217;s overseeing principal (RqP) authorized AS to vouch for RS and provide keying material for it.</li>
+<li>Provide revocation information concerning its clients (optional).</li>
+<li>Obtain authorization information about RS from C&#8217;s overseeing principal (RqP) and provide it to C.</li>
+<li>Negotiate means for secure communication to communicate with C.</li>
 </ul>
 <p id="rfc.section.5.3.p.5">The Authorization Server (AS) belongs to the same security domain as R, RS and RO. AS acts on behalf of RO. It supports RS by authenticating C and determining C&#8217;s permissions on R. AS can do that because for RS, AS is the authority for claims about C.</p>
 <p id="rfc.section.5.3.p.6">AS performs the following tasks:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>Validate on the server side that an entity has certain attributes.</li>
-  <li>Obtain authorization information about an entity from RS&#8217; principal (RO) and provide it to RS.</li>
-  <li>Negotiate means for secure communication to communicate with RS.</li>
+<li>Vouch for the attributes of its resource servers.</li>
+<li>Ascertain that RS&#8217;s overseeing principal (RO) authorized CAS to vouch for C and provide keying material for it.</li>
+<li>Provide revocation information concerning its servers (optional).</li>
+<li>Obtain authorization information about C from RS&#8217; overseeing principal (RO) and provide it to RS.</li>
+<li>Negotiate means for secure communication to communicate with RS.</li>
 </ul>
-<h1 id="rfc.section.6"><a href="#rfc.section.6">6.</a> <a href="#kinds-of-protocols" id="kinds-of-protocols">Kinds of Protocols</a></h1>
+<h1 id="rfc.section.6">
+<a href="#rfc.section.6">6.</a> <a href="#kinds-of-protocols" id="kinds-of-protocols">Kinds of Protocols</a>
+</h1>
 <p id="rfc.section.6.p.1">Devices on the less-constrained level potentially are more powerful than constrained level devices in terms of processing power, memory, non-volatile storage. This results in different characteristics for the protocols used on these levels.</p>
-<h1 id="rfc.section.6.1"><a href="#rfc.section.6.1">6.1.</a> <a href="#constrained-level-protocols" id="constrained-level-protocols">Constrained Level Protocols</a></h1>
-<p id="rfc.section.6.1.p.1">A protocol is considered to be on the constrained level if it is used between the actors C and RS which are considered to be constrained (see <a href="#cla">Section 5.1</a>). C and RS might not belong to the same security domain. Therefore, constrained level protocols need to work between different security domains.</p>
+<h1 id="rfc.section.6.1">
+<a href="#rfc.section.6.1">6.1.</a> <a href="#constrained-level-protocols" id="constrained-level-protocols">Constrained Level Protocols</a>
+</h1>
+<p id="rfc.section.6.1.p.1">A protocol is considered to be on the constrained level if it is used between the actors C and RS which are considered to be constrained (see <a href="#cla" class="xref">Section 5.1</a>). C and RS might not belong to the same security domain. Therefore, constrained level protocols need to work between different security domains.</p>
 <p id="rfc.section.6.1.p.2">Commonly used Internet protocols can not in every case be applied to constrained environments. In some cases, tweaking and profiling is required. In other cases it is beneficial to define new protocols which were designed with the special characteristics of constrained environments in mind.</p>
-<p id="rfc.section.6.1.p.3">On the constrained level, protocols need to address the specific requirements of constrained environments. Examples for protocols that consider these requirements is the transfer protocol CoAP (Constrained Application Protocol) <a href="#RFC7252">[RFC7252]</a> and the Datagram Transport Layer Security Protocol (DTLS) <a href="#RFC6347">[RFC6347]</a> which can be used for channel security.</p>
+<p id="rfc.section.6.1.p.3">On the constrained level, protocols need to address the specific requirements of constrained environments. Examples for protocols that consider these requirements is the transfer protocol CoAP (Constrained Application Protocol) <a href="#RFC7252" class="xref">[RFC7252]</a> and the Datagram Transport Layer Security Protocol (DTLS) <a href="#RFC6347" class="xref">[RFC6347]</a> which can be used for channel security.</p>
 <p id="rfc.section.6.1.p.4">Constrained devices have only limited storage space and thus cannot store large numbers of keys. This is especially important because constrained networks are expected to consist of thousands of nodes. Protocols on the constrained level should keep this limitation in mind.</p>
-<h1 id="rfc.section.6.1.1"><a href="#rfc.section.6.1.1">6.1.1.</a> <a href="#cross-level-support-protocols" id="cross-level-support-protocols">Cross Level Support Protocols</a></h1>
-<p id="rfc.section.6.1.1.p.1">Protocols which operate between a constrained device on one side and the corresponding less-constrained device on the other are considered to be (cross level) support protocols. Protocols used between C and CAS or RS and AS are therefore support protocols.</p>
+<h1 id="rfc.section.6.1.1">
+<a href="#rfc.section.6.1.1">6.1.1.</a> <a href="#cross-level-support-protocols" id="cross-level-support-protocols">Cross Level Support Protocols</a>
+</h1>
+<p id="rfc.section.6.1.1.p.1">We refer to protocols that operate between a constrained device and its corresponding less-constrained device as cross-level support protocols. Protocols used between C and CAS or RS and AS are therefore support protocols.</p>
 <p id="rfc.section.6.1.1.p.2">Support protocols must consider the limitations of their constrained endpoint and therefore belong to the constrained level protocols.</p>
-<h1 id="rfc.section.6.2"><a href="#rfc.section.6.2">6.2.</a> <a href="#lclp" id="lclp">Less-Constrained Level Protocols</a></h1>
+<h1 id="rfc.section.6.2">
+<a href="#rfc.section.6.2">6.2.</a> <a href="#lclp" id="lclp">Less-Constrained Level Protocols</a>
+</h1>
 <p id="rfc.section.6.2.p.1">A protocol is considered to be on the less-constrained level if it is used between the actors CAS and AS. CAS and AS might belong to different security domains.</p>
-<p id="rfc.section.6.2.p.2">On the less-constrained level, HTTP <a href="#RFC7230">[RFC7230]</a> and Transport Layer Security (TLS) <a href="#RFC5246">[RFC5246]</a> can be used alongside or instead of CoAP and DTLS. Moreover, existing security solutions for authentication and authorization such as the OAuth web authorization framework <a href="#RFC6749">[RFC6749]</a> and Kerberos <a href="#RFC4120">[RFC4120]</a> can likely be used without modifications and there are no limitations for the use of a Public Key Infrastructure (PKI).</p>
-<h1 id="rfc.section.7"><a href="#rfc.section.7">7.</a> <a href="#elements-of-a-solution" id="elements-of-a-solution">Elements of a Solution</a></h1>
+<p id="rfc.section.6.2.p.2">On the less-constrained level, HTTP <a href="#RFC7230" class="xref">[RFC7230]</a> and Transport Layer Security (TLS) <a href="#RFC8246" class="xref">[RFC8246]</a> can be used alongside or instead of CoAP and DTLS. Moreover, existing security solutions for authentication and authorization such as the OAuth web authorization framework <a href="#RFC6749" class="xref">[RFC6749]</a> and Kerberos <a href="#RFC4120" class="xref">[RFC4120]</a> can likely be used without modifications and the less-constrained layer is assumed to impose no constraints that would inhibit the traditional deployment/use of, e.g., a Public Key Infrastructure (PKI).</p>
+<h1 id="rfc.section.7">
+<a href="#rfc.section.7">7.</a> <a href="#elements-of-a-solution" id="elements-of-a-solution">Elements of a Solution</a>
+</h1>
 <p id="rfc.section.7.p.1">Without anticipating specific solutions, the following considerations may be helpful in discussing them.</p>
-<h1 id="rfc.section.7.1"><a href="#rfc.section.7.1">7.1.</a> <a href="#probaz" id="probaz">Authorization</a></h1>
+<h1 id="rfc.section.7.1">
+<a href="#rfc.section.7.1">7.1.</a> <a href="#probaz" id="probaz">Authorization</a>
+</h1>
 <p id="rfc.section.7.1.p.1">The core problem we are trying to solve is authorization.  The following problems related to authorization need to be addressed:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>AS needs to transfer authorization information to RS and CAS needs to transfer authorization information to C.</li>
-  <li>The transferred authorization information needs to follow a defined format and encoding, which must be efficient for constrained devices, considering size of authorization information and parser complexity.</li>
-  <li>C and RS need to be able to verify the authenticity of the authorization information they receive.  Here as well, there is a trade-off between processing complexity and deployment complexity.</li>
-  <li>The RS needs to enforce the authorization decisions of the AS, while C needs to abide with the authorization decisions of the CAS. The authorization information might require additional policy evaluation (such as matching against local access control lists, evaluating local conditions). The required &#8220;policy evaluation&#8221; at the constrained actors needs to be adapted to the capabilities of the devices implementing them.</li>
-  <li>Finally, as is indicated in the previous bullet, for a particular authorization decision there may be different kinds of authorization information needed, and these pieces of information may be transferred to C and RS at different times and in different ways prior to or during the client request.</li>
+<li>AS needs to transfer authorization information to RS and CAS needs to transfer authorization information to C.</li>
+<li>The transferred authorization information needs to follow a defined format and encoding, which must be efficient for constrained devices, considering size of authorization information and parser complexity.</li>
+<li>C and RS need to be able to verify the authenticity of the authorization information they receive. C must ascertain that the authorization information stems from a CAS that was authorized by RqP, RS must validate that the authorization information stems from an AS that was authorized by RO.</li>
+<li>Some applications may require the confidentiality of authorization information. It then needs to be encrypted between CAS and C and AS and RS, respectively.</li>
+<li>C and RS must be able to check the freshness of the authorization information and determine for how long it is supposed to be valid.</li>
+<li>The RS needs to enforce the authorization decisions of the AS, while C needs to abide with the authorization decisions of the CAS. The authorization information might require additional policy evaluation (such as matching against local access control lists, evaluating local conditions). The required &#8220;policy evaluation&#8221; at the constrained actors needs to be adapted to the capabilities of the devices implementing them.</li>
+<li>Finally, as is indicated in the previous bullet, for a particular authorization decision there may be different kinds of authorization information needed, and these pieces of information may be transferred to C and RS at different times and in different ways prior to or during the client request.</li>
 </ul>
-<h1 id="rfc.section.7.2"><a href="#rfc.section.7.2">7.2.</a> <a href="#authentication" id="authentication">Authentication</a></h1>
+<h1 id="rfc.section.7.2">
+<a href="#rfc.section.7.2">7.2.</a> <a href="#authentication" id="authentication">Authentication</a>
+</h1>
 <p id="rfc.section.7.2.p.1">The following problems need to be addressed, when considering authentication:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>RS needs to authenticate AS, and C needs to authenticate CAS, to ensure that the authorization information and related data comes from the correct source.</li>
-  <li>CAS and AS may need to authenticate each other, both to perform the required business logic and to ensure that CAS gets security information related to the resources from the right source.</li>
-  <li>In some use cases RS needs to authenticate some property of C, in order to map it to the relevant authorization information.  In other applications, authentication and authorization of C may be implicit, for example by encrypting the resource representation the RS only providing access to those who possess the key to decrypt.</li>
-  <li>C may need to authenticate RS, in order to ensure that it is interacting with the right resources.   Alternatively C may just verify the integrity of a received resource representation.</li>
-  <li>CAS and AS need to authenticate their communication partner (C or RS), in order to ensure it serves the correct device.</li>
+<li>RS needs to authenticate AS in the sense that it must be certain that it communicates with an AS that was authorized by RO, C needs to authenticate CAS in the sense that it must be certain that it communicates with a CAS that was authorized by RqP, to ensure that the authorization information and related data comes from the correct source.</li>
+<li>C must securely have obtained keying material to communicate with its CAS that is up to date and that is updated if necessary. RS must securely have obtained keying material to communicate with AS that is up to date and that is updated if necessary.</li>
+<li>CAS and AS may need to authenticate each other, both to perform the required business logic and to ensure that CAS gets security information related to the resources from the right source.</li>
+<li>In some use cases RS needs to authenticate some property of C, in order to map it to the relevant authorization information.</li>
+<li>C may need to authenticate RS, in order to ensure that it is interacting with the right resources.</li>
+<li>CAS and AS need to authenticate their communication partner (C or RS), in order to ensure it serves the correct device. If C and AS vouch for keying material or certain attributes of their respective constrained devices, they must ascertain that the devices actually currently have this keying material or these attributes.</li>
 </ul>
-<h1 id="rfc.section.7.3"><a href="#rfc.section.7.3">7.3.</a> <a href="#communication-security" id="communication-security">Communication Security</a></h1>
+<h1 id="rfc.section.7.3">
+<a href="#rfc.section.7.3">7.3.</a> <a href="#communication-security" id="communication-security">Communication Security</a>
+</h1>
 <p id="rfc.section.7.3.p.1">There are different alternatives to provide communication security, and the problem here is to choose the optimal one for each scenario.  We list the available alternatives:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>Session-based security at transport layer such as DTLS <a href="#RFC6347">[RFC6347]</a> offers security, including integrity and confidentiality protection, for the whole application layer exchange.  However, DTLS may not provide end-to-end security over multiple hops.  Another problem with DTLS is the cost of the handshake protocol, which may be too expensive for constrained devices especially in terms of memory and power consumption for message transmissions.</li>
-  <li>An alternative is object security at application layer, for instance using <a href="#I-D.selander-ace-object-security">[I-D.selander-ace-object-security]</a>.  Secure objects can be stored or cached in network nodes and provide security for a more flexible communication model such as publish/subscribe (compare e.g. CoRE Mirror Server <a href="#I-D.koster-core-coap-pubsub">[I-D.koster-core-coap-pubsub]</a>).  A problem with object security is that it can not provide confidentiality for the message headers.</li>
-  <li>Hybrid solutions using both session-based and object security are also possible.  An example of a hybrid is where authorization information and cryptographic keys are provided by AS in the format of secure data objects, but where the resource access is protected by session-based security.</li>
+<li>Session-based security at transport layer such as DTLS <a href="#RFC6347" class="xref">[RFC6347]</a> offers security, including integrity and confidentiality protection, for the whole application layer exchange.  However, DTLS may not provide end-to-end security over multiple hops.  Another problem with DTLS is the cost of the handshake protocol, which may be too expensive for constrained devices especially in terms of memory and power consumption for message transmissions.</li>
+<li>An alternative is object security at application layer, for instance using <a href="#I-D.ietf-core-object-security" class="xref">[I-D.ietf-core-object-security]</a>.  Secure objects can be stored or cached in network nodes and provide security for a more flexible communication model such as publish/subscribe (compare e.g. CoRE Mirror Server <a href="#I-D.ietf-core-coap-pubsub" class="xref">[I-D.ietf-core-coap-pubsub]</a>).  A problem with object security is that it can not provide confidentiality for the message headers.</li>
+<li>Hybrid solutions using both session-based and object security are also possible.  An example of a hybrid is where authorization information and cryptographic keys are provided by AS in the format of secure data objects, but where the resource access is protected by session-based security.</li>
 </ul>
-<h1 id="rfc.section.7.4"><a href="#rfc.section.7.4">7.4.</a> <a href="#cryptographic-keys" id="cryptographic-keys">Cryptographic Keys</a></h1>
+<h1 id="rfc.section.7.4">
+<a href="#rfc.section.7.4">7.4.</a> <a href="#cryptographic-keys" id="cryptographic-keys">Cryptographic Keys</a>
+</h1>
 <p id="rfc.section.7.4.p.1">With respect to cryptographic keys, we see the following problems that need to be addressed:</p>
-<p/>
+<p></p>
 
 <dl>
-  <dt>Symmetric vs Asymmetric Keys</dt>
-  <dd style="margin-left: 8"><br/> We need keys both for protection of resource access and for protection of transport of authentication and authorization information.  Do we want to support solutions  based on asymmetric keys or symmetric keys in both cases? There are classes of devices that can easily perform symmetric cryptography, but consume considerably more time/battery for asymmetric operations.  On the other hand asymmetric cryptography has benefits such as in terms of deployment.</dd>
-  <dt>Key Establishment</dt>
-  <dd style="margin-left: 8"><br/> How are the corresponding cryptographic keys established? Considering <a href="#probaz">Section 7.1</a> there must be a mapping between these keys and the authorization information, at least in the sense that AS must be able to specify a unique client identifier which RS can verify (using an associated key).  One of the use cases of <a href="#RFC7744">[RFC7744]</a> describes spontaneous change of access policies - such as giving a hitherto unknown client the right to temporarily unlock your house door.  In this case C is not previously known to RS and a key must be provisioned by AS.</dd>
-  <dt>Revocation and Expiration</dt>
-  <dd style="margin-left: 8"><br/> How are keys replaced and how is a key that has been compromised revoked in a manner that reaches all affected parties, also keeping in mind scenarios with intermittent connectivity?</dd>
+<dt>Symmetric vs Asymmetric Keys</dt>
+<dd style="margin-left: 8">
+<br> We need keys both for protection of resource access and for protection of transport of authentication and authorization information.  It may be necessary to support solutions that require the use of asymmetric keys as well as ones that get by with symmetric keys, in both cases.  There are classes of devices that can easily perform symmetric cryptography, but consume considerably more time/battery for asymmetric operations.  On the other hand asymmetric cryptography has benefits such as in terms of deployment.</dd>
+<dt>Key Establishment</dt>
+<dd style="margin-left: 8">
+<br> How are the corresponding cryptographic keys established? Considering <a href="#probaz" class="xref">Section 7.1</a> there must be a mapping between these keys and the authorization information, at least in the sense that AS must be able to specify a unique client identifier which RS can verify (using an associated key).  One of the use cases of <a href="#RFC7744" class="xref">[RFC7744]</a> describes spontaneous change of access policies - such as giving a hitherto unknown client the right to temporarily unlock your house door.  In this case C is not previously known to RS and a key must be provisioned by AS.</dd>
+<dt>Revocation and Expiration</dt>
+<dd style="margin-left: 8">
+<br> How are keys replaced and how is a key that has been compromised revoked in a manner that reaches all affected parties, also keeping in mind scenarios with intermittent connectivity?</dd>
 </dl>
-<h1 id="rfc.section.8"><a href="#rfc.section.8">8.</a> <a href="#assreq" id="assreq">Assumptions and Requirements</a></h1>
-<p id="rfc.section.8.p.1">In this section we list a set of candidate assumptions and requirements to make the problem description in the previous sections more concise and precise.</p>
-<h1 id="rfc.section.8.1"><a href="#rfc.section.8.1">8.1.</a> <a href="#architecture" id="architecture">Architecture</a></h1>
-<p id="rfc.section.8.1.p.1">The architecture consists of at least the following types of nodes:</p>
-<p/>
+<h1 id="rfc.section.8">
+<a href="#rfc.section.8">8.</a> <a href="#assreq" id="assreq">Assumptions and Requirements</a>
+</h1>
+<p id="rfc.section.8.p.1">In this section we list a set of candidate assumptions and requirements to make the problem description in the previous sections more concise and precise.  Note that many of these assumptions and requirements are targeting specific solutions and not the architecture itself.</p>
+<h1 id="rfc.section.8.1">
+<a href="#rfc.section.8.1">8.1.</a> <a href="#constrained-devices" id="constrained-devices">Constrained Devices</a>
+</h1>
+<p></p>
 
 <ul>
-  <li>RS hosting resources, and responding to access requests</li>
-  <li>C requesting access to resources</li>
-  <li>AS supporting the access request/response procedure by providing authorization information to RS  <ul><li>AS may support this by aiding RS in authenticating C, or providing cryptographic keys or credentials to C and/or RS to secure the request/response procedure.</li></ul></li>
-  <li>CAS supporting the access request/response procedure by providing authorization information to C  <ul><li>CAS may support this by aiding C in authenticating RS, forwarding information between AS and C (possibly ultimately for RS), or providing cryptographic keys or credentials to C and/or RS to secure the request/response procedure.</li></ul></li>
-  <li>The architecture allows for intermediary nodes between any pair of C, RS, AS, and CAS, such as forward or reverse proxies in the CoRE architecture.  (Solutions may or may not support all combinations.)  <ul><li>The architecture does not make a choice between session based security and data object security.</li></ul></li>
+<li>C and/or RS may be constrained in terms of power, processing, communication bandwidth, memory and storage space, and moreover:  <ul>
+<li>unable to manage complex authorization policies</li>
+<li>unable to manage a large number of secure connections</li>
+<li>without user interface</li>
+<li>without constant network connectivity</li>
+<li>unable to precisely measure time</li>
+<li>required to save on wireless communication due to high power consumption</li>
 </ul>
-<h1 id="rfc.section.8.2"><a href="#rfc.section.8.2">8.2.</a> <a href="#constrained-devices" id="constrained-devices">Constrained Devices</a></h1>
-<p/>
+</li>
+<li>CAS and AS are not assumed to be constrained devices.</li>
+<li>All devices under consideration can process symmetric cryptography without incurring an excessive performance penalty.</li>
+<li>Public key cryptography requires additional resources (such as RAM, ROM, power, specialized hardware).</li>
+<li>A solution will need to consider support for a simple scheme for expiring authentication and authorization information on devices which are unable to measure time (cf.&#160;<a href="#time-measurements" class="xref">Section 9.2</a>).</li>
+</ul>
+<h1 id="rfc.section.8.2">
+<a href="#rfc.section.8.2">8.2.</a> <a href="#server-side-authorization" id="server-side-authorization">Server-side Authorization</a>
+</h1>
+<p></p>
 
 <ul>
-  <li>C and/or RS may be constrained in terms of power, processing, communication bandwidth, memory and storage space, and moreover:  <ul><li>unable to manage complex authorization policies</li><li>unable to manage a large number of secure connections</li><li>without user interface</li><li>without constant network connectivity</li><li>unable to precisely measure time</li><li>required to save on wireless communication due to high power consumption</li></ul></li>
-  <li>CAS and AS are not assumed to be constrained devices.</li>
-  <li>All devices under consideration can process symmetric cryptography without incurring an excessive performance penalty.  <ul><li>We assume the use of a standardized symmetric key algorithm, such as AES.</li><li>Except for the most constrained devices we assume the use of a standardized cryptographic hash function such as SHA-256 (which can be used with the HMAC construction for integrity protection).</li></ul></li>
-  <li>Public key cryptography requires additional resources (such as RAM, ROM, power, specialized hardware).</li>
-  <li>A DTLS handshake involves significant computation, communication, and memory overheads in the context of constrained devices.  <ul><li>The RAM requirements of DTLS handshakes with public key cryptography are prohibitive for certain constrained devices.</li><li>Certificate-based DTLS handshakes require significant volumes of communication, RAM (message buffers) and computation.</li></ul></li>
-  <li>A solution will need to consider support for a simple scheme for expiring authentication and authorization information on devices which are unable to measure time (cf. <a href="#time-measurements">Section 9.2</a>).</li>
+<li>RS enforces authorization for access to a resource based on credentials presented by C, the requested resource, the REST method, and local context in RS at the time of the request, or on any subset of this information.</li>
+<li>The authorization decision is enforced by RS.  <ul>
+<li>RS needs to have authorization information in order to verify that C is allowed to access the resource as requested.</li>
+<li>RS needs to make sure that it provides resource access only to authorized clients.</li>
 </ul>
-<h1 id="rfc.section.8.3"><a href="#rfc.section.8.3">8.3.</a> <a href="#authentication-1" id="authentication-1">Authentication</a></h1>
-<p/>
+</li>
+<li>Apart from authorization for access to a resource, authorization may also be required for access to information about a resource (for instance, resource descriptions).</li>
+</ul>
+<h1 id="rfc.section.8.3">
+<a href="#rfc.section.8.3">8.3.</a> <a href="#client-side-authorization-information" id="client-side-authorization-information">Client-side Authorization Information</a>
+</h1>
+<p></p>
+
+<ul><li>C enforces client-side authorization by protecting its requests to RS and by authenticating results from RS, making use of decisions and policies as well as keying material provided by CAS.</li></ul>
+<h1 id="rfc.section.8.4">
+<a href="#rfc.section.8.4">8.4.</a> <a href="#resource-access" id="resource-access">Resource Access</a>
+</h1>
+<p></p>
 
 <ul>
-  <li>RS needs to authenticate AS to ensure that the authorization information and related data comes from the correct source.</li>
-  <li>Similarly, C needs to authenticate CAS to ensure that the authorization information and related data comes from the correct source.</li>
-  <li>Depending on use case and authorization requirements, C, RS, CAS, or AS may need to authenticate messages from each other.</li>
+<li>Resources are accessed in a RESTful manner using methods such as GET, PUT, POST, DELETE.</li>
+<li>By default, the resource request needs to be integrity protected and may be encrypted end-to-end from C to RS.  It needs to be possible for RS to detect a replayed request.</li>
+<li>By default, the response to a request needs to be integrity protected and may be encrypted end-to-end from RS to C.  It needs to be possible for C to detect a replayed response.</li>
+<li>RS needs to be able to verify that the request comes from an authorized client.</li>
+<li>C needs to be able to verify that the response to a request comes from the intended RS.</li>
+<li>There may be resources whose access need not be protected (e.g.  for discovery of the responsible AS).</li>
 </ul>
-<h1 id="rfc.section.8.4"><a href="#rfc.section.8.4">8.4.</a> <a href="#server-side-authorization" id="server-side-authorization">Server-side Authorization</a></h1>
-<p/>
+<h1 id="rfc.section.8.5">
+<a href="#rfc.section.8.5">8.5.</a> <a href="#keys-and-cipher-suites" id="keys-and-cipher-suites">Keys and Cipher Suites</a>
+</h1>
+<p></p>
 
 <ul>
-  <li>RS enforces authorization for access to a resource based on credentials presented by C, the requested resource, the REST method, and local context in RS at the time of the request, or on any subset of this information.</li>
-  <li>The credentials presented by C may have been provided by CAS.</li>
-  <li>The underlying authorization decision is taken either by AS or RS.</li>
-  <li>The authorization decision is enforced by RS.  <ul><li>RS needs to have authorization information in order to verify that C is allowed to access the resource as requested.</li><li>RS needs to make sure that it provides resource access only to authorized clients.</li></ul></li>
-  <li>Apart from authorization for access to a resource, authorization may also be required for access to information about a resource (for instance, resource descriptions).</li>
-  <li>The solution may need to be able to support the delegation of access rights.</li>
+<li>A constrained node and its authorization manager (i.e., RS and AS, and C and CAS) have established cryptographic keys.  For example, they share a secret key or each have the other&#8217;s public key.</li>
+<li>The transfer of authorization information is protected with symmetric and/or asymmetric keys.</li>
+<li>The access request/response is protected with symmetric and/or asymmetric keys.</li>
+<li>There must be a mechanism for RS to establish the necessary key(s) to verify and decrypt the request and to protect the response.</li>
+<li>There must be a mechanism for C to establish the necessary key(s) to protect the request and to verify and decrypt the response.</li>
+<li>There must be a mechanism for C to obtain the supported cipher suites of a RS.</li>
 </ul>
-<h1 id="rfc.section.8.5"><a href="#rfc.section.8.5">8.5.</a> <a href="#client-side-authorization-information" id="client-side-authorization-information">Client-side Authorization Information</a></h1>
-<p/>
+<h1 id="rfc.section.8.6">
+<a href="#rfc.section.8.6">8.6.</a> <a href="#network-considerations" id="network-considerations">Network Considerations</a>
+</h1>
+<p></p>
 
 <ul>
-  <li>C enforces client-side authorization by protecting its requests to RS and by authenticating results from RS, making use of decisions and policies as well as keying material provided by CAS.</li>
+<li>A solution will need to consider network overload due to avoidable communication of a constrained node with its authorization manager (C with CAS, RS with AS).</li>
+<li>A solution will need to consider network overload by compact authorization information representation.</li>
+<li>A solution may want to optimize the case where authorization information does not change often.</li>
+<li>A solution should combine the mechanisms for providing authentication and authorization information to the client and RS where possible.</li>
+<li>A solution may consider support for an efficient mechanism for providing authorization information to multiple RSs, for example when multiple entities need to be configured or change state.</li>
 </ul>
-<h1 id="rfc.section.8.6"><a href="#rfc.section.8.6">8.6.</a> <a href="#server-side-authorization-information" id="server-side-authorization-information">Server-side Authorization Information</a></h1>
-<p/>
-
-<ul>
-  <li>Authorization information is transferred from AS to RS using Agent, Push or Pull mechanisms <a href="#RFC2904">[RFC2904]</a>.</li>
-  <li>RS needs to authenticate that the authorization information is coming from AS (integrity).</li>
-  <li>The authorization information may also be encrypted end-to-end between AS and RS (confidentiality).</li>
-  <li>The architecture supports the case where RS may not be able to communicate with AS at the time of the request from C.</li>
-  <li>RS may store or cache authorization information.</li>
-  <li>Authorization information may be pre-configured in RS.</li>
-  <li>Authorization information stored or cached in RS needs to be possible to change.  The change of such information needs to be subject to authorization.</li>
-  <li>Authorization policies stored on RS may be handled as a resource, i.e. information located at a particular URI, accessed with RESTful methods, and the access being subject to the same authorization mechanics.  AS may have special privileges when requesting access to the authorization policy resources on RS.</li>
-  <li>There may be mechanisms for C to look up the AS which provides authorization information about a particular resource.</li>
-</ul>
-<h1 id="rfc.section.8.7"><a href="#rfc.section.8.7">8.7.</a> <a href="#resource-access" id="resource-access">Resource Access</a></h1>
-<p/>
-
-<ul>
-  <li>Resources are accessed in a RESTful manner using methods such as GET, PUT, POST, DELETE.</li>
-  <li>By default, the resource request needs to be integrity protected and may be encrypted end-to-end from C to RS.  It needs to be possible for RS to detect a replayed request.</li>
-  <li>By default, the response to a request needs to be integrity protected and may be encrypted end-to-end from RS to C.  It needs to be possible for C to detect a replayed response.</li>
-  <li>RS needs to be able to verify that the request comes from an authorized client.</li>
-  <li>C needs to be able to verify that the response to a request comes from the intended RS.</li>
-  <li>There may be resources whose access need not be protected (e.g.  for discovery of the responsible AS).</li>
-</ul>
-<h1 id="rfc.section.8.8"><a href="#rfc.section.8.8">8.8.</a> <a href="#keys-and-cipher-suites" id="keys-and-cipher-suites">Keys and Cipher Suites</a></h1>
-<p/>
-
-<ul>
-  <li>A constrained node and its authorization manager (i.e., RS and AS, and C and CAS) have established cryptographic keys.  For example, they share a secret key or each have the other&#8217;s public key.</li>
-  <li>The transfer of authorization information is protected with symmetric and/or asymmetric keys.</li>
-  <li>The access request/response can be protected with symmetric and/or asymmetric keys.</li>
-  <li>There must be a mechanism for RS to establish the necessary key(s) to verify and decrypt the request and to protect the response.</li>
-  <li>There must be a mechanism for C to establish the necessary key(s) to protect the request and to verify and decrypt the response.</li>
-  <li>There must be a mechanism for C to obtain the supported cipher suites of a RS.</li>
-</ul>
-<h1 id="rfc.section.8.9"><a href="#rfc.section.8.9">8.9.</a> <a href="#network-considerations" id="network-considerations">Network Considerations</a></h1>
-<p/>
-
-<ul>
-  <li>A solution will need to consider network overload due to avoidable communication of a constrained node with its authorization manager (C with CAS, RS with AS).</li>
-  <li>A solution will need to consider network overload by compact authorization information representation.</li>
-  <li>A solution may want to optimize the case where authorization information does not change often.</li>
-  <li>A solution may consider support for an efficient mechanism for providing authorization information to multiple RSs, for example when multiple entities need to be configured or change state.</li>
-</ul>
-<h1 id="rfc.section.8.10"><a href="#rfc.section.8.10">8.10.</a> <a href="#legacy-considerations" id="legacy-considerations">Legacy Considerations</a></h1>
-<p/>
-
-<ul>
-  <li>A solution may consider interworking with existing infrastructure.</li>
-  <li>A solution may consider supporting authorization of access to legacy devices.</li>
-</ul>
-<h1 id="rfc.section.9"><a href="#rfc.section.9">9.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a></h1>
+<h1 id="rfc.section.9">
+<a href="#rfc.section.9">9.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
+</h1>
 <p id="rfc.section.9.p.1">This document discusses authorization-related tasks for constrained environments and describes how these tasks can be mapped to actors in the architecture.</p>
-<p id="rfc.section.9.p.2">The entire document is about security.  Security considerations applicable to authentication and authorization in RESTful environments are provided in e.g. OAuth 2.0 <a href="#RFC6749">[RFC6749]</a>.</p>
-<p id="rfc.section.9.p.3">In this section we focus on specific security aspects related to authorization in constrained-node networks.  Section 11.6 of <a href="#RFC7252">[RFC7252]</a>, &#8220;Constrained node considerations&#8221;, discusses implications of specific constraints on the security mechanisms employed.  A wider view of security in constrained-node networks is provided in <a href="#I-D.garcia-core-security">[I-D.garcia-core-security]</a>.</p>
-<h1 id="rfc.section.9.1"><a href="#rfc.section.9.1">9.1.</a> <a href="#physical-attacks-on-sensor-and-actuator-networks" id="physical-attacks-on-sensor-and-actuator-networks">Physical Attacks on Sensor and Actuator Networks</a></h1>
-<p id="rfc.section.9.1.p.1">The focus of this work is on constrained-node networks consisting of connected sensors and actuators.  The main function of such devices is to interact with the physical world by gathering information or performing an action.  We now discuss attacks performed with physical access to such devices.</p>
+<p id="rfc.section.9.p.2">In this section we focus on specific security aspects related to authorization in constrained-node networks.  Section 11.6 of <a href="#RFC7252" class="xref">[RFC7252]</a>, &#8220;Constrained node considerations&#8221;, discusses implications of specific constraints on the security mechanisms employed.  A wider view of security in constrained-node networks is provided in <a href="#I-D.irtf-t2trg-iot-seccons" class="xref">[I-D.irtf-t2trg-iot-seccons]</a>.</p>
+<h1 id="rfc.section.9.1">
+<a href="#rfc.section.9.1">9.1.</a> <a href="#physical-attacks-on-sensor-and-actuator-networks" id="physical-attacks-on-sensor-and-actuator-networks">Physical Attacks on Sensor and Actuator Networks</a>
+</h1>
+<p id="rfc.section.9.1.p.1">The focus of this work is on constrained-node networks consisting of connected constrained devices such as sensors and actuators.  The main function of such devices is to interact with the physical world by gathering information or performing an action.  We now discuss attacks performed with physical access to such devices.</p>
 <p id="rfc.section.9.1.p.2">The main threats to sensors and actuator networks are:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>Unauthorized access to data to and from sensors and actuators, including eavesdropping and manipulation of data.</li>
-  <li>Denial-of-service making the sensor/actuator unable to perform its intended task correctly.  <br/><br/> A number of attacks can be made with physical access to a device including probing attacks, timing attacks, power attacks, etc.  However, with physical access to a sensor or actuator device it is possible to directly perform attacks equivalent of eavesdropping, manipulating data or denial of service. For example:</li>
-  <li>Instead of eavesdropping the sensor data or attacking the authorization system to gain access to the data, the attacker could make its own measurements on the physical object.</li>
-  <li>Instead of manipulating the sensor data the attacker could change the physical object which the sensor is measuring, thereby changing the payload data which is being sent.</li>
-  <li>Instead of manipulating data for an actuator or attacking the authorization system, the attacker could perform an unauthorized action directly on the physical object.</li>
-  <li>A denial-of-service attack could be performed physically on the object or device.  <br/><br/> All these attacks are possible by having physical access to the device, since the assets are related to the physical world.  Moreover, this kind of attacks are in many cases straightforward (requires no special competence or tools, low cost given physical access, etc.)  <br/><br/> As a conclusion, if an attacker has full physical access to a sensor or actuator device, then much of the security functionality elaborated in this draft is not effective to protect the asset during the physical attack.  <br/><br/> Since it does not make sense to design a solution for a situation that cannot be protected against we assume there is no need to protect assets which are exposed during a physical attack.  In other words, either an attacker does not have physical access to the sensor or actuator device, or if it has, the attack shall only have effect during the period of physical attack, and shall be limited in extent to the physical control the attacker exerts (e.g., must not affect the security of other devices.)</li>
+<li>Unauthorized access to data to and from sensors and actuators, including eavesdropping and manipulation of data.</li>
+<li>Denial-of-service making the sensor/actuator unable to perform its intended task correctly.  <br><br> A number of attacks can be made with physical access to a device including probing attacks, timing attacks, power attacks, etc.  However, with physical access to a sensor or actuator device it is possible to directly perform attacks equivalent of eavesdropping, manipulating data or denial of service.  These attacks are possible by having physical access to the device, since the assets are related to the physical world.  Moreover, this kind of attacks are in many cases straightforward (requires no special competence or tools, low cost given physical access, etc). If an attacker has full physical access to a sensor or actuator device, then much of the security functionality elaborated in this draft may not be effective to protect the asset during the physical attack.</li>
 </ul>
-<h1 id="rfc.section.9.2"><a href="#rfc.section.9.2">9.2.</a> <a href="#time-measurements" id="time-measurements">Clocks and Time Measurements</a></h1>
-<p id="rfc.section.9.2.p.1">Measuring time and keeping wall-clock time with certain accuracy is important to achieve certain security properties, for example to determine whether a public key certificate, access token, or some other assertion, is valid.</p>
+<h1 id="rfc.section.9.2">
+<a href="#rfc.section.9.2">9.2.</a> <a href="#time-measurements" id="time-measurements">Clocks and Time Measurements</a>
+</h1>
+<p id="rfc.section.9.2.p.1">Measuring time and keeping wall-clock time with certain accuracy is important to achieve certain security properties, for example to determine whether keying material an access token, or some other assertion, is valid. The required level of accuracy may differ for different applications.</p>
 <p id="rfc.section.9.2.p.2">Dynamic authorization in itself requires the ability to handle expiry or revocation of authorization decisions or to distinguish new authorization decisions from old.</p>
-<p id="rfc.section.9.2.p.3">For certain categories of devices we can assume that there is an internal clock which is sufficiently accurate to handle the time measurement requirements.  If RS can connect directly to AS, this relationship can be used to update RS in terms of time, removing some uncertainty, as well as to directly provide revocation information, removing authorizations that are no longer desired.</p>
-<p id="rfc.section.9.2.p.4">If RS continuously measures time but can&#8217;t connect to AS or another trusted source of time, time drift may have to be accepted and it may be harder to manage revocation.  However, it may still be able to handle short lived access rights within some margins, by measuring the time since arrival of authorization information or request.</p>
-<p id="rfc.section.9.2.p.5">Some categories of devices in scope may be unable measure time with any accuracy (e.g. because of sleep cycles).  This category of devices is not suitable for the use cases which require measuring validity of assertions and authorizations in terms of absolute time.</p>
-<h1 id="rfc.section.10"><a href="#rfc.section.10">10.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a></h1>
+<p id="rfc.section.9.2.p.3">For certain categories of devices we can assume that there is an internal clock which is sufficiently accurate to handle the time measurement requirements.  If RS continuously measures time and can connect directly to AS, this relationship can be used to update RS in terms of time, removing some uncertainty, as well as to directly provide revocation information, removing authorizations that are no longer desired.</p>
+<p id="rfc.section.9.2.p.4">If RS continuously measures time but can&#8217;t connect to AS or another trusted source of time, time drift may have to be accepted and it may be harder to manage revocation.  However, RS may still be able to handle short lived access rights within some margins, by measuring the time since arrival of authorization information or request.</p>
+<p id="rfc.section.9.2.p.5">Some categories of devices in scope may be unable to measure time with any accuracy (e.g. because of sleep cycles).  This category of devices is not suitable for the use cases which require measuring validity of assertions and authorizations in terms of absolute time such as TLS certificates but require a mechanism that is specifically designed for them.</p>
+<h1 id="rfc.section.10">
+<a href="#rfc.section.10">10.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
+</h1>
 <p id="rfc.section.10.p.1">This document has no actions for IANA.</p>
-<h1 id="rfc.references"><a href="#rfc.references">11.</a> Informative References</h1>
-<table>
-  <tbody>
-    <tr>
-      <td class="reference">
-        <b id="HUM14delegation">[HUM14delegation]</b>
-      </td>
-      <td class="top"><a>Hummen, R.</a>, <a>Shafagh, H.</a>, <a>Raza, S.</a>, <a>Voigt, T.</a> and <a>K. Wehrle</a>, "<a>Delegation-based Authentication and Authorization for the IP-based Internet of Things</a>", 11th IEEE International Conference on Sensing, Communication, and Networking (SECON'14), June 30 - July 3, 2014.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="I-D.garcia-core-security">[I-D.garcia-core-security]</b>
-      </td>
-      <td class="top"><a>Garcia-Morchon, O.</a>, <a>Kumar, S.</a>, <a>Keoh, S.</a>, <a>Hummen, R.</a> and <a>R. Struik</a>, "<a href="http://tools.ietf.org/html/draft-garcia-core-security-06">Security Considerations in the IP-based Internet of Things</a>", Internet-Draft draft-garcia-core-security-06, September 2013.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="I-D.gerdes-ace-tasks">[I-D.gerdes-ace-tasks]</b>
-      </td>
-      <td class="top"><a>Gerdes, S.</a>, "<a href="http://tools.ietf.org/html/draft-gerdes-ace-tasks-00">Authorization-Related Tasks in Constrained Environments</a>", Internet-Draft draft-gerdes-ace-tasks-00, September 2015.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="I-D.hardjono-oauth-umacore">[I-D.hardjono-oauth-umacore]</b>
-      </td>
-      <td class="top"><a>Hardjono, T.</a>, <a>Maler, E.</a>, <a>Machulak, M.</a> and <a>D. Catalano</a>, "<a href="http://tools.ietf.org/html/draft-hardjono-oauth-umacore-14">User-Managed Access (UMA) Profile of OAuth 2.0</a>", Internet-Draft draft-hardjono-oauth-umacore-14, January 2016.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="I-D.koster-core-coap-pubsub">[I-D.koster-core-coap-pubsub]</b>
-      </td>
-      <td class="top"><a>Koster, M.</a>, <a>Keranen, A.</a> and <a>J. Jimenez</a>, "<a href="http://tools.ietf.org/html/draft-koster-core-coap-pubsub-05">Publish-Subscribe Broker for the Constrained Application Protocol (CoAP)</a>", Internet-Draft draft-koster-core-coap-pubsub-05, July 2016.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="I-D.selander-ace-object-security">[I-D.selander-ace-object-security]</b>
-      </td>
-      <td class="top"><a>Selander, G.</a>, <a>Mattsson, J.</a>, <a>Palombini, F.</a> and <a>L. Seitz</a>, "<a href="http://tools.ietf.org/html/draft-selander-ace-object-security-06">Object Security of CoAP (OSCOAP)</a>", Internet-Draft draft-selander-ace-object-security-06, October 2016.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="OSCAR">[OSCAR]</b>
-      </td>
-      <td class="top"><a>Vucinic, M.</a>, <a>Tourancheau, B.</a>, <a>Rousseau, F.</a>, <a>Duda, A.</a>, <a>Damon, L.</a> and <a>R. Guizzetti</a>, "<a>OSCAR: Object Security Architecture for the Internet of Things</a>", CoRR vol. abs/1404.7799, 2014.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="REST">[REST]</b>
-      </td>
-      <td class="top"><a>Fielding, R.</a> and <a>R. Taylor</a>, "<a>Principled design of the modern Web architecture</a>", ACM Trans. Inter. Tech. Vol. 2(2), pp. 115-150, DOI 10.1145/514183.514185, May 2002.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="RFC2904">[RFC2904]</b>
-      </td>
-      <td class="top"><a>Vollbrecht, J.</a>, <a>Calhoun, P.</a>, <a>Farrell, S.</a>, <a>Gommans, L.</a>, <a>Gross, G.</a>, <a>de Bruijn, B.</a>, <a>de Laat, C.</a>, <a>Holdrege, M.</a> and <a>D. Spence</a>, "<a href="http://tools.ietf.org/html/rfc2904">AAA Authorization Framework</a>", RFC 2904, DOI 10.17487/RFC2904, August 2000.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="RFC4120">[RFC4120]</b>
-      </td>
-      <td class="top"><a>Neuman, C.</a>, <a>Yu, T.</a>, <a>Hartman, S.</a> and <a>K. Raeburn</a>, "<a href="http://tools.ietf.org/html/rfc4120">The Kerberos Network Authentication Service (V5)</a>", RFC 4120, DOI 10.17487/RFC4120, July 2005.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="RFC4949">[RFC4949]</b>
-      </td>
-      <td class="top"><a>Shirey, R.</a>, "<a href="http://tools.ietf.org/html/rfc4949">Internet Security Glossary, Version 2</a>", FYI 36, RFC 4949, DOI 10.17487/RFC4949, August 2007.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="RFC5246">[RFC5246]</b>
-      </td>
-      <td class="top"><a>Dierks, T.</a> and <a>E. Rescorla</a>, "<a href="http://tools.ietf.org/html/rfc5246">The Transport Layer Security (TLS) Protocol Version 1.2</a>", RFC 5246, DOI 10.17487/RFC5246, August 2008.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="RFC6347">[RFC6347]</b>
-      </td>
-      <td class="top"><a>Rescorla, E.</a> and <a>N. Modadugu</a>, "<a href="http://tools.ietf.org/html/rfc6347">Datagram Transport Layer Security Version 1.2</a>", RFC 6347, DOI 10.17487/RFC6347, January 2012.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="RFC6749">[RFC6749]</b>
-      </td>
-      <td class="top"><a>Hardt, D.</a>, "<a href="http://tools.ietf.org/html/rfc6749">The OAuth 2.0 Authorization Framework</a>", RFC 6749, DOI 10.17487/RFC6749, October 2012.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="RFC7228">[RFC7228]</b>
-      </td>
-      <td class="top"><a>Bormann, C.</a>, <a>Ersue, M.</a> and <a>A. Keranen</a>, "<a href="http://tools.ietf.org/html/rfc7228">Terminology for Constrained-Node Networks</a>", RFC 7228, DOI 10.17487/RFC7228, May 2014.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="RFC7230">[RFC7230]</b>
-      </td>
-      <td class="top"><a>Fielding, R.</a> and <a>J. Reschke</a>, "<a href="http://tools.ietf.org/html/rfc7230">Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing</a>", RFC 7230, DOI 10.17487/RFC7230, June 2014.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="RFC7231">[RFC7231]</b>
-      </td>
-      <td class="top"><a>Fielding, R.</a> and <a>J. Reschke</a>, "<a href="http://tools.ietf.org/html/rfc7231">Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content</a>", RFC 7231, DOI 10.17487/RFC7231, June 2014.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="RFC7252">[RFC7252]</b>
-      </td>
-      <td class="top"><a>Shelby, Z.</a>, <a>Hartke, K.</a> and <a>C. Bormann</a>, "<a href="http://tools.ietf.org/html/rfc7252">The Constrained Application Protocol (CoAP)</a>", RFC 7252, DOI 10.17487/RFC7252, June 2014.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="RFC7744">[RFC7744]</b>
-      </td>
-      <td class="top"><a>Seitz, L.</a>, <a>Gerdes, S.</a>, <a>Selander, G.</a>, <a>Mani, M.</a> and <a>S. Kumar</a>, "<a href="http://tools.ietf.org/html/rfc7744">Use Cases for Authentication and Authorization in Constrained Environments</a>", RFC 7744, DOI 10.17487/RFC7744, January 2016.</td>
-    </tr>
-  </tbody>
-</table>
-<h1 id="rfc.acknowledgements">
-  <a href="#rfc.acknowledgements">Acknowledgements</a>
-</h1>
-<p id="rfc.section.A.p.1">The authors would like to thank Olaf Bergmann, Robert Cragie, Samuel Erdtman, Klaus Hartke, Sandeep Kumar, John Mattson, Corinna Schmitt, Mohit Sethi, Abhinav Somaraju, Hannes Tschofenig, Vlasios Tsiatsis and Erik Wahlstroem for contributing to the discussion, giving helpful input and commenting on previous forms of this draft.  The authors would also like to specifically acknowledge input provided by Hummen and others <a href="#HUM14delegation">[HUM14delegation]</a>.  Robin Wilton provided extensive editorial comments that were the basis for significant improvements of the text.</p>
-<h1 id="rfc.authors">
-  <a href="#rfc.authors">Authors' Addresses</a>
-</h1>
+<h1 id="rfc.references">
+<a href="#rfc.references">11.</a> Informative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="HUM14delegation">[HUM14delegation]</b></td>
+<td class="top">
+<a>Hummen, R.</a>, <a>Shafagh, H.</a>, <a>Raza, S.</a>, <a>Voigt, T.</a> and <a>K. Wehrle</a>, "<a>Delegation-based Authentication and Authorization for the IP-based Internet of Things</a>", 11th IEEE International Conference on Sensing, Communication, and Networking (SECON'14), June 30 - July 3, 2014.</td>
+</tr>
+<tr>
+<td class="reference"><b id="I-D.hardjono-oauth-umacore">[I-D.hardjono-oauth-umacore]</b></td>
+<td class="top">
+<a>Hardjono, T.</a>, <a>Maler, E.</a>, <a>Machulak, M.</a> and <a>D. Catalano</a>, "<a href="https://tools.ietf.org/html/draft-hardjono-oauth-umacore-14">User-Managed Access (UMA) Profile of OAuth 2.0</a>", Internet-Draft draft-hardjono-oauth-umacore-14, January 2016.</td>
+</tr>
+<tr>
+<td class="reference"><b id="I-D.ietf-core-coap-pubsub">[I-D.ietf-core-coap-pubsub]</b></td>
+<td class="top">
+<a>Koster, M.</a>, <a>Keranen, A.</a> and <a>J. Jimenez</a>, "<a href="https://tools.ietf.org/html/draft-ietf-core-coap-pubsub-05">Publish-Subscribe Broker for the Constrained Application Protocol (CoAP)</a>", Internet-Draft draft-ietf-core-coap-pubsub-05, July 2018.</td>
+</tr>
+<tr>
+<td class="reference"><b id="I-D.ietf-core-object-security">[I-D.ietf-core-object-security]</b></td>
+<td class="top">
+<a>Selander, G.</a>, <a>Mattsson, J.</a>, <a>Palombini, F.</a> and <a>L. Seitz</a>, "<a href="https://tools.ietf.org/html/draft-ietf-core-object-security-15">Object Security for Constrained RESTful Environments (OSCORE)</a>", Internet-Draft draft-ietf-core-object-security-15, August 2018.</td>
+</tr>
+<tr>
+<td class="reference"><b id="I-D.irtf-t2trg-iot-seccons">[I-D.irtf-t2trg-iot-seccons]</b></td>
+<td class="top">
+<a>Garcia-Morchon, O.</a>, <a>Kumar, S.</a> and <a>M. Sethi</a>, "<a href="https://tools.ietf.org/html/draft-irtf-t2trg-iot-seccons-15">State-of-the-Art and Challenges for the Internet of Things Security</a>", Internet-Draft draft-irtf-t2trg-iot-seccons-15, May 2018.</td>
+</tr>
+<tr>
+<td class="reference"><b id="REST">[REST]</b></td>
+<td class="top">
+<a>Fielding, R.</a> and <a>R. Taylor</a>, "<a>Principled design of the modern Web architecture</a>", ACM Trans. Inter. Tech. Vol. 2(2), pp. 115-150, DOI 10.1145/514183.514185, May 2002.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC4120">[RFC4120]</b></td>
+<td class="top">
+<a>Neuman, C.</a>, <a>Yu, T.</a>, <a>Hartman, S.</a> and <a>K. Raeburn</a>, "<a href="https://tools.ietf.org/html/rfc4120">The Kerberos Network Authentication Service (V5)</a>", RFC 4120, DOI 10.17487/RFC4120, July 2005.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC4949">[RFC4949]</b></td>
+<td class="top">
+<a>Shirey, R.</a>, "<a href="https://tools.ietf.org/html/rfc4949">Internet Security Glossary, Version 2</a>", FYI 36, RFC 4949, DOI 10.17487/RFC4949, August 2007.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC6347">[RFC6347]</b></td>
+<td class="top">
+<a>Rescorla, E.</a> and <a>N. Modadugu</a>, "<a href="https://tools.ietf.org/html/rfc6347">Datagram Transport Layer Security Version 1.2</a>", RFC 6347, DOI 10.17487/RFC6347, January 2012.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC6749">[RFC6749]</b></td>
+<td class="top">
+<a>Hardt, D.</a>, "<a href="https://tools.ietf.org/html/rfc6749">The OAuth 2.0 Authorization Framework</a>", RFC 6749, DOI 10.17487/RFC6749, October 2012.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7228">[RFC7228]</b></td>
+<td class="top">
+<a>Bormann, C.</a>, <a>Ersue, M.</a> and <a>A. Keranen</a>, "<a href="https://tools.ietf.org/html/rfc7228">Terminology for Constrained-Node Networks</a>", RFC 7228, DOI 10.17487/RFC7228, May 2014.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7230">[RFC7230]</b></td>
+<td class="top">
+<a>Fielding, R.</a> and <a>J. Reschke</a>, "<a href="https://tools.ietf.org/html/rfc7230">Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing</a>", RFC 7230, DOI 10.17487/RFC7230, June 2014.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7231">[RFC7231]</b></td>
+<td class="top">
+<a>Fielding, R.</a> and <a>J. Reschke</a>, "<a href="https://tools.ietf.org/html/rfc7231">Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content</a>", RFC 7231, DOI 10.17487/RFC7231, June 2014.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7252">[RFC7252]</b></td>
+<td class="top">
+<a>Shelby, Z.</a>, <a>Hartke, K.</a> and <a>C. Bormann</a>, "<a href="https://tools.ietf.org/html/rfc7252">The Constrained Application Protocol (CoAP)</a>", RFC 7252, DOI 10.17487/RFC7252, June 2014.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7744">[RFC7744]</b></td>
+<td class="top">
+<a>Seitz, L.</a>, <a>Gerdes, S.</a>, <a>Selander, G.</a>, <a>Mani, M.</a> and <a>S. Kumar</a>, "<a href="https://tools.ietf.org/html/rfc7744">Use Cases for Authentication and Authorization in Constrained Environments</a>", RFC 7744, DOI 10.17487/RFC7744, January 2016.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8246">[RFC8246]</b></td>
+<td class="top">
+<a>McManus, P.</a>, "<a href="https://tools.ietf.org/html/rfc8246">HTTP Immutable Responses</a>", RFC 8246, DOI 10.17487/RFC8246, September 2017.</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.acknowledgements"><a href="#rfc.acknowledgements">Acknowledgements</a></h1>
+<p id="rfc.section.A.p.1">The authors would like to thank Olaf Bergmann, Robert Cragie, Samuel Erdtman, Klaus Hartke, Sandeep Kumar, John Mattson, Corinna Schmitt, Mohit Sethi, Abhinav Somaraju, Hannes Tschofenig, Vlasios Tsiatsis and Erik Wahlstroem for contributing to the discussion, giving helpful input and commenting on previous forms of this draft.  The authors would also like to specifically acknowledge input provided by Hummen and others <a href="#HUM14delegation" class="xref">[HUM14delegation]</a>.  Robin Wilton provided extensive editorial comments that were the basis for significant improvements of the text.</p>
+<h1 id="rfc.authors"><a href="#rfc.authors">Authors' Addresses</a></h1>
 <div class="avoidbreak">
   <address class="vcard">
 	<span class="vcardline">
@@ -1154,7 +1173,7 @@ support                      support
 		<span class="family-name">Seitz</span>
 	  </span>
 	</span>
-	<span class="org vcardline">SICS Swedish ICT AB</span>
+	<span class="org vcardline">RISE SICS</span>
 	<span class="adr">
 	  <span class="vcardline">Scheelev&#228;gen 17</span>
 
@@ -1165,7 +1184,7 @@ support                      support
 	  </span>
 	  <span class="country-name vcardline">Sweden</span>
 	</span>
-	<span class="vcardline">EMail: <a href="mailto:ludwig@sics.se">ludwig@sics.se</a></span>
+	<span class="vcardline">EMail: <a href="mailto:ludwig.seitz@ri.se">ludwig.seitz@ri.se</a></span>
 
   </address>
 </div><div class="avoidbreak">
@@ -1176,16 +1195,15 @@ support                      support
 		<span class="family-name">Selander</span>
 	  </span>
 	</span>
-	<span class="org vcardline">Ericsson</span>
+	<span class="org vcardline">Ericsson AB</span>
 	<span class="adr">
-	  <span class="vcardline">Far&#246;gatan 6</span>
-
+	  
 	  <span class="vcardline">
-		<span class="locality">Kista</span>,  
+		<span class="locality"></span> 
 		<span class="region"></span>
-		<span class="code">164 80</span>
+		<span class="code"></span>
 	  </span>
-	  <span class="country-name vcardline">Sweden</span>
+	  <span class="country-name vcardline"></span>
 	</span>
 	<span class="vcardline">EMail: <a href="mailto:goran.selander@ericsson.com">goran.selander@ericsson.com</a></span>
 
