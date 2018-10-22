@@ -36,11 +36,7 @@ author:
  -
     ins: G. Selander
     name: Göran Selander
-    org: Ericsson
-    street: Farögatan 6
-    city: Kista
-    code: 164 80
-    country: Sweden
+    org: Ericsson AB
     email: goran.selander@ericsson.com
  -
     ins: C. Bormann
@@ -247,15 +243,15 @@ Client (C):
   (Used to discuss the client whose access to a resource is the end,
   not the means, of the authenticated authorization process.)
 
-Principal:
+Overseeing principal:
 : (Used in its English sense here, and specifically as:)
   An individual that is either RqP or RO or both.
 
 Resource Owner (RO):
-: The principal that is in charge of the resource and controls its access permissions.
+: The overseeing principal that is in charge of the resource and controls its access permissions.
 
 Requesting Party (RqP):
-: The principal that is in charge of the Client and controls the
+: The overseeing principal that is in charge of the Client and controls the
   requests a Client makes and its acceptance of responses.
 
 Authorization Server (AS):
@@ -329,10 +325,10 @@ The constrained level and its security objectives are detailed in
 <!-- graphic: request.png -->
 
 The authorization decisions at the endpoints are made on behalf of the
-principals that control the endpoints.  To reuse OAuth and UMA
-terminology, the present document calls the principal that is controlling C the Requesting Party
-(RqP), and calls the principal that is controlling RS the Resource Owner
-(RO).  Each principal makes authorization decisions (possibly encapsulating them
+overseeing principals that control the endpoints.  To reuse OAuth and UMA
+terminology, the present document calls the overseeing principal that is controlling C the Requesting Party
+(RqP), and calls the overseeing principal that is controlling RS the Resource Owner
+(RO).  Each overseeing principal makes authorization decisions (possibly encapsulating them
 into security policies) which are then enforced by the endpoint it controls.
 
 The specific security objectives will vary, but for any specific
@@ -363,7 +359,7 @@ More on the security objectives of the principal level in {{pl}}.
 
 The use cases defined in {{-usecases}} demonstrate that
 constrained devices are often used for scenarios where their
-principals are not present at the time of the communication,
+overseeing principals are not present at the time of the communication,
 are not able to communicate directly with the device because of a lack
 of user interfaces or displays, or may prefer the device to
 communicate autonomously.
@@ -381,7 +377,7 @@ principals.
 
 Moreover, constrained endpoints may need support with tasks requiring heavy
 processing, large memory or storage, or interfacing to humans, such as
-management of security policies defined by a principal. The principal,
+management of security policies defined by an overseeing principal. The principal,
 in turn, requires some agent maintaining the policies governing how
 its endpoints will interact.
 
@@ -397,10 +393,10 @@ with C.  To further relieve the constrained level, authorization (and
 related authentication) mechanisms may be employed between CAS and AS
 ({{lclp}}).
 (Again, both CAS and AS are conceptual entities controlled by their
-respective principals.  Many of these entities, often acting for
-different principals, can be combined into a single server
+respective overseeing principals.  Many of these entities, often acting for
+different overseeing principals, can be combined into a single server
 implementation; this of course requires proper segregation of the
-control information provided by each principal.)
+control information provided by each overseeing principal.)
 
      -------                           -------
      | RqP |                           |  RO | Principal Level
@@ -502,7 +498,7 @@ support              ___/ request resource / provides resource
 <!-- Graphic: combined-cas-as -->
 
 
-If C and RS have the same principal, CAS and AS can be combined.
+If C and RS have the same overseeing principal, CAS and AS can be combined.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 ------------
@@ -586,7 +582,7 @@ constrained environments can then be summarized as follows:
 
 * The interaction between potentially constrained endpoints is
   controlled by control information provided by less-constrained nodes
-  on behalf of the principals of the endpoints.
+  on behalf of the overseeing principals of the endpoints.
 
 * The interaction between the endpoints needs to be secured, as well
   as the establishment of the necessary keys for securing the
@@ -708,26 +704,18 @@ assigns permissions to an individual entity, the set of authenticated
 attributes must be suitable to uniquely identify this entity.
 
 In scenarios where devices are communicating autonomously there is
-often less need to uniquely identify an individual device: For a
-principal, the fact that a device belongs to a certain company or that
+often less need to uniquely identify an individual device: For an
+overseeing principal, the fact that a device belongs to a certain company or that
 it has a specific type (such as a light bulb) or location may be more
 important than that it has a unique identifier.
 
-(As a special case for the authorization of read access to a resource,
-RS may allow everyone to access an encrypted representation of the resource
-{{OSCAR}}.  In this case, controlling read access to that resource can
-be reduced to controlling read access to the key; partially removing
-future access requires that the resource representation is re-encrypted
-and the new key is made available to all participants that are 
-still authorized.)
-
-Principals (RqP and RO) need to decide about the required level of
+Overseeing principals (RqP and RO) need to decide about the required level of
 granularity for the authorization.  For example, we distinguish device
-authorization from owner authorization, and flat
+authorization from owner authorization, and binary
 authorization from unrestricted authorization. In the first case
 different access permissions are
 granted to individual devices while in the second case individual
-owners are authorized. If flat authorization is used, all
+owners are authorized. If binary authorization is used, all
 authenticated entities are implicitly authorized and have the same access permissions.
 Unrestricted authorization for an item of interest means that no
 authorization mechanism is used for accessing this resource (not even
@@ -738,12 +726,12 @@ to arrive at the decision to employ unrestricted authorization).
 | Authorization granularity | Authorization is contingent on:                 |
 | device                    | authentication of specific device               |
 | owner                     | (authenticated) authorization by owner          |
-| flat                      | (any) authentication                            |
+| binary                    | (any) authentication                            |
 | unrestricted              | (unrestricted access; access always authorized) |
 {: #fig-grain title="Some granularity levels for authorization" cols="20%l l"}
 
 More fine-grained authorization does not necessarily provide more
-security but can be more flexible. Principals need to consider that an
+security but can be more flexible. Overseeing principals need to consider that an
 entity should only be granted the permissions it really needs
 (principle of least privilege), to ensure the confidentiality and
 integrity of resources.
@@ -752,13 +740,14 @@ integrity of resources.
 Client-side authorization solutions aim at protecting the client from
 disclosing information to or ingesting information from resource
 servers RqP does not want it to interact with in the given way.
-Again, flat authorization (the server can be authenticated) may be
+Again, binary authorization (the server can be authenticated) may be
 sufficient, or more fine-grained authorization may be required.
 The client-side authorization also pertains to the level of protection
 required for the exchanges with the server (e.g., confidentiality).
 In the browser web, client-side authorization is often left to the
-human user; a constrained client may not have that available all the
-time but still needs to implement the wishes of the principal
+human user that directly controls the client; a constrained client may
+not have that available all the
+time but still needs to implement the wishes of the overseeing principal
 controlling it, the RqP.
 
 For the cases where an authorization solution is needed (all but
@@ -778,8 +767,8 @@ possible for an attacker to modify it during transmission.
 
 In some cases, only one side (client or server
 side) requires the integrity and / or confidentiality of a resource
-value.  Principals may decide to omit authentication (unrestricted
-authorization), or use flat authorization (just employing an
+value.  Overseeing principals may decide to omit authentication (unrestricted
+authorization), or use binary authorization (just employing an
 authentication mechanism).
 However, as indicated in {{security_objectives}}, the
 security objectives of both sides must be considered, which can often
@@ -813,9 +802,6 @@ relationship between the identified actors are considered. Several
 actors might share a single device or even be combined in a single
 piece of software.  Interfaces between actors may be realized as
 protocols or be internal to such a piece of software.
-
-A more detailed discussion of the tasks the actors have to perform in
-order to achieve specific security objectives is provided in {{?I-D.gerdes-ace-tasks}}.
 
 ## Constrained Level Actors {#cla}
 
@@ -867,9 +853,9 @@ different security domains.
 
 ## Principal Level Actors {#pl}
 
-Our objective is that C and RS are under control of principals in the physical world, the Requesting Party (RqP)
-and the Resource Owner (RO) respectively.  The principals decide about the
-security policies of their respective endpoints; each principal belongs to the same
+Our objective is that C and RS are under control of overseeing principals in the physical world, the Requesting Party (RqP)
+and the Resource Owner (RO) respectively.  The overseeing principals decide about the
+security policies of their respective endpoints; each overseeing principal belongs to the same
 security domain as their endpoints.
 
 RqP is in charge of C, i.e. RqP specifies security policies for C,
@@ -902,7 +888,7 @@ having to manage keys for numerous endpoints and conducting
 computationally intensive tasks, another level of complexity for actors is
 introduced (and, thus, a stricter limit on their constrainedness).  An actor on the less-constrained level belongs to the
 same security domain as its respective constrained level actor. They
-also have the same principal.
+also have the same overseeing principal.
 
 The Client Authorization Server (CAS) belongs to the same security domain as
 C and RqP. CAS acts on behalf of RqP. It assists C in authenticating RS
@@ -911,8 +897,10 @@ because for C, CAS is the authority for claims about RS.
 
 CAS performs the following tasks:
 
- * Validate on the client side that an entity has certain attributes.
- * Obtain authorization information about an entity from C's principal (RqP) and
+ * Vouch for the attributes of its clients.
+ * Ascertain that C's overseeing principal (RqP) authorized AS to vouch for RS and provide keying material for it.
+ * Provide revocation information concerning its clients (optional).
+ * Obtain authorization information about RS from C's overseeing principal (RqP) and
    provide it to C.
  * Negotiate means for secure communication to communicate with C.
 
@@ -923,8 +911,10 @@ because for RS, AS is the authority for claims about C.
 
 AS performs the following tasks:
 
- * Validate on the server side that an entity has certain attributes.
- * Obtain authorization information about an entity from RS' principal (RO) and
+ * Vouch for the attributes of its resource servers.
+ * Ascertain that RS's overseeing principal (RO) authorized CAS to vouch for C and provide keying material for it.
+ * Provide revocation information concerning its servers (optional).
+ * Obtain authorization information about C from RS' overseeing principal (RO) and
    provide it to RS.
  * Negotiate means for secure communication to communicate with RS.
 
@@ -1016,9 +1006,17 @@ may be helpful in discussing them.
         information and parser complexity.
 
 * C and RS need to be able to verify the authenticity of the
-        authorization information they receive.  Here as well, there
-        is a trade-off between processing complexity and deployment
-        complexity.
+        authorization information they receive. C must ascertain that
+        the authorization information stems from a CAS that was
+        authorized by RqP, RS must validate that the authorization
+        information stems from an AS that was authorized by RO.
+
+* Some applications may require the confidentiality of authorization
+  information. It then needs to be encrypted between CAS and C and AS
+  and RS, respectively.
+
+* C and RS must be able to check the freshness of the authorization
+  information and determine for how long it is supposed to be valid.
 
 * The RS needs to enforce the authorization decisions of the AS, while
   C needs to abide with the authorization decisions of the CAS. The
@@ -1027,7 +1025,6 @@ may be helpful in discussing them.
   conditions). The required "policy evaluation" at the constrained
   actors needs to be adapted to the capabilities of the devices
   implementing them.
-
 
 *  Finally, as is indicated in the previous bullet, for a
         particular authorization decision there may be different kinds
@@ -1041,9 +1038,17 @@ may be helpful in discussing them.
    The following problems need to be addressed, when considering
    authentication:
 
-* RS needs to authenticate AS, and C needs to authenticate CAS, to
+* RS needs to authenticate AS in the sense that it must be certain
+  that it communicates with an AS that was authorized by RO, C needs
+  to authenticate CAS in the sense that it must be certain that it
+  communicates with a CAS that was authorized by RqP, to
         ensure that the authorization information and related data
         comes from the correct source.
+
+* C must securely have obtained keying material to communicate with
+  its CAS that is up to date and that is updated if necessary. RS must
+  securely have obtained keying material to communicate with AS that
+  is up to date and that is updated if necessary.
 
 * CAS and AS may need to authenticate each other, both to perform
   the required business logic and to ensure that CAS gets security
@@ -1051,16 +1056,16 @@ may be helpful in discussing them.
 
 *  In some use cases RS needs to authenticate some property of C,
         in order to map it to the relevant authorization information.
-        In other applications, authentication and authorization of C may be
-        implicit, for example by encrypting the resource representation the RS
-        only providing access to those who possess the key to decrypt.
 
 *  C may need to authenticate RS, in order to ensure that it is
-        interacting with the right resources.   Alternatively C may just
-        verify the integrity of a received resource representation.
+        interacting with the right resources.
 
 *  CAS and AS need to authenticate their communication partner (C
-        or RS), in order to ensure it serves the correct device.
+        or RS), in order to ensure it serves the correct device. If C
+        and AS vouch for keying material or certain attributes of
+        their respective constrained devices, they must ascertain that
+        the devices actually currently have this keying material or
+        these attributes.
 
 
 ## Communication Security
@@ -1136,38 +1141,6 @@ Revocation and Expiration
    requirements are targeting specific solutions and not the
    architecture itself.
 
-## Architecture
-
-   The architecture consists of at least the following types of nodes:
-
-*  RS hosting resources, and responding to access requests
-
-*  C requesting access to resources
-
-*  AS supporting the access request/response procedure by providing
-        authorization information to RS
-
-     - AS may support this by aiding RS in
-       authenticating C, or providing cryptographic keys or
-       credentials to C and/or RS to secure the request/response
-       procedure.
-
-*  CAS supporting the access request/response procedure by providing
-        authorization information to C
-
-     - CAS may support this by aiding C in
-       authenticating RS, forwarding information between AS and C
-       (possibly ultimately for RS), or providing cryptographic keys or
-       credentials to C and/or RS to secure the request/response
-       procedure.
-
-*  The architecture allows for intermediary nodes between any pair
-        of C, RS, AS, and CAS, such as forward or reverse proxies in the
-        CoRE architecture.  (Solutions may or may not support all combinations.)
-
-     - The architecture does not make a choice between session based
-       security and data object security.
-
 ## Constrained Devices
 
 *  C and/or RS may be constrained in terms of power, processing,
@@ -1191,40 +1164,13 @@ Revocation and Expiration
 *  All devices under consideration can process symmetric
         cryptography without incurring an excessive performance penalty.
 
-     - We assume the use of a standardized symmetric key algorithm,
-       such as AES.
-
-     - Except for the most constrained devices we assume the use of
-       a standardized cryptographic hash function such as SHA-256
-       (which can be used with the HMAC construction for integrity protection).
-
 *  Public key cryptography requires additional resources (such as RAM,
         ROM, power, specialized hardware).
-
-*  A DTLS handshake involves significant computation,
-        communication, and memory overheads in the context of
-        constrained devices.
-
-     - The RAM requirements of DTLS handshakes with public key
-       cryptography are prohibitive for certain constrained devices.
-
-     - Certificate-based DTLS handshakes require significant volumes
-       of communication, RAM (message buffers) and computation.
 
 *  A solution will need to consider support for a simple scheme for expiring
         authentication and authorization information on devices which
         are unable to measure time (cf. {{time-measurements}}).
 
-## Authentication
-
-*  RS needs to authenticate AS to ensure that the authorization
-        information and related data comes from the correct source.
-
-*  Similarly, C needs to authenticate CAS to ensure that the authorization
-        information and related data comes from the correct source.
-
-* Depending on use case and authorization requirements, C, RS, CAS, or
-        AS may need to authenticate messages from each other.
 
 ## Server-side Authorization
 
@@ -1232,10 +1178,6 @@ Revocation and Expiration
         credentials presented by C, the requested resource, the REST
         method, and local context in RS at the time of the request, or
         on any subset of this information.
-
-* The credentials presented by C may have been provided by CAS.
-
-*  The underlying authorization decision is taken either by AS or RS.
 
 *  The authorization decision is enforced by RS.
 
@@ -1249,45 +1191,11 @@ Revocation and Expiration
         may also be required for access to information about a resource
         (for instance, resource descriptions).
 
-*  The solution may need to be able to support the delegation of
-        access rights.
-
 ## Client-side Authorization Information
 
 * C enforces client-side authorization by protecting its requests to
   RS and by authenticating results from RS, making use of decisions
   and policies as well as keying material provided by CAS.
-
-## Server-side Authorization Information
-
-*  Authorization information is transferred from AS to RS using
-        Agent, Push or Pull mechanisms {{RFC2904}}.
-
-*  RS needs to authenticate that the authorization information is
-        coming from AS (integrity).
-
-*  The authorization information may also be encrypted end-to-end
-        between AS and RS (confidentiality).
-
-* The architecture supports the case where RS may not be able to
-        communicate with AS at the time of the request from C.
-
-*  RS may store or cache authorization information.
-
-*  Authorization information may be pre-configured in RS.
-
-*  Authorization information stored or cached in RS needs to be
-        possible to change.  The change of such information needs to be
-        subject to authorization.
-
-*  Authorization policies stored on RS may be handled as a
-        resource, i.e. information located at a particular URI, accessed
-        with RESTful methods, and the access being subject to the same
-        authorization mechanics.  AS may have special privileges when
-        requesting access to the authorization policy resources on RS.
-
-*  There may be mechanisms for C to look up the AS which provides
-        authorization information about a particular resource.
 
 ## Resource Access
 
@@ -1321,7 +1229,7 @@ Revocation and Expiration
 *  The transfer of authorization information is protected with
         symmetric and/or asymmetric keys.
 
-*  The access request/response can be protected with symmetric
+*  The access request/response is protected with symmetric
         and/or asymmetric keys.
 
 * There must be a mechanism for RS to establish the necessary key(s)
@@ -1345,30 +1253,20 @@ Revocation and Expiration
 * A solution may want to optimize the case where authorization
         information does not change often.
 
+* A solution should combine the mechanisms for providing
+  authentication and authorization information to the client and RS
+  where possible.
+
 * A solution may consider support for an efficient mechanism
         for providing authorization information to multiple RSs, for
         example when multiple entities need to be configured or change
         state.
-
-
-## Legacy Considerations
-
-* A solution may consider interworking with existing infrastructure.
-
-* A solution may consider supporting authorization of access to legacy
-        devices.
-
-
 
 #  Security Considerations
 
 This document discusses authorization-related tasks for constrained
 environments and describes how these tasks can be mapped to actors in
 the architecture.
-
-   The entire document is about security.  Security considerations
-   applicable to authentication and authorization in RESTful
-   environments are provided in e.g. OAuth 2.0 {{RFC6749}}.
 
    In this section we focus on specific security aspects related to
    authorization in constrained-node networks.
@@ -1398,59 +1296,23 @@ the architecture.
    including probing attacks, timing attacks, power attacks, etc.
    However, with physical access to a sensor or actuator device it is
    possible to directly perform attacks equivalent of eavesdropping,
-   manipulating data or denial of service. For example:
-
-*  Instead of eavesdropping the sensor data or attacking the
-        authorization system to gain access to the data, the attacker
-        could make its own measurements on the physical object.
-
-*  Instead of manipulating the sensor data the attacker could
-        change the physical object which the sensor is measuring,
-        thereby changing the payload data which is being sent.
-
-*  Instead of manipulating data for an actuator or attacking the
-        authorization system, the attacker could perform an unauthorized
-        action directly on the physical object.
-
-*  A denial-of-service attack could be performed physically on the
-        object or device.
-
-   All these attacks are possible by having physical access to the
+   manipulating data or denial of service. 
+   These attacks are possible by having physical access to the
    device, since the assets are related to the physical world.
    Moreover, this kind of attacks are in many cases straightforward
    (requires no special competence or tools, low cost given physical
-   access, etc.)
-
-   As a conclusion, if an attacker has full physical access to a sensor or
+   access, etc). If an attacker has full physical access to a sensor or
    actuator device, then much of the security functionality elaborated
    in this draft may not be effective to protect the asset during the
    physical attack.
 
-   Since it does not make sense to design a solution for a situation
-   that cannot be protected against we assume there is no need to
-   protect assets the secrets or functioning of which are exposed during a physical attack.  In other
-   words, either an attacker does not have physical access to the
-   secrets or functioning of the sensor
-   or actuator device, or if it has, the attack shall only have effect
-   during the period of physical attack, and shall be limited in
-   extent to the physical control the attacker exerts (e.g., must not
-   affect the security of other devices.)
-
 ## Clocks and Time Measurements {#time-measurements}
 
-   Some applications may require a device to be aware of the
-   wall-clock time (e.g., a door lock that opens Monday to Friday at
-   specific times, except for holidays).  Other applications only need
-   to be able to measure short relative time (e.g., a door lock that
-   keeps the door open for ten seconds after receiving a state change
-   to open; such a door lock may be limited in its time-keeping
-   accuracy and may not be able to keep time across power failures).
-
-   In addition to application requirements of this kind,
-   measuring time and keeping wall-clock time with certain accuracy is
+   Measuring time and keeping wall-clock time with certain accuracy is
    important to achieve certain
-   security properties, for example to determine whether a public key
-   certificate, access token, or some other assertion, is valid.
+   security properties, for example to determine whether keying material
+   an access token, or some other assertion, is valid. The required level of
+   accuracy may differ for different applications.
 
    Dynamic authorization in itself requires the ability to handle expiry
    or revocation of authorization decisions or to distinguish new
@@ -1458,7 +1320,8 @@ the architecture.
 
    For certain categories of devices we can assume that there is an
    internal clock which is sufficiently accurate to handle the time
-   measurement requirements.  If RS can connect directly to AS, this
+   measurement requirements.  If RS continuously measures time and can
+   connect directly to AS, this
    relationship can be used to update RS in terms of time, removing
    some uncertainty, as well as
    to directly provide revocation information, removing authorizations
@@ -1473,7 +1336,9 @@ the architecture.
    Some categories of devices in scope may be unable to measure time with
    any accuracy (e.g. because of sleep cycles).  This category of
    devices is not suitable for the use cases which require measuring
-   validity of assertions and authorizations in terms of absolute time.
+   validity of assertions and authorizations in terms of absolute time
+   such as TLS certificates but require a mechanism that is
+   specifically designed for them.
 
 
 #  IANA Considerations
